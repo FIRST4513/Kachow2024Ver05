@@ -1,0 +1,76 @@
+package frc.robot.elevator.commands;
+
+import frc.robot.Robot;
+import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj2.command.CommandBase;
+import frc.robot.elevator.ElevatorConfig;
+
+// This Command Allows the Arm to Fall after elevator has raised up to a safe height
+// After the Arm has reached the retract limit switch the elevator can then lower to bottom
+// The arm will hold at the Store position until the elevator has reached the bottom
+// It then exits and the default command should then pick up holding the arm at this position
+
+public class ElevReleaseArmCmd extends CommandBase {
+    
+    static enum CmdState {ELEVRAISING, ONLIMITSW, DONE};
+    CmdState cmdState = CmdState.ELEVRAISING;
+    Timer settleTimer = new Timer();
+    double settleTime = 0.25;       // Time to allow elevator to settle onto bottom
+
+    Timer cmdTimer = new Timer();
+    double time, ht;
+
+    // Command Constructor
+    public ElevReleaseArmCmd() {
+        addRequirements(Robot.elevator);
+    }
+
+    @Override
+    public void initialize() {
+        cmdTimer.reset();
+        cmdTimer.start();
+        cmdState = CmdState.ELEVRAISING;
+        Robot.elevator.setBrakeMode(true);                              // Turn on brake mode
+        Robot.elevator.setMMheight(ElevatorConfig.ElevBumperClearHt);    // Get Elev Moving up
+    }
+
+    @Override
+    public void execute() {
+        time = cmdTimer.get();
+        ht = Robot.elevator.getElevHeightInches();
+
+        // Raise Elevator to let arm fall
+        Robot.elevator.setMMheight(ElevatorConfig.ElevBumperClearHt);    // Move Elev up
+
+        // Lets look to see when arm reaches the retract switch on way down
+        if ((cmdState == CmdState.ELEVRAISING) && (Robot.arm.isRetractLimitSwitchPressed())) {
+            cmdState = CmdState.ONLIMITSW;
+            System.out.println("----- Elev Release, arm now On Limit Sw  Ht = " + time + " Ht = " + ht);
+            return;
+        }
+
+        // Lets look to see when arm clears the retract switch on way down so we can be done
+        if ((cmdState == CmdState.ONLIMITSW) && (!Robot.arm.isRetractLimitSwitchPressed())) {
+            cmdState = CmdState.DONE;
+            System.out.println("----- Elev Release, arm now Off Limit Sw  Ht = " + time + " Ht = " + ht);
+            return;
+        }
+        return;
+    }
+
+    @Override
+    public void end(boolean interrupted) {
+        Robot.elevator.elevStop();
+        Robot.elevator.setBrakeMode(true);
+    }
+
+    // Returns true when the command should end.
+    @Override
+    public boolean isFinished() {
+        if (cmdState == CmdState.DONE) { return true; }
+        return false;
+    }
+}
+
+// 37
+// 28.8

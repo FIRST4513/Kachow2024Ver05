@@ -1,0 +1,200 @@
+package frc.robot.vision;
+
+import java.util.Map;
+import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Transform3d;
+import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.shuffleboard.BuiltInLayouts;
+import edu.wpi.first.wpilibj.shuffleboard.Shuffleboard;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardLayout;
+import edu.wpi.first.wpilibj.shuffleboard.ShuffleboardTab;
+import edu.wpi.first.wpilibj.shuffleboard.SuppliedValueWidget;
+import frc.lib.util.Rmath;
+import frc.robot.Robot;
+
+public class VisionTelemetry {
+    protected ShuffleboardTab tab;
+
+    String cam0Name, cam1Name, cam2Name;
+    VisionSubSys vision;
+
+    public VisionTelemetry(VisionSubSys vision) {
+        this.vision = vision;
+        tab = Shuffleboard.getTab("Vision");
+
+        // cam0Name = vision.cameras[0].getName();
+        // cam1Name = vision.cameras[1].getName();
+        // cam2Name = vision.cameras[2].getName();
+
+        robotLayout("Robot", tab)     .withPosition(1, 0).withSize(3, 6);
+        // cameraLayout(cam0Name, 0, tab).withPosition(4, 0).withSize(3, 9);
+        // cameraLayout(cam1Name, 1, tab).withPosition(7, 0).withSize(3, 9);
+        // cameraLayout(cam2Name, 2, tab).withPosition(10, 0).withSize(3, 9);
+
+        // TODO: remove Robot Est. Pose from telemetry
+
+        // TODO: look into branching for github
+
+        // TODO: try getting LEDs to change colors based on vision
+    }
+    
+    public ShuffleboardLayout cameraLayout(String name, int cameraID, ShuffleboardTab tab) {
+        // create a camera Layout object with the label position (title) in the top of the box
+        ShuffleboardLayout camLayout = tab.getLayout(name, BuiltInLayouts.kGrid);
+        camLayout.withProperties(Map.of("Label position", "TOP"));
+
+        // First Field valid target?
+        SuppliedValueWidget<Boolean> camValid = camLayout.addBoolean(
+            "Valid Target?",
+            () -> getCamHasTarget(cameraID));
+        camValid.withPosition(0, 0).withSize(1, 3);
+
+        // tag id
+        SuppliedValueWidget<Double> camTagID =  camLayout.addDouble(
+            "Tag ID",
+            () -> getCamTargetID(cameraID));
+        camTagID.withPosition(0, 1).withSize(1, 3);
+
+        // ambiguity for tag
+        SuppliedValueWidget<Double> camTagAmbiguity = camLayout.addDouble(
+            "Tag Ambiguity",
+            () -> getCamAmbiguity(cameraID));
+        camTagAmbiguity.withPosition(0, 2).withSize(1, 3);
+
+        // timestamp
+        SuppliedValueWidget<Double> camTimestamp = camLayout.addDouble(
+            "Timestamp",
+            () -> getCamTimestamp(cameraID));
+        camTimestamp.withPosition(0, 3).withSize(1, 3);
+
+        // tag pose
+        SuppliedValueWidget<String> camTagPose = camLayout.addString(
+            "April Tag Pose",
+            () -> getCamTagPose(cameraID));
+        camTagPose.withPosition(0, 4).withSize(1, 3);
+
+        // robotEstPose
+        SuppliedValueWidget<String> camRobotPose = camLayout.addString(
+            "Robot Est. Pose",
+            () -> getCamRobotPose(cameraID));
+        camRobotPose.withPosition(0, 5).withSize(1, 3);
+
+        // X
+        SuppliedValueWidget<Double> camX = camLayout.addDouble(
+                "X",
+                () -> getCamXDist(cameraID));
+        camX.withPosition(0, 6).withSize(1, 3);
+
+        // Y
+        SuppliedValueWidget<Double> camY = camLayout.addDouble(
+                "Y",
+                () -> getCamYDist(cameraID));
+        camY.withPosition(0, 7).withSize(1, 3);
+
+        // Z
+        SuppliedValueWidget<Double> camZ = camLayout.addDouble(
+                "Z",
+                () -> getCamZDist(cameraID));
+        camZ.withPosition(0, 8).withSize(1, 3);
+
+        // Yaw
+        SuppliedValueWidget<Double> camYaw = camLayout.addDouble(
+                "Yaw",
+                () -> getCamTargetYaw(cameraID));
+        camYaw.withPosition(0, 9).withSize(1, 3);
+
+        // Pitch
+        SuppliedValueWidget<Double> camPitch = camLayout.addDouble(
+                "Pitch",
+                () -> getCamTargetPitch(cameraID));
+        camPitch.withPosition(0, 10).withSize(1, 3);
+
+        return camLayout;
+    }
+   
+    public ShuffleboardLayout robotLayout(String name, ShuffleboardTab tab) {
+        // create a camera Layout object with the label position (title) in the top of the box
+        ShuffleboardLayout robotLayout = tab.getLayout(name, BuiltInLayouts.kGrid);
+        robotLayout.withProperties(Map.of("Label position", "TOP"));
+
+        // First Field valid target?
+        SuppliedValueWidget<Boolean> robotValid = robotLayout.addBoolean(
+            "Valid Target?",
+            () -> Robot.vision.getVisionPoseEst().isNew);
+        robotValid.withPosition(0, 0).withSize(1, 2);
+
+        // Robot pose
+        SuppliedValueWidget<String> robotPose = robotLayout.addString( 
+            "Robot Pose",
+            () -> poseToString(Robot.vision.getVisionPoseEst().getPose()));
+        robotPose.withPosition(0, 1).withSize(1, 3);
+
+        // tag id
+        SuppliedValueWidget<Double> bestRobotTagID =  robotLayout.addDouble( 
+            "Tag ID",
+            () -> Robot.vision.getBestTagId());
+        bestRobotTagID.withPosition(0, 2).withSize(1, 2);
+
+        // ambiguity for tag
+        SuppliedValueWidget<Double> bestRobotTagAmbiguity = robotLayout.addDouble( 
+            "Tag Ambiguity",
+            () -> Robot.vision.getBestAmbiguity());
+        bestRobotTagAmbiguity.withPosition(0, 3).withSize(1, 2);
+
+        // timestamp
+        SuppliedValueWidget<Double> robotTimestamp = robotLayout.addDouble(
+            "Timestamp",
+            () -> Robot.vision.getVisionPoseEst().getTimestamp());
+        robotTimestamp.withPosition(0, 4).withSize(1, 2);
+
+        // Tag pose
+        // SuppliedValueWidget<String> robotTagPose = robotLayout.addString( 
+        //     "Robot to Tag Pose",
+        //     () -> poseToString(Robot.vision.getVisionPoseData()));
+        // robotTagPose.withPosition(0, 5).withSize(1, 3);
+
+        return robotLayout;
+    }
+    
+    
+    // --------------------------- Formatting Getters for Telemetry ---------------------
+    // 
+    private boolean getCamHasTarget(int camID)   { return vision.cameras[camID].getHasTarget(); }
+    private double getCamTargetID(int camID)     { return vision.cameras[camID].getTargetID(); }
+    private double getCamAmbiguity(int camID)    { return round(vision.cameras[camID].getAmbiguity()); }
+    private double getCamTimestamp(int camID)    { return vision.cameras[camID].getTimestamp(); }
+
+    private double getCamTargetYaw(int camID)    { return round(vision.cameras[camID].getTargetYaw()); }
+    private double getCamTargetPitch(int camID)  { return round(vision.cameras[camID].getTargetPitch()); }
+
+    private double getCamXDist(int camID)        { return round(Units.metersToInches(vision.cameras[camID].getXDist())); }
+    private double getCamYDist(int camID)        { return round(Units.metersToInches(vision.cameras[camID].getYDist())); }
+    private double getCamZDist(int camID)        { return round(Units.metersToInches(vision.cameras[camID].getZDist())); }
+    private double getCamRotation(int camID)     { return round(Units.metersToInches(vision.cameras[camID].getRotation())); }
+    private String getCamTagPose(int camID)      { return poseToString(vision.cameras[camID].getTagPose()); }
+    private String getCamRobotPose(int camID)    { return poseToString(vision.cameras[camID].getRobotPose()); }
+
+    public String getCamToTagTsfm(int camID)     { return tsfmToString(vision.cameras[camID].getCamToTagTsfm()); }
+    public String getRobotToCamTsfm(int camID)   { return tsfmToString(vision.cameras[camID].getRobotToCamTsfm()); }
+
+    public String poseToString( Pose3d pose){
+        String tmp =
+        "  X = " + Double.toString(round(Units.metersToInches(pose.getX())))+ 
+        "  Y = " + Double.toString(round(Units.metersToInches(pose.getY())))+
+        "  Z = " + Double.toString(round(Units.metersToInches(pose.getZ())));
+        return tmp;
+    }
+     
+    public String tsfmToString( Transform3d tsfrm){
+        String tmp =
+        "  X = " + Double.toString(Rmath.mRound(Units.metersToInches(tsfrm.getX()),2)) + 
+        "  Y = " + Double.toString(Rmath.mRound(Units.metersToInches(tsfrm.getY()),2)) +
+        "  Z = " + Double.toString(Rmath.mRound(Units.metersToInches(tsfrm.getZ()),2)) ;
+        return tmp;
+    }
+
+    public double round(double num){
+        return Rmath.mRound(num, 2);
+    }
+
+}

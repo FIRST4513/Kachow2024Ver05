@@ -1,0 +1,318 @@
+[
+    {
+        "messageType": 2,
+        "timestamp": 0,
+        "seqNumber": 91,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.02435302734375,
+        "seqNumber": 92,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.335601806640625,
+        "seqNumber": 93,
+        "line": "NT: Got a NT4 connection from 10.45.13.206 port 58645"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.3365478515625,
+        "seqNumber": 94,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.45.13.206:58645)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 4.35003662109375,
+        "seqNumber": 95,
+        "line": "Starting Odometry Thread: "
+    },
+    {
+        "messageType": 2,
+        "timestamp": 4.470611572265625,
+        "seqNumber": 96,
+        "line": "Exception in thread \"Thread-1\" java.lang.NullPointerException: Cannot store to object array because \"this.m_modulePositions\" is null"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 4.475067138671875,
+        "seqNumber": 97,
+        "line": "\tat frc.robot.drivetrain.OdometryThread.run(OdometryThread.java:130)"
+    },
+    {
+        "timestamp": 6.35882568359375,
+        "seqNumber": 98,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.918914794921875,
+        "seqNumber": 99,
+        "line": "We have loaded the April Tag Field Layout"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.2972412109375,
+        "seqNumber": 100,
+        "line": "Swerve Module Layout being made with name: FL Mod 0 and module id of: 0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.316192626953125,
+        "seqNumber": 101,
+        "line": "Swerve Module Layout being made with name: FR Mod 1 and module id of: 1"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.326690673828125,
+        "seqNumber": 102,
+        "line": "Swerve Module Layout being made with name: BL Mod 2 and module id of: 2"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.328033447265625,
+        "seqNumber": 103,
+        "line": "Swerve Module Layout being made with name: BR Mod 3 and module id of: 3"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.387451171875,
+        "seqNumber": 104,
+        "line": "********** Robot program startup complete **********"
+    },
+    {
+        "timestamp": 7.3934326171875,
+        "seqNumber": 105,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Operator GAMEPAD NOT FOUND",
+        "location": "frc.lib.telemetry.Alert.set(Alert.java:69)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.3939208984375,
+        "seqNumber": 106,
+        "line": "Warning at frc.lib.telemetry.Alert.set(Alert.java:69): Operator GAMEPAD NOT FOUND"
+    },
+    {
+        "timestamp": 7.42169189453125,
+        "seqNumber": 107,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Loop time of 0.02s overrun\n",
+        "location": "edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:412)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.443206787109375,
+        "seqNumber": 108,
+        "line": "Warning at edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:412): Loop time of 0.02s overrun"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.443634033203125,
+        "seqNumber": 109,
+        "line": ""
+    },
+    {
+        "timestamp": 8.438568115234375,
+        "seqNumber": 110,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix-diagnostics] Server 2024.1.0 (Jan  8 2024, 18:07:22) running on port: 1250",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 21.534515380859375,
+        "seqNumber": 111,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix-diagnostics] Server shutdown cleanly. (dur:12)",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "timestamp": 21.535247802734375,
+        "seqNumber": 112,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library shutdown cleanly",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0,
+        "seqNumber": 113,
+        "line": "********** Robot program starting **********"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.0255126953125,
+        "seqNumber": 114,
+        "line": "NT: Listening on NT3 port 1735, NT4 port 5810"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.342498779296875,
+        "seqNumber": 115,
+        "line": "NT: Got a NT4 connection from 10.45.13.206 port 58680"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 0.343963623046875,
+        "seqNumber": 116,
+        "line": "NT: CONNECTED NT4 client 'shuffleboard@1' (from 10.45.13.206:58680)"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 4.29766845703125,
+        "seqNumber": 117,
+        "line": "Starting Odometry Thread: "
+    },
+    {
+        "timestamp": 4.405975341796875,
+        "seqNumber": 118,
+        "numOccur": 1,
+        "errorCode": -10002,
+        "flags": 1,
+        "details": "The CAN bus does not support multi-signal synchronization.",
+        "location": "ctre.phoenix6.BaseStatusSignal.waitForAll",
+        "callStack": "com.ctre.phoenix6.jni.ErrorReportingJNI.reportStatusCode(Native Method)\n
+            com.ctre.phoenix6.BaseStatusSignal.waitForAllImpl(BaseStatusSignal.java:106)\n
+            com.ctre.phoenix6.BaseStatusSignal.waitForAll(BaseStatusSignal.java:135)\n
+            frc.robot.drivetrain.OdometryThread.run(OdometryThread.java:104)\n",
+        "messageType": 0
+    },
+    {
+        "messageType": 2,
+        "timestamp": 4.411468505859375,
+        "seqNumber": 119,
+        "line": "Exception in thread \"Thread-1\" java.lang.NullPointerException: Cannot store to object array because \"this.m_modulePositions\" is null"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 4.413726806640625,
+        "seqNumber": 120,
+        "line": "\tat frc.robot.drivetrain.OdometryThread.run(OdometryThread.java:130)"
+    },
+    {
+        "timestamp": 6.35699462890625,
+        "seqNumber": 121,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix] Library initialization is complete.",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 6.89599609375,
+        "seqNumber": 122,
+        "line": "We have loaded the April Tag Field Layout"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.27783203125,
+        "seqNumber": 123,
+        "line": "Swerve Module Layout being made with name: FL Mod 0 and module id of: 0"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.297698974609375,
+        "seqNumber": 124,
+        "line": "Swerve Module Layout being made with name: FR Mod 1 and module id of: 1"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.3089599609375,
+        "seqNumber": 125,
+        "line": "Swerve Module Layout being made with name: BL Mod 2 and module id of: 2"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.3106689453125,
+        "seqNumber": 126,
+        "line": "Swerve Module Layout being made with name: BR Mod 3 and module id of: 3"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.368743896484375,
+        "seqNumber": 127,
+        "line": "********** Robot program startup complete **********"
+    },
+    {
+        "timestamp": 7.3751220703125,
+        "seqNumber": 128,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Operator GAMEPAD NOT FOUND",
+        "location": "frc.lib.telemetry.Alert.set(Alert.java:69)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.37554931640625,
+        "seqNumber": 129,
+        "line": "Warning at frc.lib.telemetry.Alert.set(Alert.java:69): Operator GAMEPAD NOT FOUND"
+    },
+    {
+        "timestamp": 7.40313720703125,
+        "seqNumber": 130,
+        "numOccur": 1,
+        "errorCode": 1,
+        "flags": 0,
+        "details": "Loop time of 0.02s overrun\n",
+        "location": "edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:412)",
+        "callStack": "",
+        "messageType": 1
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.4229736328125,
+        "seqNumber": 131,
+        "line": "Warning at edu.wpi.first.wpilibj.IterativeRobotBase.printLoopOverrunMessage(IterativeRobotBase.java:412): Loop time of 0.02s overrun"
+    },
+    {
+        "messageType": 2,
+        "timestamp": 7.42474365234375,
+        "seqNumber": 132,
+        "line": ""
+    },
+    {
+        "timestamp": 8.4232177734375,
+        "seqNumber": 133,
+        "numOccur": 1,
+        "errorCode": 0,
+        "flags": 0,
+        "details": "[phoenix-diagnostics] Server 2024.1.0 (Jan  8 2024, 18:07:22) running on port: 1250",
+        "location": "",
+        "callStack": "",
+        "messageType": 1
+    }
+]
