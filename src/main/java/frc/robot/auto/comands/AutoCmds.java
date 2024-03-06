@@ -32,23 +32,23 @@ public class AutoCmds {
     public static Command SpeakerShootCmd( String pos ) {
         if (pos  == "Left") {
             return new SequentialCommandGroup(  
-                new InstantCommand(() -> System.out.println("Auto Shoot Left Speaker")),
+                new InstantCommand(() -> System.out.println("Auto Shoot Left Speaker"))
                 // add commands here to shoot 
-                OperatorGamepadCmds.intakeShooterSpeakerShootCmd()
+                // OperatorGamepadCmds.intakeShooterSpeakerShootCmd()
             );
         }
         if (pos  == "Ctr") {
             return new SequentialCommandGroup(    
-                new InstantCommand(() -> System.out.println("Auto Shoot CTR Speaker")),
+                new InstantCommand(() -> System.out.println("Auto Shoot CTR Speaker"))
                 // add commands here to shoot 
-                OperatorGamepadCmds.intakeShooterSpeakerShootCmd()
+                // OperatorGamepadCmds.intakeShooterSpeakerShootCmd()
             );
         }
         if (pos  == "Right") {
             return new SequentialCommandGroup( 
-                new InstantCommand(() -> System.out.println("Auto Shoot Right Speaker")),
+                new InstantCommand(() -> System.out.println("Auto Shoot Right Speaker"))
                 // add commands here to shoot 
-                OperatorGamepadCmds.intakeShooterSpeakerShootCmd()
+                // OperatorGamepadCmds.intakeShooterSpeakerShootCmd()
             );
         }
         // Should never get here

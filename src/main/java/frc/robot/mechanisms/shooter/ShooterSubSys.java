@@ -18,8 +18,11 @@ public class ShooterSubSys extends SubsystemBase {
     private FireState state = FireState.STOPPED;
 
     // Devices
-    protected TalonFX bottomMotor = new TalonFX(Motors.shooterMotorID, "CANFD");
-    protected TalonFX topMotor = new TalonFX(Motors.shooterMotorID2, "CANFD");
+    // protected TalonFX bottomMotor = new TalonFX(Motors.shooterMotorID, "CANFD");
+    // protected TalonFX topMotor = new TalonFX(Motors.shooterMotorID2, "CANFD");
+    protected TalonFX bottomMotor = new TalonFX(Motors.shooterMotorID);
+    protected TalonFX topMotor = new TalonFX(Motors.shooterMotorID2);
+
 
     // Control for motors
     private DutyCycleOut bottomCtrlr = new DutyCycleOut(0);

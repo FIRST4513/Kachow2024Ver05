@@ -62,9 +62,15 @@ public class SwerveModule {
         modName = DrivetrainConfig.getModName(moduleNumber);
 
         // Instantiate Devices and configure them from config file
-        mAngleMotor   = new TalonFX(DrivetrainConfig.getModAngleCanID(moduleNumber), "CANFD");
-        mDriveMotor   = new TalonFX(DrivetrainConfig.getModDriveCanID(moduleNumber), "CANFD");
-        mAngleEncoder = new CANcoder(DrivetrainConfig.getModCanCoderID(moduleNumber), "CANFD");
+
+        // high speed bus config
+        // mAngleMotor   = new TalonFX(DrivetrainConfig.getModAngleCanID(moduleNumber), "CANFD");
+        // mDriveMotor   = new TalonFX(DrivetrainConfig.getModDriveCanID(moduleNumber), "CANFD");
+        // mAngleEncoder = new CANcoder(DrivetrainConfig.getModCanCoderID(moduleNumber), "CANFD");
+        // low speed bus config
+        mAngleMotor   = new TalonFX(DrivetrainConfig.getModAngleCanID(moduleNumber));
+        mDriveMotor   = new TalonFX(DrivetrainConfig.getModDriveCanID(moduleNumber));
+        mAngleEncoder = new CANcoder(DrivetrainConfig.getModCanCoderID(moduleNumber));
         configureDevices(moduleNumber);
         
         // Setup Control Request Objects

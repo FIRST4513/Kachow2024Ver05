@@ -80,10 +80,13 @@ public class DrivetrainConfig {
      */
     // Calculations from Degrees to Rotations: degrees / 360
     // Numbers are from [-0.5 to 0.5] and CCW+
-    private static final double angleOffsets[] = {0.1955,    // -0.144775,   // FL
-                                                  -0.4553,   // 0.1611328,   // FR
-                                                  -0.1252,   // 0.4484863,   // BL
-                                                  0.1010};   // 0.3464355};  // BR
+        
+		private static final double angleOffsets[] = {-0.144775,   // FL // comp bot 0.1955
+        											   0.1611328,   // FR // comp bot -0.4553
+        											   0.4484863,   // BL // comp bot -0.1252
+        											   0.3464355};  // BR // comp bot 0.1010
+                                                  
+        
 
     /**
      * Array[4] of ints that represent the drive motor CAN ID for each Module
