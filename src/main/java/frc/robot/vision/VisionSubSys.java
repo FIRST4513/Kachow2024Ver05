@@ -1,5 +1,7 @@
 package frc.robot.vision;
 import java.io.IOException;
+
+import org.littletonrobotics.junction.Logger;
 import org.photonvision.PhotonUtils;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
@@ -17,8 +19,8 @@ public class VisionSubSys extends SubsystemBase {
 
 
     // The PoseAndTimestamp holds ( <Pose3d> pose, <double> timestamp (latency), <boolean> isNew )
-    protected PoseAndTimestamp robotPoseAndTimestamp;
-    protected PoseAndTimestamp lastRobotPoseAndTimestamp;
+    protected PoseAndTimestamp robotPoseAndTimestamp =     new PoseAndTimestamp(new Pose3d(), 0, false);
+    protected PoseAndTimestamp lastRobotPoseAndTimestamp = new PoseAndTimestamp(new Pose3d(), 0, false);
 
     protected int     bestCameraID = -1;
     protected int     bestTagID = 0;
@@ -33,11 +35,9 @@ public class VisionSubSys extends SubsystemBase {
                                              VisionConfig.frontCamToRobotTrsfm, aprilTagFieldLayout);
         // cameras[1] =  new VisionPhotonCamera(VisionConfig.backLeftCamName,
         //                                      VisionConfig.backLeftCamToRobotTrsfm, aprilTagFieldLayout);
-        // cameras[2] =  new VisionPhotonCamera(VisionConfig.backRtCamName,
-        //                                      VisionConfig.backRtCamToRobotTrsfm, aprilTagFieldLayout);
 
-        updatePose(new Pose3d(), 0, false);     // Initialize the PoseAndTimestamps to basically 0
-        storeLastPose(robotPoseAndTimestamp);   // Initialize the LasePoseAndTimestamps
+        updatePose(new Pose3d(), 0, false);     // Initialize the PoseAndTimestamps     to basically 0
+        storeLastPose(robotPoseAndTimestamp);   // Initialize the LasePoseAndTimestamps to basically 0
     }
 
     // look for April Tag and Calculate an updated Robot Pose on the Field
@@ -88,6 +88,7 @@ public class VisionSubSys extends SubsystemBase {
              !aprilTagFieldLayout.getTagPose(bestTagID).isPresent()) {
                 // No valid targets found, were done return the last pose and get out
                 updatePose(lastRobotPoseAndTimestamp, false ); 
+                logPoseEst(robotPoseAndTimestamp);
                 return;
         }
 
@@ -107,7 +108,8 @@ public class VisionSubSys extends SubsystemBase {
         }   else {
             // Target Pose in NOT resonable lets leave as last estimate
                 updatePose(lastRobotPoseAndTimestamp, false ); 
-        }     
+        }
+        logPoseEst(robotPoseAndTimestamp);     
     }
 
     // ---------------------------------------------------------------------------------
@@ -133,6 +135,13 @@ public class VisionSubSys extends SubsystemBase {
 
     public synchronized void storeLastPose(PoseAndTimestamp poseData ){
           lastRobotPoseAndTimestamp = poseData;
+    }
+
+    public synchronized void logPoseEst(PoseAndTimestamp poseTS) {
+                        Logger.recordOutput("Vision RobotPose X", poseTS.getPose().getX());
+                        Logger.recordOutput("Vision RobotPose Y", poseTS.getPose().getY());
+                        Logger.recordOutput("Vision RobotPose TS", poseTS.timestamp);
+                        Logger.recordOutput("Vision RobotPose New", poseTS.isNew());
     }
 
 
