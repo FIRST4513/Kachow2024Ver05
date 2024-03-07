@@ -180,7 +180,8 @@ public class OdometryThread extends Thread {
 
             // ------- Add Vision Updates Here --------
             PoseAndTimestamp estPose = Robot.vision.getVisionPoseEst();
-            if (estPose.isNew) {
+
+            if (estPose.isNew()) {
                 // "Consume" the pose, aka set isNew to False since it is old now
                 System.out.println("Odometry NEW pose found !!!!!!!!!!!!!!");
                 Robot.vision.consumePoseEst();
