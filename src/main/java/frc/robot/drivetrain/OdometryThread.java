@@ -188,20 +188,20 @@ public class OdometryThread extends Thread {
             
             if (estPose.isNew()) {
 
-                System.out.println("");
-                System.out.println("Odometry NEW pose found !!!!!!!!!!!!!!");
-                System.out.println(" x = " + estPose.pose.getX() + "y= " + estPose.pose.getY() );
+                // System.out.println("");
+                // System.out.println("Odometry NEW pose found !!!!!!!!!!!!!!");
+                // System.out.println(" x = " + estPose.pose.getX() + "y= " + estPose.pose.getY() );
 
                 // "Consume" the pose, aka set isNew to False since it is old now
                 Robot.vision.consumePoseEst();
 
                 // Method 1
-                addVisionMeasurement( estPose.pose.toPose2d(), estPose.timestamp );
+                // addVisionMeasurement( estPose.pose.toPose2d(), estPose.timestamp );
 
                 // Method 2 Std deviation matrix - not fully implemented yet
                 //addVisionMeasurement( estPose.pose.toPose2d(), estPose.timestamp, visionMeasurementStdDevs) ;
             } else {
-                System.out.println("Odometry NO new pose found !!!!!!");
+                // System.out.println("Odometry NO new pose found !!!!!!");
             }
 
             m_stateLock.writeLock().unlock();

@@ -95,7 +95,7 @@ public class VisionSubSys extends SubsystemBase {
         if ( ( bestCameraID < 0) || ( !aprilTagFieldLayout.getTagPose(bestTagID).isPresent()) ) {
                 // No valid targets found, were done return the last pose and get out
                 updatePose(lastRobotPoseAndTimestamp, false ); 
-                logPoseEst(robotPoseAndTimestamp);
+                logPoseEst(robotPoseAndTimestamp,bestTagID );
                 return;
         }
 
@@ -117,7 +117,7 @@ public class VisionSubSys extends SubsystemBase {
                 updatePose(lastRobotPoseAndTimestamp, false ); 
         }
 
-        logPoseEst(robotPoseAndTimestamp);     
+        logPoseEst(robotPoseAndTimestamp, bestTagID);     
     }
 
 
@@ -177,7 +177,8 @@ public class VisionSubSys extends SubsystemBase {
           lastRobotPoseAndTimestamp = poseData;
     }
 
-    public synchronized void logPoseEst(PoseAndTimestamp poseTS) {
+    public synchronized void logPoseEst(PoseAndTimestamp poseTS, int tagID) {
+                        Logger.recordOutput("Vision Tag ID", tagID);
                         Logger.recordOutput("Vision RobotPose X", poseTS.getPose().getX());
                         Logger.recordOutput("Vision RobotPose Y", poseTS.getPose().getY());
                         Logger.recordOutput("Vision RobotPose TS", poseTS.getTimestamp());
