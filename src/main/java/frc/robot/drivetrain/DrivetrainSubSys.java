@@ -185,7 +185,7 @@ public class DrivetrainSubSys extends SubsystemBase {
 
     // Vision Getters
     public Pose2d getVisionPose()                   {return Robot.vision.getVisionPoseEst().pose.toPose2d();}
-    public boolean isVisionPoseValid()              {return Robot.vision.getVisionPoseEst().isNew;}
+    public boolean isVisionPoseValid()              {return Robot.vision.getVisionPoseEst().isNew();}
 
     /***********************************************************************
     *                       Control - Request - Processing   

@@ -140,7 +140,7 @@ public class VisionSubSys extends SubsystemBase {
     public synchronized void logPoseEst(PoseAndTimestamp poseTS) {
                         Logger.recordOutput("Vision RobotPose X", poseTS.getPose().getX());
                         Logger.recordOutput("Vision RobotPose Y", poseTS.getPose().getY());
-                        Logger.recordOutput("Vision RobotPose TS", poseTS.timestamp);
+                        Logger.recordOutput("Vision RobotPose TS", poseTS.getTimestamp());
                         Logger.recordOutput("Vision RobotPose New", poseTS.isNew());
     }
 

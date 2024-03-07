@@ -120,7 +120,7 @@ public class VisionTelemetry {
         // First Field valid target?
         SuppliedValueWidget<Boolean> robotValid = robotLayout.addBoolean(
             "Valid Target?",
-            () -> Robot.vision.getVisionPoseEst().isNew);
+            () -> Robot.vision.getVisionPoseEst().isNew());
         robotValid.withPosition(0, 0).withSize(1, 2);
 
         // Robot pose
