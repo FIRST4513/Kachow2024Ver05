@@ -2,6 +2,9 @@ package frc.robot.drivetrain;
 
 import java.util.concurrent.locks.ReadWriteLock;
 import java.util.concurrent.locks.ReentrantReadWriteLock;
+
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.BaseStatusSignal;
 import com.ctre.phoenix6.StatusCode;
 import com.ctre.phoenix6.Utils;
@@ -180,7 +183,9 @@ public class OdometryThread extends Thread {
 
             // ------- Add Vision Updates Here --------
             PoseAndTimestamp estPose = Robot.vision.getVisionPoseEst();
-
+            
+            logPoseEst(estPose);
+            
             if (estPose.isNew()) {
 
                 System.out.println("");
@@ -289,7 +294,12 @@ public class OdometryThread extends Thread {
         }
     }
 
-
+    public synchronized void logPoseEst(PoseAndTimestamp poseTS) {
+                Logger.recordOutput("Odometry Vision X", poseTS.getPose().getX());
+                Logger.recordOutput("Odometry Vision Y", poseTS.getPose().getY());
+                Logger.recordOutput("Odometry Vision TS", poseTS.getTimestamp());
+                Logger.recordOutput("Odometry Vision New", poseTS.isNew());
+    }
 
     /**
      * Gets a reference to the data acquisition thread.

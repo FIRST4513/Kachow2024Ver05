@@ -27,15 +27,14 @@ public class VisionTelemetry {
         // cam2Name = vision.cameras[2].getName();
 
         robotLayout("Robot", tab)     .withPosition(1, 0).withSize(3, 6);
+
+        tab.addString("Blue Tag Pose", () -> getRobotToBlueSpkrTagPose()).withPosition(5, 0).withSize(2, 6);
+        tab.addString("Red Tag Pose",  () -> getRobotToRedSpkrTagPose()) .withPosition(5, 3).withSize(2, 6);
+
         // cameraLayout(cam0Name, 0, tab).withPosition(4, 0).withSize(3, 9);
         // cameraLayout(cam1Name, 1, tab).withPosition(7, 0).withSize(3, 9);
         // cameraLayout(cam2Name, 2, tab).withPosition(10, 0).withSize(3, 9);
 
-        // TODO: remove Robot Est. Pose from telemetry
-
-        // TODO: look into branching for github
-
-        // TODO: try getting LEDs to change colors based on vision
     }
     
     public ShuffleboardLayout cameraLayout(String name, int cameraID, ShuffleboardTab tab) {
@@ -176,6 +175,9 @@ public class VisionTelemetry {
 
     public String getCamToTagTsfm(int camID)     { return tsfmToString(vision.cameras[camID].getCamToTagTsfm()); }
     public String getRobotToCamTsfm(int camID)   { return tsfmToString(vision.cameras[camID].getRobotToCamTsfm()); }
+
+    public String getRobotToBlueSpkrTagPose()    { return poseToString(vision.getSpeakerTag(7));}
+    public String getRobotToRedSpkrTagPose()     { return poseToString(vision.getSpeakerTag(4));}
 
     public String poseToString( Pose3d pose){
         String tmp =

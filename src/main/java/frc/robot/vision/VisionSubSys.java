@@ -1,11 +1,16 @@
 package frc.robot.vision;
 import java.io.IOException;
+import java.util.List;
 
 import org.littletonrobotics.junction.Logger;
+import org.photonvision.PhotonCamera;
 import org.photonvision.PhotonUtils;
+import org.photonvision.targeting.PhotonTrackedTarget;
+
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -15,8 +20,10 @@ import frc.util.PoseAndTimestamp;
 public class VisionSubSys extends SubsystemBase {
     // Objects representing physical cameras, pose estimation results, and field april tag info
     protected VisionPhotonCamera   cameras[] = new VisionPhotonCamera[VisionConfig.cameraTransforms.length];
-    protected AprilTagFieldLayout  aprilTagFieldLayout;
 
+    protected PhotonCamera frontCamera = new PhotonCamera("Front Camera");
+
+    protected AprilTagFieldLayout  aprilTagFieldLayout;
 
     // The PoseAndTimestamp holds ( <Pose3d> pose, <double> timestamp (latency), <boolean> isNew )
     protected PoseAndTimestamp robotPoseAndTimestamp =     new PoseAndTimestamp(new Pose3d(), 0, false);
@@ -25,6 +32,7 @@ public class VisionSubSys extends SubsystemBase {
     protected int     bestCameraID = -1;
     protected int     bestTagID = 0;
     protected double  bestTagAmbiguity = -1;
+
    
     // Constructor for PhotonVision to proccess all cameras to determine Current Robot Pose on the Field
     public VisionSubSys() {
@@ -64,7 +72,7 @@ public class VisionSubSys extends SubsystemBase {
             when the isNew flag is true, for fresh data.
     */
 
-    public void processVision() {
+    public synchronized void processVision() {
 
         // Step 1 - Let each camera acquire new current data
         for (int i = 0; i < VisionConfig.cameraTransforms.length; i++) {
@@ -83,9 +91,8 @@ public class VisionSubSys extends SubsystemBase {
             }
         }
 
-        // Step 2.3 - Check if we have a valid tag.
-        if ( bestCameraID < 0 ||
-             !aprilTagFieldLayout.getTagPose(bestTagID).isPresent()) {
+        // Step 2.3 - If we DONT have a valid tag. We can get out
+        if ( ( bestCameraID < 0) || ( !aprilTagFieldLayout.getTagPose(bestTagID).isPresent()) ) {
                 // No valid targets found, were done return the last pose and get out
                 updatePose(lastRobotPoseAndTimestamp, false ); 
                 logPoseEst(robotPoseAndTimestamp);
@@ -101,7 +108,7 @@ public class VisionSubSys extends SubsystemBase {
                                                                    );
 
         // Step 4 - Check for Resonablenace and Store data
-        if (checkForVisionUpdateValid(robotPose3d) ){
+        if (checkForVisionUpdateValid(robotPose3d, bestTagAmbiguity) ){
             // Target Pose is resonable - Lets store the new Estimate
             updatePose(robotPose3d, cameras[bestCameraID].timestamp, true );
             storeLastPose(robotPoseAndTimestamp);
@@ -109,15 +116,48 @@ public class VisionSubSys extends SubsystemBase {
             // Target Pose in NOT resonable lets leave as last estimate
                 updatePose(lastRobotPoseAndTimestamp, false ); 
         }
+
         logPoseEst(robotPoseAndTimestamp);     
+    }
+
+
+    public synchronized Pose3d getSpeakerTag(int tagId){
+        Pose3d tgtPose = new Pose3d();
+        var results = frontCamera.getLatestResult();
+        if (results.hasTargets()) {
+            // Find the tag we want to chase
+            var targetOpt = results.getTargets().stream()
+                .filter(t -> t.getFiducialId() == tagId)
+                .filter(t -> t.getPoseAmbiguity() <= .2 && t.getPoseAmbiguity() != -1)
+                .findFirst();
+            if (targetOpt.isPresent()) {
+            var target = targetOpt.get();
+
+            // Calculate the goal
+            
+            // Transform the robot's pose to find the camera's pose
+            Pose3d robotPose = new Pose3d();
+            var cameraPose = robotPose.transformBy(VisionConfig.frontRobotToCamTrsfm);
+    
+            // Transform the camera's pose to the target's pose
+            var camToTarget = target.getBestCameraToTarget();
+            tgtPose = cameraPose.transformBy(camToTarget);
+            }
+        }
+        return tgtPose;
+
     }
 
     // ---------------------------------------------------------------------------------
     // Synchronized for thread safe access. Dont want get fractured data in PoseData
 
-    public synchronized PoseAndTimestamp getVisionPoseEst( ) { return robotPoseAndTimestamp; }
+    public synchronized PoseAndTimestamp getVisionPoseEst( ) {
+         return robotPoseAndTimestamp;
+        }
 
-    public synchronized void consumePoseEst() { updatePose(lastRobotPoseAndTimestamp, false); }
+    public synchronized void consumePoseEst() {
+        robotPoseAndTimestamp.isNew = false;
+        }
 
     public synchronized void updatePose(Pose3d pose, double timeStamp, boolean isNew){
           robotPoseAndTimestamp = new PoseAndTimestamp(
@@ -147,7 +187,7 @@ public class VisionSubSys extends SubsystemBase {
 
 
     // ---------------------------------------------------------------------------------
-    public boolean checkForVisionUpdateValid(Pose3d pose){
+    public boolean checkForVisionUpdateValid(Pose3d pose, double ambiguity){
 
         // Case 1 - Is estimated pose a valid place on the Field
         if (( pose.getX() < 0 ) ||                                // Negative Field location Bad
@@ -170,9 +210,17 @@ public class VisionSubSys extends SubsystemBase {
         //         return false;
         //     }
 
+        // Check for unacceptable ambiguity
+        if (ambiguity > 0.2) {
+            // this not a good tag image
+            return false;
+        }
+
         // All above condition are good so lets return TRUE !
         return true;
     }
+
+
 
     // ---------------------- Getters for Vision Telemetry ----------------
     protected int      getBestCamera()                             { return bestCameraID; }
