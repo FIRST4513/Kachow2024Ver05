@@ -8,7 +8,6 @@ import frc.robot.Robot;
 import frc.robot.auto.Auto;
 import frc.robot.auto.comands.AutoCmds;
 import frc.robot.drivetrain.commands.SwerveDriveCmd;
-import frc.robot.mechanisms.intake.commands.IntakeCmds;
 import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 
 /** Add your docs here. */

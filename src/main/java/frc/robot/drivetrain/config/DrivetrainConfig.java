@@ -12,7 +12,7 @@ public class DrivetrainConfig {
     // ----- Definitions for Kinematics -----
     public static final double trackWidth         = Units.inchesToMeters(23.75);  // Between Right/Left Wheel Ctrs
     public static final double wheelBase          = Units.inchesToMeters(23.75);  // Between Front/Back Wheel Ctrs
-    private static final double wheelDiameter      = Units.inchesToMeters(3.82);   // 3.82in -> 0.097m;
+    private static final double wheelDiameter      = Units.inchesToMeters(3.82 * 1.0243);   // 3.82in -> 0.097m;
     private static final double wheelCircumference = wheelDiameter * Math.PI;      // 2πr = πd = π * 0.094m ≈ 0.295m circumference
 
     // locations for teach wheel location on the robot relative to center
@@ -81,10 +81,10 @@ public class DrivetrainConfig {
     // Calculations from Degrees to Rotations: degrees / 360
     // Numbers are from [-0.5 to 0.5] and CCW+
         
-		private static final double angleOffsets[] = {-0.144775,   // FL // comp bot 0.1955
-        											   0.1611328,   // FR // comp bot -0.4553
-        											   0.4484863,   // BL // comp bot -0.1252
-        											   0.3464355};  // BR // comp bot 0.1010
+		private static final double angleOffsets[] = {   -0.15646484375,   // FL // comp bot 0.1955
+                                                                0.16278515625,   // FR // comp bot -0.4553
+        						        0.444,   // BL // comp bot -0.1252
+        						        0.363};  // BR // comp bot 0.1010
                                                   
         
 

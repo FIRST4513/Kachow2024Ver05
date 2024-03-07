@@ -47,25 +47,25 @@ public class VisionTelemetry {
         SuppliedValueWidget<Boolean> camValid = camLayout.addBoolean(
             "Valid Target?",
             () -> getCamHasTarget(cameraID));
-        camValid.withPosition(0, 0).withSize(1, 3);
+        camValid.withPosition(0, 0).withSize(1, 6);
 
         // tag id
         SuppliedValueWidget<Double> camTagID =  camLayout.addDouble(
             "Tag ID",
             () -> getCamTargetID(cameraID));
-        camTagID.withPosition(0, 1).withSize(1, 3);
+        camTagID.withPosition(0, 1).withSize(1, 6);
 
         // ambiguity for tag
         SuppliedValueWidget<Double> camTagAmbiguity = camLayout.addDouble(
             "Tag Ambiguity",
             () -> getCamAmbiguity(cameraID));
-        camTagAmbiguity.withPosition(0, 2).withSize(1, 3);
+        camTagAmbiguity.withPosition(0, 2).withSize(1, 6);
 
         // timestamp
         SuppliedValueWidget<Double> camTimestamp = camLayout.addDouble(
             "Timestamp",
             () -> getCamTimestamp(cameraID));
-        camTimestamp.withPosition(0, 3).withSize(1, 3);
+        camTimestamp.withPosition(0, 3).withSize(1, 6);
 
         // tag pose
         SuppliedValueWidget<String> camTagPose = camLayout.addString(

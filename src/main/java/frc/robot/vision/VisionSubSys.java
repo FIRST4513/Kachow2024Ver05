@@ -1,5 +1,4 @@
 package frc.robot.vision;
-
 import java.io.IOException;
 import org.photonvision.PhotonUtils;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
@@ -30,8 +29,8 @@ public class VisionSubSys extends SubsystemBase {
         loadAprilTagFieldLayout();
 
         // Instantiate Array of all the cameras.
-        // cameras[0] =  new VisionPhotonCamera(VisionConfig.frontCamName,
-        //                                      VisionConfig.frontCamToRobotTrsfm, aprilTagFieldLayout);
+        cameras[0] =  new VisionPhotonCamera(VisionConfig.frontCamName,
+                                             VisionConfig.frontCamToRobotTrsfm, aprilTagFieldLayout);
         // cameras[1] =  new VisionPhotonCamera(VisionConfig.backLeftCamName,
         //                                      VisionConfig.backLeftCamToRobotTrsfm, aprilTagFieldLayout);
         // cameras[2] =  new VisionPhotonCamera(VisionConfig.backRtCamName,
