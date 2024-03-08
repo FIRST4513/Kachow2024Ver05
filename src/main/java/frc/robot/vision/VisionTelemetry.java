@@ -28,8 +28,8 @@ public class VisionTelemetry {
 
         robotLayout("Robot", tab)     .withPosition(1, 0).withSize(3, 6);
 
-        tab.addString("Blue Tag Pose", () -> getRobotToBlueSpkrTagPose()).withPosition(5, 0).withSize(2, 6);
-        tab.addString("Red Tag Pose",  () -> getRobotToRedSpkrTagPose()) .withPosition(5, 3).withSize(2, 6);
+        tab.addString("Blue Tag Pose", () -> getRobotToBlueSpkrTagPose()).withPosition(5, 0).withSize(6, 1);
+        tab.addString("Red Tag Pose",  () -> getRobotToRedSpkrTagPose()) .withPosition(5, 2).withSize(6, 1);
 
         // cameraLayout(cam0Name, 0, tab).withPosition(4, 0).withSize(3, 9);
         // cameraLayout(cam1Name, 1, tab).withPosition(7, 0).withSize(3, 9);

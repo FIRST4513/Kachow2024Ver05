@@ -181,28 +181,29 @@ public class OdometryThread extends Thread {
             m_cachedState.Pose = m_odometry.getEstimatedPosition();
             m_cachedState.OdometryPeriod = averageLoopTime;
 
-            // ------- Add Vision Updates Here --------
-            PoseAndTimestamp estPose = Robot.vision.getVisionPoseEst();
-            
-            logPoseEst(estPose);
-            
-            if (estPose.isNew()) {
+            // // ------- Add Vision Updates Here --------
+            // //PoseAndTimestamp estPose = Robot.vision.getVisionPoseEstWithConsume();
+            // PoseAndTimestamp estPose = Robot.vision.getVisionPoseEst();
+            // logPoseEst(estPose);
+            // //System.out.println("Odometry estPose Flag" + estPose.isNew + "   x=" + estPose.pose.getX());
 
-                // System.out.println("");
-                // System.out.println("Odometry NEW pose found !!!!!!!!!!!!!!");
-                // System.out.println(" x = " + estPose.pose.getX() + "y= " + estPose.pose.getY() );
+            // if (estPose.isNew()) {
 
-                // "Consume" the pose, aka set isNew to False since it is old now
-                Robot.vision.consumePoseEst();
+            //     System.out.println("");
+            //     System.out.println("Odometry NEW pose found !!!!!!!!!!!!!!");
+            //     System.out.println(" x = " + estPose.pose.getX() + "y= " + estPose.pose.getY() );
 
-                // Method 1
-                // addVisionMeasurement( estPose.pose.toPose2d(), estPose.timestamp );
+            //     // "Consume" the pose, aka set isNew to False since it is old now
+            //     //Robot.vision.consumePoseEst();
 
-                // Method 2 Std deviation matrix - not fully implemented yet
-                //addVisionMeasurement( estPose.pose.toPose2d(), estPose.timestamp, visionMeasurementStdDevs) ;
-            } else {
-                // System.out.println("Odometry NO new pose found !!!!!!");
-            }
+            //     // Method 1
+            //     addVisionMeasurement( estPose.pose.toPose2d(), estPose.timestamp );
+
+            //     // Method 2 Std deviation matrix - not fully implemented yet
+            //     //addVisionMeasurement( estPose.pose.toPose2d(), estPose.timestamp, visionMeasurementStdDevs) ;
+            // } else {
+            //     // System.out.println("Odometry NO new pose found !!!!!!");
+            // }
 
             m_stateLock.writeLock().unlock();
             /**
@@ -292,13 +293,6 @@ public class OdometryThread extends Thread {
         } finally {
             m_stateLock.readLock().unlock();
         }
-    }
-
-    public synchronized void logPoseEst(PoseAndTimestamp poseTS) {
-                Logger.recordOutput("Odometry Vision X", poseTS.getPose().getX());
-                Logger.recordOutput("Odometry Vision Y", poseTS.getPose().getY());
-                Logger.recordOutput("Odometry Vision TS", poseTS.getTimestamp());
-                Logger.recordOutput("Odometry Vision New", poseTS.isNew());
     }
 
     /**

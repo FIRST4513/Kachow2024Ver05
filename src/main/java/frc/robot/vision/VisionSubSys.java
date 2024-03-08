@@ -72,7 +72,7 @@ public class VisionSubSys extends SubsystemBase {
             when the isNew flag is true, for fresh data.
     */
 
-    public synchronized void processVision() {
+    public void processVision() {
 
         // Step 1 - Let each camera acquire new current data
         for (int i = 0; i < VisionConfig.cameraTransforms.length; i++) {
@@ -92,26 +92,32 @@ public class VisionSubSys extends SubsystemBase {
         }
 
         // Step 2.3 - If we DONT have a valid tag. We can get out
-        if ( ( bestCameraID < 0) || ( !aprilTagFieldLayout.getTagPose(bestTagID).isPresent()) ) {
-                // No valid targets found, were done return the last pose and get out
+        if ( ( bestCameraID < 0) || 
+             ( !aprilTagFieldLayout.getTagPose(bestTagID).isPresent()) ||
+             ( bestTagAmbiguity > 0.2) ) {
+                // No valid targets found, were done store the last valid pose and get out
                 updatePose(lastRobotPoseAndTimestamp, false ); 
                 logPoseEst(robotPoseAndTimestamp,bestTagID );
                 return;
         }
 
-        // Step 3 - Calculate transforms to Create a Robot Pose Estimate
+        // Step 3 - We have a good Tag , lets Calculate transforms to Create a Robot Pose Estimate
         Transform3d bestCamToTagTrsfm = cameras[bestCameraID].cameraToTagTrsfm;
         Pose3d robotPose3d = PhotonUtils.estimateFieldToRobotAprilTag(
                                          bestCamToTagTrsfm,
                                          aprilTagFieldLayout.getTagPose(bestTagID).get(),
-                                         VisionConfig.cameraTransforms[bestCameraID]
-                                                                   );
+                                         VisionConfig.cameraTransforms[bestCameraID] );
 
-        // Step 4 - Check for Resonablenace and Store data
-        if (checkForVisionUpdateValid(robotPose3d, bestTagAmbiguity) ){
+        // Step 4 - Check for Resonablence and Send it to drivetrain to update odometry
+        if (checkForVisionUpdateValid(robotPose3d) ){
             // Target Pose is resonable - Lets store the new Estimate
             updatePose(robotPose3d, cameras[bestCameraID].timestamp, true );
             storeLastPose(robotPoseAndTimestamp);
+
+            // Different approach. Instead of saving value and letting odometry look it uo. We just send the updsate
+            // to the drivetrain and let it send it to odometry for update.
+            Robot.swerve.updateOdometryVisionPose( robotPose3d.toPose2d(),  cameras[bestCameraID].timestamp);
+
         }   else {
             // Target Pose in NOT resonable lets leave as last estimate
                 updatePose(lastRobotPoseAndTimestamp, false ); 
@@ -133,8 +139,6 @@ public class VisionSubSys extends SubsystemBase {
             if (targetOpt.isPresent()) {
             var target = targetOpt.get();
 
-            // Calculate the goal
-            
             // Transform the robot's pose to find the camera's pose
             Pose3d robotPose = new Pose3d();
             var cameraPose = robotPose.transformBy(VisionConfig.frontRobotToCamTrsfm);
@@ -153,6 +157,12 @@ public class VisionSubSys extends SubsystemBase {
 
     public synchronized PoseAndTimestamp getVisionPoseEst( ) {
          return robotPoseAndTimestamp;
+        }
+
+    public synchronized PoseAndTimestamp getVisionPoseEstWithConsume( ) {
+        PoseAndTimestamp tempPoseTS = robotPoseAndTimestamp;
+        robotPoseAndTimestamp.isNew = false;    // mark as consumed
+        return tempPoseTS;
         }
 
     public synchronized void consumePoseEst() {
@@ -188,7 +198,7 @@ public class VisionSubSys extends SubsystemBase {
 
 
     // ---------------------------------------------------------------------------------
-    public boolean checkForVisionUpdateValid(Pose3d pose, double ambiguity){
+    public boolean checkForVisionUpdateValid(Pose3d pose){
 
         // Case 1 - Is estimated pose a valid place on the Field
         if (( pose.getX() < 0 ) ||                                // Negative Field location Bad
@@ -211,11 +221,7 @@ public class VisionSubSys extends SubsystemBase {
         //         return false;
         //     }
 
-        // Check for unacceptable ambiguity
-        if (ambiguity > 0.2) {
-            // this not a good tag image
-            return false;
-        }
+
 
         // All above condition are good so lets return TRUE !
         return true;
