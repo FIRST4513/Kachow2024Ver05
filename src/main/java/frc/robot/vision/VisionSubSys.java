@@ -94,7 +94,7 @@ public class VisionSubSys extends SubsystemBase {
         // Step 2.3 - If we DONT have a valid tag. We can get out
         if ( ( bestCameraID < 0) || 
              ( !aprilTagFieldLayout.getTagPose(bestTagID).isPresent()) ||
-             ( bestTagAmbiguity > 0.2) ) {
+             ( bestTagAmbiguity > 0.3) ) {
                 // No valid targets found, were done store the last valid pose and get out
                 updatePose(lastRobotPoseAndTimestamp, false ); 
                 logPoseEst(robotPoseAndTimestamp,bestTagID );
@@ -116,6 +116,8 @@ public class VisionSubSys extends SubsystemBase {
 
             // Different approach. Instead of saving value and letting odometry look it uo. We just send the updsate
             // to the drivetrain and let it send it to odometry for update.
+
+            //System.out.println("Vision sending to Odom x=" + robotPose3d.getX() +" Y=" + robotPose3d.getY());
             Robot.swerve.updateOdometryVisionPose( robotPose3d.toPose2d(),  cameras[bestCameraID].timestamp);
 
         }   else {

@@ -372,7 +372,9 @@ public class OdometryThread extends Thread {
         try {
             m_stateLock.writeLock().lock();
             m_odometry.addVisionMeasurement(visionRobotPoseMeters, timestampSeconds);
+            //System.out.println("setVision Odom Try Vision x=" + visionRobotPoseMeters.getX() + "  Y=" + visionRobotPoseMeters.getY() + "  TS=" +timestampSeconds );
         } finally {
+            //System.out.println("setVision Odom Try Failed !!!!!!");
             m_stateLock.writeLock().unlock();
         }
     }

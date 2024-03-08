@@ -26,7 +26,7 @@ public class VisionTelemetry {
         // cam1Name = vision.cameras[1].getName();
         // cam2Name = vision.cameras[2].getName();
 
-        robotLayout("Robot", tab)     .withPosition(1, 0).withSize(3, 6);
+        robotLayout("Robot", tab)     .withPosition(0, 0).withSize(5, 6);
 
         tab.addString("Blue Tag Pose", () -> getRobotToBlueSpkrTagPose()).withPosition(5, 0).withSize(6, 1);
         tab.addString("Red Tag Pose",  () -> getRobotToRedSpkrTagPose()) .withPosition(5, 2).withSize(6, 1);
