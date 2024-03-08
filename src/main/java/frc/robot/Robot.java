@@ -96,6 +96,7 @@ public class Robot extends LoggedRobot  {
         CommandScheduler.getInstance().run();       // Make sure scheduled commands get run
         Threads.setCurrentThreadPriority(true, 10); // Set the main thread back to normal priority
 
+        //leds.solid(0.25, Color.kRed, 0);
         leds.solid(0.25, Color.kBlack, 0);
     }
 

@@ -25,7 +25,9 @@ import edu.wpi.first.math.numbers.N1;
 import edu.wpi.first.math.numbers.N3;
 import edu.wpi.first.math.numbers.N5;
 import edu.wpi.first.math.util.Units;
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Threads;
+import edu.wpi.first.wpilibj.Timer;
 import frc.robot.Robot;
 import frc.robot.drivetrain.config.DrivetrainConfig;
 import frc.util.DriveState;
@@ -371,8 +373,10 @@ public class OdometryThread extends Thread {
     public void addVisionMeasurement(Pose2d visionRobotPoseMeters, double timestampSeconds) {
         try {
             m_stateLock.writeLock().lock();
-            m_odometry.addVisionMeasurement(visionRobotPoseMeters, timestampSeconds);
-            //System.out.println("setVision Odom Try Vision x=" + visionRobotPoseMeters.getX() + "  Y=" + visionRobotPoseMeters.getY() + "  TS=" +timestampSeconds );
+            double epochTimestamp = Timer.getFPGATimestamp();
+            m_odometry.addVisionMeasurement(visionRobotPoseMeters, epochTimestamp);
+            // Robot.print("Epoch Timestamp sent to odometry: " + epochTimestamp);
+            //System.out.println("setVision Odom Try Success Vision x=" + visionRobotPoseMeters.getX() + "  Y=" + visionRobotPoseMeters.getY() + "  TS=" +timestampSeconds );
         } finally {
             //System.out.println("setVision Odom Try Failed !!!!!!");
             m_stateLock.writeLock().unlock();

@@ -173,7 +173,8 @@ public class DrivetrainSubSys extends SubsystemBase {
     public void         zeroOdoemtry()              { odometry.zeroEverything(); }
     //public void         reorientPose(double angle)  { odometry.reorientPose(angle); }
     public synchronized void updateOdometryVisionPose (Pose2d pose, double timestamp) { 
-                                                    odometry.addVisionMeasurement( pose, timestamp); }
+                                                    // odometry.addVisionMeasurement( pose, timestamp); }
+                                                    resetPose(pose); }
 
     // Gyro Getters/Setters
     public double       getGyroYawDegrees()         { return gyro.getYawDegrees(); }
