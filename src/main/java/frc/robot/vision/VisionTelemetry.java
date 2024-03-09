@@ -22,11 +22,19 @@ public class VisionTelemetry {
         this.vision = vision;
         tab = Shuffleboard.getTab("Vision");
 
+        // Main Robot Stuff (moved from robot layout for sizing fixes, nothing I was doing worked)
+        tab.addBoolean("Valid Target?", () -> Robot.vision.getVisionPoseEst().isNew()).withPosition(0, 0).withSize(5, 1);
+        tab.addString("Robot Vision Est Pose", () -> poseToString(Robot.vision.getVisionPoseEst().getPose())).withPosition(0, 1).withSize(5, 1);
+        tab.addNumber("Best Tag ID", () -> Robot.vision.getBestTagId()).withPosition(0, 2).withSize(5, 1);
+        tab.addNumber("Best Tag Ambiguity", () -> Robot.vision.getBestAmbiguity()).withPosition(0, 3).withSize(5, 1);
+        tab.addNumber("Timestamp/Latency", () -> Robot.vision.getVisionPoseEst().getTimestamp()).withPosition(0, 4).withSize(5, 1);
+
+
         // cam0Name = vision.cameras[0].getName();
         // cam1Name = vision.cameras[1].getName();
         // cam2Name = vision.cameras[2].getName();
 
-        robotLayout("Robot", tab)     .withPosition(0, 0).withSize(5, 6);
+        // robotLayout("Robot", tab)     .withPosition(0, 0).withSize(5, 6);
 
         tab.addString("Blue Tag Pose", () -> getRobotToBlueSpkrTagPose()).withPosition(5, 0).withSize(6, 1);
         tab.addString("Red Tag Pose",  () -> getRobotToRedSpkrTagPose()) .withPosition(5, 2).withSize(6, 1);
@@ -114,13 +122,13 @@ public class VisionTelemetry {
     public ShuffleboardLayout robotLayout(String name, ShuffleboardTab tab) {
         // create a camera Layout object with the label position (title) in the top of the box
         ShuffleboardLayout robotLayout = tab.getLayout(name, BuiltInLayouts.kGrid);
-        robotLayout.withProperties(Map.of("Label position", "TOP"));
+        robotLayout.withProperties(Map.of("Label position", "TOP")).withSize(1, 4);
 
         // First Field valid target?
         SuppliedValueWidget<Boolean> robotValid = robotLayout.addBoolean(
             "Valid Target?",
             () -> Robot.vision.getVisionPoseEst().isNew());
-        robotValid.withPosition(0, 0).withSize(1, 2);
+        robotValid.withPosition(0, 0).withSize(1, 3);
 
         // Robot pose
         SuppliedValueWidget<String> robotPose = robotLayout.addString( 
@@ -132,19 +140,19 @@ public class VisionTelemetry {
         SuppliedValueWidget<Double> bestRobotTagID =  robotLayout.addDouble( 
             "Tag ID",
             () -> Robot.vision.getBestTagId());
-        bestRobotTagID.withPosition(0, 2).withSize(1, 2);
+        bestRobotTagID.withPosition(0, 2).withSize(1, 3);
 
         // ambiguity for tag
         SuppliedValueWidget<Double> bestRobotTagAmbiguity = robotLayout.addDouble( 
             "Tag Ambiguity",
             () -> Robot.vision.getBestAmbiguity());
-        bestRobotTagAmbiguity.withPosition(0, 3).withSize(1, 2);
+        bestRobotTagAmbiguity.withPosition(0, 3).withSize(1, 3);
 
         // timestamp
         SuppliedValueWidget<Double> robotTimestamp = robotLayout.addDouble(
             "Timestamp",
             () -> Robot.vision.getVisionPoseEst().getTimestamp());
-        robotTimestamp.withPosition(0, 4).withSize(1, 2);
+        robotTimestamp.withPosition(0, 4).withSize(1, 3 );
 
         // Tag pose
         // SuppliedValueWidget<String> robotTagPose = robotLayout.addString( 

@@ -10,10 +10,10 @@ public class VisionConfig {
     public static String frontCamName = ("Front Camera");
     public static Transform3d frontCamToRobotTrsfm = new Transform3d(
                             new Translation3d(
-                                    Units.inchesToMeters( 15.0),    // Distance Fwd  from Robot Ctr.
-                                    Units.inchesToMeters( 10.0),    // Distance Left from Robot Ctr.
-                                    Units.inchesToMeters( 6.0)),    // Distance above ground
-                             new Rotation3d(0, 25, 0));             // roll, pitch, yaw CCW +
+                                    Units.inchesToMeters( -15.0),    // Distance Fwd  from Robot Ctr.  // -30
+                                    Units.inchesToMeters( -6.5 ),    // Distance Left from Robot Ctr. // -15.5
+                                    Units.inchesToMeters( 4.75)),    // Distance above ground
+                             new Rotation3d(0, 0.44, 0));            // roll, pitch, yaw CCW +  // 0.44
     public static Transform3d frontRobotToCamTrsfm = frontCamToRobotTrsfm.inverse();
 
 

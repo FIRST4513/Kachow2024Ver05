@@ -10,6 +10,7 @@ import org.photonvision.targeting.PhotonTrackedTarget;
 import edu.wpi.first.apriltag.AprilTagFieldLayout;
 import edu.wpi.first.apriltag.AprilTagFields;
 import edu.wpi.first.math.geometry.Pose3d;
+import edu.wpi.first.math.geometry.Rotation3d;
 import edu.wpi.first.math.geometry.Transform2d;
 import edu.wpi.first.math.geometry.Transform3d;
 import edu.wpi.first.math.util.Units;
@@ -52,6 +53,11 @@ public class VisionSubSys extends SubsystemBase {
     @Override
     public void periodic() {
         processVision();
+
+        // Pose3d exRobotCenterPose = new Pose3d(100, 100, 0, new Rotation3d(0, 0, 0));
+        // Robot.print("Example pose at robot center: x(" + exRobotCenterPose.getX() + ") y(" + exRobotCenterPose.getY() + ") z(" + exRobotCenterPose.getZ() + ") yaw(" + exRobotCenterPose.getRotation().getZ());
+        // Pose3d exCameraPose = exRobotCenterPose.transformBy(VisionConfig.frontCamToRobotTrsfm);
+        // Robot.print("Example pose at camera: x(" + exCameraPose.getX() + ") y(" + exCameraPose.getY() + ") z(" + exCameraPose.getZ() + ") yaw(" + exCameraPose.getRotation().getZ());
     }
 
     /* This is where the work gets done !!!!:
@@ -118,7 +124,10 @@ public class VisionSubSys extends SubsystemBase {
             // to the drivetrain and let it send it to odometry for update.
 
             //System.out.println("Vision sending to Odom x=" + robotPose3d.getX() +" Y=" + robotPose3d.getY());
-            Robot.swerve.updateOdometryVisionPose( robotPose3d.toPose2d(),  cameras[bestCameraID].timestamp);
+            if (robotPoseAndTimestamp.isNew) {
+                Robot.swerve.updateOdometryVisionPose( robotPose3d.toPose2d(),  cameras[bestCameraID].timestamp);
+                robotPoseAndTimestamp.isNew = false;
+            }
 
         }   else {
             // Target Pose in NOT resonable lets leave as last estimate
@@ -136,18 +145,23 @@ public class VisionSubSys extends SubsystemBase {
             // Find the tag we want to chase
             var targetOpt = results.getTargets().stream()
                 .filter(t -> t.getFiducialId() == tagId)
-                .filter(t -> t.getPoseAmbiguity() <= .2 && t.getPoseAmbiguity() != -1)
+                .filter(t -> t.getPoseAmbiguity() <= .3 && t.getPoseAmbiguity() != -1)
                 .findFirst();
             if (targetOpt.isPresent()) {
-            var target = targetOpt.get();
+                var target = targetOpt.get();
 
-            // Transform the robot's pose to find the camera's pose
-            Pose3d robotPose = new Pose3d();
-            var cameraPose = robotPose.transformBy(VisionConfig.frontRobotToCamTrsfm);
-    
-            // Transform the camera's pose to the target's pose
-            var camToTarget = target.getBestCameraToTarget();
-            tgtPose = cameraPose.transformBy(camToTarget);
+                // get best target 
+                // double xDist = target.getBestCameraToTarget().getX();
+                // Robot.print("X-Dist to speaker tag " + tagId + ": " + Units.metersToInches(xDist));
+
+                // Transform the robot's pose to find the camera's pose
+                Pose3d robotPose = new Pose3d();
+                var cameraPose = robotPose.transformBy(VisionConfig.frontRobotToCamTrsfm);
+        
+                // Transform the camera's pose to the target's pose
+                var camToTarget = target.getBestCameraToTarget();
+                tgtPose = cameraPose.transformBy(camToTarget);
+                // Robot.print("Tgt Pose: x(" + Units.metersToInches(tgtPose.getX()) + "), y(" + Units.metersToInches(tgtPose.getY()) + "), rot(" + tgtPose.getRotation().toRotation2d().getDegrees() + ")");
             }
         }
         return tgtPose;

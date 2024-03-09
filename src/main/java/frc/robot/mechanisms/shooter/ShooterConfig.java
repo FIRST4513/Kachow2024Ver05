@@ -7,14 +7,14 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class ShooterConfig {
     // retract/eject speeds
-    protected static final double AMP_BOTTOM = 0.2;
-    protected static final double AMP_TOP = 0.19;
+    protected static final double AMP_BOTTOM = 0.5;
+    protected static final double AMP_TOP = 0.5;
 
-    protected static final double SPEAKER_BOTTOM = 0.45; //.425
-    protected static final double SPEAKER_TOP = 0.425; //.45
+    protected static final double SPEAKER_BOTTOM = 1.0; //.425
+    protected static final double SPEAKER_TOP = 1.0; //.45
     
-    protected static final double RETRACT_BOTTOM = -0.2;
-    protected static final double RETRACT_TOP = -0.19;
+    protected static final double RETRACT_BOTTOM = -1.0;
+    protected static final double RETRACT_TOP = 1.0;
 
     /* Inverts */
     protected static final boolean bottomMotorInvert = false;
