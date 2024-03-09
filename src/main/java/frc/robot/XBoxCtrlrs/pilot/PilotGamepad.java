@@ -10,6 +10,7 @@ import frc.robot.Robot;
 import frc.robot.Robot.TeamAlliance;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
+import frc.robot.mechanisms.shooter.commands.ShooterAimAndFireCmd;
 import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 import frc.util.FieldConstants;
 
@@ -58,6 +59,8 @@ public class PilotGamepad extends Gamepad {
         
         // "Select" Button - Reset Odometry to (0, 0) & 0º [FOR TESTING, DON'T USE IN COMP]
         gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.resetPose()));
+
+        gamepad.xButton.whileTrue(new ShooterAimAndFireCmd(2.0));
 
         // buttons for testing shooter
         // gamepad.aButton.onTrue(ShooterCmds.stopShooterCmd());
