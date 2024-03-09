@@ -17,8 +17,8 @@ import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
 import frc.robot.auto.Auto;
 import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.drivetrain.commands.DrivetrainCmds;
-import frc.robot.mechanisms.leds.LEDs;
-import frc.robot.mechanisms.leds.LEDsCommands;
+// import frc.robot.mechanisms.leds.LEDs;
+// import frc.robot.mechanisms.leds.LEDsCommands;
 import frc.robot.mechanisms.rotarySwitch.RotarySwitchSubSys;
 import frc.robot.mechanisms.shooter.ShooterSubSys;
 import frc.robot.mechanisms.shooter.commands.ShooterCmds;
@@ -65,7 +65,7 @@ public class Robot extends LoggedRobot  {
     public static ShooterSubSys     shooter;
 
     // Misc
-    public static LEDs              leds;
+    // public static LEDs              leds;
     // public static RotarySwitchSubSys rotarySwitch;
 
     public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
@@ -97,7 +97,7 @@ public class Robot extends LoggedRobot  {
         Threads.setCurrentThreadPriority(true, 10); // Set the main thread back to normal priority
 
         //leds.solid(0.25, Color.kRed, 0);
-        leds.solid(0.25, Color.kBlack, 0);
+        // leds.solid(0.25, Color.kBlack, 0);
     }
 
     private void intializeSubsystems() {
@@ -116,7 +116,7 @@ public class Robot extends LoggedRobot  {
         shooter =  new ShooterSubSys();
 
         // Misc
-        leds = new LEDs();
+        // leds = new LEDs();
         // rotarySwitch = new RotarySwitchSubSys(); 
 
         // Telemetry (MUST BE LAST)
