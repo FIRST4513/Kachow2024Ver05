@@ -1,5 +1,7 @@
 package frc.robot.drivetrain.config;
 
+import com.ctre.phoenix6.signals.InvertedValue;
+
 import edu.wpi.first.math.geometry.Translation2d;
 import edu.wpi.first.math.kinematics.SwerveDriveKinematics;
 import edu.wpi.first.math.util.Units;
@@ -81,12 +83,42 @@ public class DrivetrainConfig {
     // Calculations from Degrees to Rotations: degrees / 360
     // Numbers are from [-0.5 to 0.5] and CCW+
         
-		private static final double angleOffsets[] = {   -0.15646484375,   // FL // comp bot 0.1955
-                                                                0.16278515625,   // FR // comp bot -0.4553
-        						        0.444,   // BL // comp bot -0.1252
-        						        0.363};  // BR // comp bot 0.1010
-                                                  
-        
+    private static final double angleOffsets[] = { -0.15646484375,   // FL // comp bot 0.1955
+                                                    0.16278515625,   // FR // comp bot -0.4553
+                                                    0.444,           // BL // comp bot -0.1252
+                                                    0.363};          // BR // comp bot 0.1010
+
+    // Practice Bot
+    private static final InvertedValue angleInverts[] = {
+        InvertedValue.Clockwise_Positive,  // FL
+        InvertedValue.Clockwise_Positive,  // FR
+        InvertedValue.Clockwise_Positive,  // BL
+        InvertedValue.Clockwise_Positive   // BR
+    };
+
+    // Practice Bot
+    private static final InvertedValue driveInverts[] = {
+        InvertedValue.CounterClockwise_Positive,  // FL
+        InvertedValue.CounterClockwise_Positive,  // FR
+        InvertedValue.CounterClockwise_Positive,  // BL
+        InvertedValue.CounterClockwise_Positive   // BR
+    };
+
+    // // Competition Bot
+    // private static final InvertedValue angleInverts[] = {
+    //     InvertedValue.Clockwise_Positive,         // FL
+    //     InvertedValue.Clockwise_Positive,         // FR
+    //     InvertedValue.CounterClockwise_Positive,  // BL
+    //     InvertedValue.Clockwise_Positive          // BR
+    // };
+
+    // // Competition Bot
+    // private static final InvertedValue driveInverts[] = {
+    //     InvertedValue.CounterClockwise_Positive,  // FL
+    //     InvertedValue.CounterClockwise_Positive,  // FR
+    //     InvertedValue.CounterClockwise_Positive,  // BL
+    //     InvertedValue.Clockwise_Positive          // BR
+    // };
 
     /**
      * Array[4] of ints that represent the drive motor CAN ID for each Module
@@ -115,6 +147,8 @@ public class DrivetrainConfig {
     // ----- Getters for info about a specific module -----
     public static String getModName(int modID)        { return moduleNames[modID]; }
     public static double getModAngleOffset(int modID) { return angleOffsets[modID]; }
+    public static InvertedValue getModAngleInvert(int modID) { return angleInverts[modID]; }
+    public static InvertedValue getModDriveInvert(int modID) { return driveInverts[modID]; }
     public static int getModDriveCanID(int modID)     { return driveCanIDs[modID]; }
     public static int getModAngleCanID(int modID)     { return angleCanIDs[modID]; }
     public static int getModCanCoderID(int modID)     { return canCoderIDs[modID]; }
