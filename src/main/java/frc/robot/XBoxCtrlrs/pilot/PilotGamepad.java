@@ -74,7 +74,6 @@ public class PilotGamepad extends Gamepad {
         // gamepad.rightBumper.and(gamepad.aButton).whileTrue(new RunCommand(() -> Robot.print("Going to Toggling Angle")));
 
         // example go-while-held button functionality:
-        gamepad.aButton.onTrue(ShooterCmds.shooterSetSpeakerCmd()).onFalse(ShooterCmds.stopShooterCmd());
         
         // or:
         // gamepad.Dpad.Left.onTrue(IntakeCmds.intakeSetAmpCmd());

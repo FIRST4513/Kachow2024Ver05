@@ -33,7 +33,10 @@ public class OperatorGamepad extends Gamepad {
     
     // ----- Gamepad specific methods for button assignments -----
     public void setupTeleopButtons() {
-        
+        gamepad.rightBumper.onTrue(ShooterCmds.shooterSetManualCmd()).onFalse(ShooterCmds.stopShooterCmd());
+
+        gamepad.aButton.onTrue(ShooterCmds.shooterSetRetractCmd()).onFalse(ShooterCmds.stopShooterCmd());
+        gamepad.bButton.onTrue(ShooterCmds.shooterSetSpeakerCmd()).onFalse(ShooterCmds.stopShooterCmd());
     }
 
     @Override

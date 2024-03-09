@@ -10,8 +10,12 @@ public class ShooterTelemetry {
         // todo: better tabing
 
         tab = Shuffleboard.getTab("Shooter");
-        tab.addNumber("Motor Speed 1:",         () -> shooter.getMotorSpeed1());
-        tab.addNumber("Motor Speed 2:",         () -> shooter.getMotorSpeed2());
+        
+        tab.addNumber("Top Power:",         () -> shooter.getBottomPWM());
+        tab.addNumber("Bottom Power:",         () -> shooter.getTopPWM());
+        tab.addNumber("Top RPS", () -> shooter.getTopRPS());
+        tab.addNumber("Bottom RPS", () -> shooter.getBottomRPS());
+
         tab.addString("Current State", () -> shooter.getStateString());
         tab.add("Current Commands:",          shooter);
     }

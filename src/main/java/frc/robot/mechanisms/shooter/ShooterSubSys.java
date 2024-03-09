@@ -1,6 +1,8 @@
 package frc.robot.mechanisms.shooter;
 
 import com.ctre.phoenix6.controls.DutyCycleOut;
+import com.ctre.phoenix6.controls.VelocityDutyCycle;
+import com.ctre.phoenix6.controls.VelocityVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
@@ -25,8 +27,8 @@ public class ShooterSubSys extends SubsystemBase {
 
 
     // Control for motors
-    private DutyCycleOut bottomCtrlr = new DutyCycleOut(0);
-    private DutyCycleOut topCtrlr = new DutyCycleOut(0);
+    private DutyCycleOut pwmCtrlr = new DutyCycleOut(0);
+    private VelocityVoltage velocityPIDCtrlr = new VelocityVoltage(0);
 
     // Constructor
     public ShooterSubSys() { 
@@ -38,21 +40,18 @@ public class ShooterSubSys extends SubsystemBase {
     public void periodic() {
         // Set motor speeds on periodic based on current state
         switch (state) {
-            case AMP: bottomMotor.setControl(bottomCtrlr.withOutput(ShooterConfig.AMP_BOTTOM));
-                      topMotor.setControl(topCtrlr.withOutput(ShooterConfig.AMP_TOP));
-                      break;
-            case SPEAKER: bottomMotor.setControl(bottomCtrlr.withOutput(ShooterConfig.SPEAKER_BOTTOM));
-                          topMotor.setControl(topCtrlr.withOutput(ShooterConfig.SPEAKER_TOP));
+            case SPEAKER: bottomMotor.setControl(velocityPIDCtrlr.withVelocity(ShooterConfig.SPEAKER_BOTTOM));
+                          topMotor.setControl(velocityPIDCtrlr.withVelocity(ShooterConfig.SPEAKER_TOP));
                           break;
-            case RETRACT: bottomMotor.setControl(bottomCtrlr.withOutput(ShooterConfig.RETRACT_BOTTOM));
-                          topMotor.setControl(topCtrlr.withOutput(ShooterConfig.RETRACT_TOP));
+            case RETRACT: bottomMotor.setControl(velocityPIDCtrlr.withVelocity(ShooterConfig.RETRACT_BOTTOM));
+                          topMotor.setControl(velocityPIDCtrlr.withVelocity(ShooterConfig.RETRACT_TOP));
                           break;
-            case MANUAL:  bottomMotor.setControl(bottomCtrlr.withOutput(Robot.operatorGamepad.getTriggerTwist()));
-                          topMotor.setControl(topCtrlr.withOutput(Robot.operatorGamepad.getTriggerTwist()));
+            case MANUAL:  bottomMotor.setControl(pwmCtrlr.withOutput(Robot.operatorGamepad.getTriggerTwist()));
+                          topMotor.setControl(pwmCtrlr.withOutput(Robot.operatorGamepad.getTriggerTwist()));
                           break;
             case STOPPED:
-            default:    bottomMotor.setControl(bottomCtrlr.withOutput(0));
-                        topMotor.setControl(topCtrlr.withOutput(0));
+            default:    bottomMotor.setControl(pwmCtrlr.withOutput(0));
+                        topMotor.setControl(pwmCtrlr.withOutput(0));
         }                 
     }
 
@@ -68,8 +67,10 @@ public class ShooterSubSys extends SubsystemBase {
         setNewState(FireState.STOPPED);
     }
     
-    public double getMotorSpeed1() { return bottomMotor.get(); }
-    public double getMotorSpeed2() { return topMotor.get(); }
+    public double getBottomPWM() { return bottomMotor.get(); }
+    public double getTopPWM() { return topMotor.get(); }
+    public double getTopRPS() { return topMotor.getVelocity().getValueAsDouble(); }
+    public double getBottomRPS() { return bottomMotor.getVelocity().getValueAsDouble(); }
 
     public String getStateString() {
         switch (state) {
