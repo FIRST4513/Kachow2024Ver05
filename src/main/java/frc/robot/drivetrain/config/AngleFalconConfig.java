@@ -26,8 +26,6 @@ public class AngleFalconConfig {
     private static final boolean enableStatCurrLimit = true;
     private static final double statCurrent = 30;
     
-
-    private static final InvertedValue inverted = InvertedValue.Clockwise_Positive;  // false = CCW+ & true = CW+
     private static final NeutralModeValue neutralMode = NeutralModeValue.Brake;
 
     /**
@@ -57,7 +55,7 @@ public class AngleFalconConfig {
 
         // Configure Motor Output Values (Inverted, Neutral Mode)
         MotorOutputConfigs motorOutput = config.MotorOutput;
-        motorOutput.Inverted = inverted;
+        motorOutput.Inverted = DrivetrainConfig.getModAngleInvert(modID);
         motorOutput.NeutralMode = neutralMode;
 
         // Configure Feedback Values (gear ratios to output and CAN Coder)

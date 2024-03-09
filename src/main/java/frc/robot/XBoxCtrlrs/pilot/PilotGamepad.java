@@ -10,7 +10,8 @@ import frc.robot.Robot;
 import frc.robot.Robot.TeamAlliance;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
-import frc.robot.mechanisms.climber.commands.ClimberCmds;
+import frc.robot.mechanisms.shooter.commands.ShooterAimAndFireCmd;
+import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 import frc.util.FieldConstants;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
@@ -59,17 +60,13 @@ public class PilotGamepad extends Gamepad {
         // "Select" Button - Reset Odometry to (0, 0) & 0º [FOR TESTING, DON'T USE IN COMP]
         gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.resetPose()));
 
-        // LB + Button for to-pose auto driving
-        // gamepad.leftBumper.and(gamepad.bButton).whileTrue(AutoCmds.driveToPose(spkrLeftPose));
-        // gamepad.leftBumper.and(gamepad.yButton).whileTrue(AutoCmds.driveToPose(spkrCtrPose));
-        // gamepad.leftBumper.and(gamepad.xButton).whileTrue(AutoCmds.driveToPose(spkrRightPose));
-        // gamepad.leftBumper.and(gamepad.aButton).whileTrue(AutoCmds.driveToPose(ampPose));
+        gamepad.xButton.whileTrue(new ShooterAimAndFireCmd(2.0));
 
-        // Dpad - Climber presets
-        gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());
-        gamepad.Dpad.Up.onTrue(ClimberCmds.climberSetClear());
-        gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetOnChain());
-        gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetManual()).onFalse(ClimberCmds.climberStopCmd());
+        // buttons for testing shooter
+        // gamepad.aButton.onTrue(ShooterCmds.stopShooterCmd());
+        // gamepad.xButton.onTrue(ShooterCmds.shooterSetSpeakerCmd());
+        // gamepad.bButton.onTrue(ShooterCmds.shooterSetRetractCmd());
+        // gamepad.yButton.onTrue(ShooterCmds.shooterSetAmpCmd());
 
         /* ----- Example Ways to use Buttons in different ways ---- */
 
@@ -77,11 +74,9 @@ public class PilotGamepad extends Gamepad {
         // gamepad.rightBumper.and(gamepad.aButton).whileTrue(new RunCommand(() -> Robot.print("Going to Toggling Angle")));
 
         // example go-while-held button functionality:
-        // gamepad.aButton.onTrue(ShooterCmds.shooterSetSpeakerCmd()).onFalse(ShooterCmds.stopShooterCmd());
         
         // or:
         // gamepad.Dpad.Left.onTrue(IntakeCmds.intakeSetAmpCmd());
-        // gamepad.Dpad.Left.onFalse(IntakeCmds.intakeStopCmd());
     }
 
     public void setupDisabledButtons() {}

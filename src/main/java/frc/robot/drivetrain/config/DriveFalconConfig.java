@@ -32,7 +32,6 @@ public class DriveFalconConfig {
     private static final boolean enableStatCurrLimit = true;
     private static final double statCurrent = 30;
 
-    private static final InvertedValue inverted = InvertedValue.CounterClockwise_Positive;
     private static final NeutralModeValue neutralMode = NeutralModeValue.Brake;
 
     /**
@@ -40,7 +39,7 @@ public class DriveFalconConfig {
      * 
      * @return A TalonFXConfiguration object
      */
-    public static TalonFXConfiguration getConfig() {
+    public static TalonFXConfiguration getConfig(int modID) {
         // Initialize config object
         TalonFXConfiguration config = new TalonFXConfiguration();
 
@@ -55,7 +54,7 @@ public class DriveFalconConfig {
 
         // Configure Motor Output Values (Inverted, Neutral Mode)
         MotorOutputConfigs motorOutput = config.MotorOutput;
-        motorOutput.Inverted = inverted;
+        motorOutput.Inverted = DrivetrainConfig.getModDriveInvert(modID);
         motorOutput.NeutralMode = neutralMode;
 
         // Configure Current Limits

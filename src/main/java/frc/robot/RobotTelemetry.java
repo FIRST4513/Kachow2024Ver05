@@ -14,8 +14,6 @@ import frc.robot.XBoxCtrlrs.operator.OperatorGamepadTelemetry;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadTelemetry;
 import frc.robot.auto.Auto;
 import frc.robot.drivetrain.DrivetrainTelemetry;
-import frc.robot.mechanisms.climber.ClimberTelemetry;
-import frc.robot.mechanisms.intake.IntakeTelemetry;
 import frc.robot.mechanisms.rotarySwitch.RotarySwitchTelemetry;
 import frc.robot.mechanisms.shooter.ShooterTelemetry;
 import frc.robot.vision.VisionTelemetry;
@@ -27,13 +25,11 @@ public class RobotTelemetry extends TelemetrySubsystem {
     // Telemetry for Basic Robot Functionality    
     public static DrivetrainTelemetry      m_SwerveTelemetry;
     // public static RotarySwitchTelemetry    m_RotarySwitchTelemetry;
-    // public static VisionTelemetry          m_VisionTelemetry;
+    public static VisionTelemetry          m_VisionTelemetry;
     public static PilotGamepadTelemetry    m_PilotTelemetry;
     // public static OperatorGamepadTelemetry m_OperatorTelemetry;
     
     // Telemetry for Gamepiece Manipulation and Climbing
-    public static ClimberTelemetry         m_ClimberTelemetry;
-    public static IntakeTelemetry          m_IntakeTelemetry;
     public static ShooterTelemetry         m_ShooterTelemetry;
 
     // Alerts
@@ -60,7 +56,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
         m_SwerveTelemetry =         new DrivetrainTelemetry(Robot.swerve);
         m_PilotTelemetry =          new PilotGamepadTelemetry(Robot.pilotGamepad);
         // m_OperatorTelemetry =       new OperatorGamepadTelemetry(Robot.operatorGamepad);
-        // m_VisionTelemetry =         new VisionTelemetry(Robot.vision);
+        m_VisionTelemetry =         new VisionTelemetry(Robot.vision);
         // m_ClimberTelemetry =        new ClimberTelemetry(Robot.climber);
         // m_IntakeTelemetry =         new IntakeTelemetry(Robot.intake);
         m_ShooterTelemetry =        new ShooterTelemetry(Robot.shooter);

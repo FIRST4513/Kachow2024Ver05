@@ -5,7 +5,6 @@ import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
-import frc.robot.mechanisms.intake.commands.IntakeCmds;
 import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 
 public class OperatorGamepad extends Gamepad {
@@ -34,7 +33,10 @@ public class OperatorGamepad extends Gamepad {
     
     // ----- Gamepad specific methods for button assignments -----
     public void setupTeleopButtons() {
-        
+        gamepad.rightBumper.onTrue(ShooterCmds.shooterSetManualCmd()).onFalse(ShooterCmds.stopShooterCmd());
+
+        gamepad.aButton.onTrue(ShooterCmds.shooterSetRetractCmd()).onFalse(ShooterCmds.stopShooterCmd());
+        gamepad.bButton.onTrue(ShooterCmds.shooterSetSpeakerCmd()).onFalse(ShooterCmds.stopShooterCmd());
     }
 
     @Override

@@ -172,6 +172,9 @@ public class DrivetrainSubSys extends SubsystemBase {
     public void         resetPose()                 { resetPose(new Pose2d()); }
     public void         zeroOdoemtry()              { odometry.zeroEverything(); }
     //public void         reorientPose(double angle)  { odometry.reorientPose(angle); }
+    public synchronized void updateOdometryVisionPose (Pose2d pose, double timestamp) { 
+                                                    // odometry.addVisionMeasurement( pose, timestamp); }
+                                                    resetPose(pose); }
 
     // Gyro Getters/Setters
     public double       getGyroYawDegrees()         { return gyro.getYawDegrees(); }
@@ -185,7 +188,7 @@ public class DrivetrainSubSys extends SubsystemBase {
 
     // Vision Getters
     public Pose2d getVisionPose()                   {return Robot.vision.getVisionPoseEst().pose.toPose2d();}
-    public boolean isVisionPoseValid()              {return Robot.vision.getVisionPoseEst().isNew;}
+    public boolean isVisionPoseValid()              {return Robot.vision.getVisionPoseEst().isNew();}
 
     /***********************************************************************
     *                       Control - Request - Processing   

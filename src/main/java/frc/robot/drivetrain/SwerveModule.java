@@ -231,7 +231,7 @@ public class SwerveModule {
         StatusCode response = mAngleMotor.getConfigurator().apply(AngleFalconConfig.getConfig(moduleNumber));
         printResponse(response, modName + " angle motor");
 
-        response = mDriveMotor.getConfigurator().apply(DriveFalconConfig.getConfig());
+        response = mDriveMotor.getConfigurator().apply(DriveFalconConfig.getConfig(moduleNumber));
         printResponse(response, modName + " drive motor");
 
         response = mAngleEncoder.getConfigurator().apply(CanCoderConfig.getConfig(moduleNumber));
