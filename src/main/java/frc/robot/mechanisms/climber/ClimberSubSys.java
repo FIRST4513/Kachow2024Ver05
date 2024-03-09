@@ -22,7 +22,7 @@ public class ClimberSubSys extends SubsystemBase {
         HOLD_WITH_LOAD
     }
 
-    private ClimbState state = ClimbState.MANUAL;
+    private ClimbState state = ClimbState.STOPPED;
 
     // Devices - Krakens
     protected TalonFX leftMotor  = new TalonFX(RobotConfig.Motors.climbLeftMotorID, "CANFD");

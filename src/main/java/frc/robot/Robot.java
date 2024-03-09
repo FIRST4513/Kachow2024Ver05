@@ -17,6 +17,8 @@ import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
 import frc.robot.auto.Auto;
 import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.drivetrain.commands.DrivetrainCmds;
+import frc.robot.mechanisms.climber.ClimberSubSys;
+import frc.robot.mechanisms.passthrough.PassthroughSubSys;
 // import frc.robot.mechanisms.leds.LEDs;
 // import frc.robot.mechanisms.leds.LEDsCommands;
 import frc.robot.mechanisms.rotarySwitch.RotarySwitchSubSys;
@@ -62,7 +64,9 @@ public class Robot extends LoggedRobot  {
     public static VisionSubSys      vision;
 
     // Game Piece Manipulation
+    public static PassthroughSubSys passthrough;
     public static ShooterSubSys     shooter;
+    public static ClimberSubSys     climber;
 
     // Misc
     // public static LEDs              leds;
@@ -113,7 +117,9 @@ public class Robot extends LoggedRobot  {
         
         auto = new Auto();
         // Game Piece Manipulation
+        passthrough = new PassthroughSubSys();
         shooter =  new ShooterSubSys();
+        climber = new ClimberSubSys();
 
         // Misc
         // leds = new LEDs();

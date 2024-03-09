@@ -6,6 +6,8 @@ import com.ctre.phoenix6.configs.TalonFXConfiguration;
 import com.ctre.phoenix6.signals.NeutralModeValue;
 
 public class ShooterConfig {
+    // future angles needed
+
     // falcon rpm at 1: 6380
     // pulley gear ratio: 0.625 from falcon-to-wheel
     // wheel rpm at 1: 6380 * 0.625 = 3975

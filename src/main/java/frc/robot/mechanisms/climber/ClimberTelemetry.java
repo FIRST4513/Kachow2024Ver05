@@ -10,11 +10,16 @@ public class ClimberTelemetry {
         // todo: clean up tabs, add withSize and withPosition
         
         tab = Shuffleboard.getTab("Climber");
-        tab.addNumber("Motor Power", () -> Climber.getSpeed());
-        tab.addBoolean("Lower Switch?", () -> Climber.getLowerLimitSw());
-        tab.addBoolean("Mid Switch?", () -> Climber.getMidLimitSw());
-        tab.addNumber("Motor 1 Pos", () -> Climber.getRotations());
-        tab.addString("State", () -> Climber.getStateString());
-        tab.addNumber("Vel", () -> Climber.climbMotor1.getVelocity().getValueAsDouble());
+
+        // Left Motor Pos and Switch
+        tab.addNumber("Left Enc Pos", () -> Climber.getLeftRotations()).withPosition(0, 0).withSize(2, 1);
+        tab.addBoolean("Left Limit Sw", () -> Climber.getLeftLowerSw()).withPosition(0, 1).withSize(2, 1);
+
+        // Right Motor Pos and Switch
+        tab.addNumber("Right Enc Pos", () -> Climber.getRightRotations()).withPosition(2, 0).withSize(2, 1);
+        tab.addBoolean("Right Limit Sw", () -> Climber.getRightLowerSw()).withPosition(2, 1).withSize(2, 1);
+
+        // General State
+        tab.addString("State", () -> Climber.getStateString()).withPosition(4, 0).withSize(2, 2);
     }
 }

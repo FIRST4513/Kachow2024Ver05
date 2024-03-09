@@ -14,6 +14,9 @@ import frc.robot.XBoxCtrlrs.operator.OperatorGamepadTelemetry;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadTelemetry;
 import frc.robot.auto.Auto;
 import frc.robot.drivetrain.DrivetrainTelemetry;
+import frc.robot.mechanisms.climber.ClimberTelemetry;
+import frc.robot.mechanisms.passthrough.PassthroughSubSys;
+import frc.robot.mechanisms.passthrough.PassthroughTelemetry;
 import frc.robot.mechanisms.rotarySwitch.RotarySwitchTelemetry;
 import frc.robot.mechanisms.shooter.ShooterTelemetry;
 import frc.robot.vision.VisionTelemetry;
@@ -30,7 +33,9 @@ public class RobotTelemetry extends TelemetrySubsystem {
     // public static OperatorGamepadTelemetry m_OperatorTelemetry;
     
     // Telemetry for Gamepiece Manipulation and Climbing
+    public static PassthroughTelemetry     m_PassthroughTelemetry;
     public static ShooterTelemetry         m_ShooterTelemetry;
+    public static ClimberTelemetry         m_ClimberTelemetry;
 
     // Alerts
     private static Alert batteryAlert = new Alert("Low Battery < 12v", AlertType.WARNING);
@@ -57,9 +62,10 @@ public class RobotTelemetry extends TelemetrySubsystem {
         m_PilotTelemetry =          new PilotGamepadTelemetry(Robot.pilotGamepad);
         // m_OperatorTelemetry =       new OperatorGamepadTelemetry(Robot.operatorGamepad);
         m_VisionTelemetry =         new VisionTelemetry(Robot.vision);
-        // m_ClimberTelemetry =        new ClimberTelemetry(Robot.climber);
         // m_IntakeTelemetry =         new IntakeTelemetry(Robot.intake);
+        m_PassthroughTelemetry =    new PassthroughTelemetry(Robot.passthrough);
         m_ShooterTelemetry =        new ShooterTelemetry(Robot.shooter);
+        m_ClimberTelemetry =        new ClimberTelemetry(Robot.climber);
 
         // Misc
         // m_RotarySwitchTelemetry =   new RotarySwitchTelemetry(Robot.rotarySwitch);

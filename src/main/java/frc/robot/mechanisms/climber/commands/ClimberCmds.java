@@ -7,9 +7,9 @@ import frc.robot.mechanisms.climber.ClimberSubSys.ClimbState;
 
 public class ClimberCmds {
     public static void setupDefaultCommand() {
-        Robot.climber.setDefaultCommand(
-            climberSetManual()
-        );
+        // Robot.climber.setDefaultCommand(
+        //     climberSetManual()
+        // );
     }
 
     // ------------ Climber Stop ------------------
@@ -24,6 +24,7 @@ public class ClimberCmds {
 
     public static Command climberSetManual() { return climberSetState(ClimbState.MANUAL); }
     public static Command climberSetBottom() { return climberSetState(ClimbState.BOTTOM); }
-    public static Command climberSetClear() { return climberSetState(ClimbState.TOP); }
+    public static Command climberSetTop() { return climberSetState(ClimbState.TOP); }
     public static Command climberSetOnChain() { return climberSetState(ClimbState.ON_CHAIN); }
+    public static Command climberSetHoldLoad() { return climberSetState(ClimbState.HOLD_WITH_LOAD); }
 }
