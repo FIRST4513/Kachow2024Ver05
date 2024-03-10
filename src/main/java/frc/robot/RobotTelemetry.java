@@ -87,8 +87,8 @@ public class RobotTelemetry extends TelemetrySubsystem {
         tab.add("Speed Selection",    Robot.pilotGamepad.speedChooser)  .withPosition(0, 0).withSize(3, 2);
 
         // Auto Info
-        tab.add("Action Selection",     Auto.actionChooser)             .withPosition(0, 3).withSize(3, 2);
-        tab.add("Position Selection",   Auto.positionChooser)           .withPosition(0, 6).withSize(3, 2);
+        tab.add("Action Selection",     Auto.actionChooser)             .withPosition(0, 2).withSize(3, 2);
+        tab.add("Position Selection",   Auto.positionChooser)           .withPosition(0, 4).withSize(3, 2);
 
         // Match Time
         tab.addNumber("Match Time", () -> Timer.getMatchTime())         .withPosition(3, 0)

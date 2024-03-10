@@ -23,26 +23,22 @@ public class VisionTelemetry {
         tab = Shuffleboard.getTab("Vision");
 
         // Main Robot Stuff (moved from robot layout for sizing fixes, nothing I was doing worked)
-        tab.addBoolean("Valid Target?", () -> Robot.vision.getVisionPoseEst().isNew()).withPosition(0, 0).withSize(5, 1);
-        tab.addString("Robot Vision Est Pose", () -> poseToString(Robot.vision.getVisionPoseEst().getPose())).withPosition(0, 1).withSize(5, 1);
-        tab.addNumber("Best Tag ID", () -> Robot.vision.getBestTagId()).withPosition(0, 2).withSize(5, 1);
-        tab.addNumber("Best Tag Ambiguity", () -> Robot.vision.getBestAmbiguity()).withPosition(0, 3).withSize(5, 1);
-        tab.addNumber("Timestamp/Latency", () -> Robot.vision.getVisionPoseEst().getTimestamp()).withPosition(0, 4).withSize(5, 1);
+        tab.addBoolean("Valid Target?", () -> Robot.vision.getVisionPoseEst().isNew()).withPosition(0, 0).withSize(4, 1);
+        tab.addString("Robot Vision Est Pose", () -> poseToString(Robot.vision.getVisionPoseEst().getPose())).withPosition(0, 1).withSize(4, 1);
+        tab.addNumber("Best Tag ID", () -> Robot.vision.getBestTagId()).withPosition(0, 2).withSize(4, 1);
+        tab.addNumber("Best Tag Ambiguity", () -> Robot.vision.getBestAmbiguity()).withPosition(0, 3).withSize(4, 1);
+        tab.addNumber("Timestamp/Latency", () -> Robot.vision.getVisionPoseEst().getTimestamp()).withPosition(0, 4).withSize(4, 1);
 
+        tab.addString("Pose To Blue Spkr Tag", () -> getRobotToBlueSpkrTagPose()).withPosition(5, 0).withSize(4, 1);
+        tab.addString("Pose To Red Spkr Tag",  () -> getRobotToRedSpkrTagPose()) .withPosition(5, 1).withSize(4, 1);
 
         // cam0Name = vision.cameras[0].getName();
         // cam1Name = vision.cameras[1].getName();
         // cam2Name = vision.cameras[2].getName();
 
-        // robotLayout("Robot", tab)     .withPosition(0, 0).withSize(5, 6);
-
-        tab.addString("Blue Tag Pose", () -> getRobotToBlueSpkrTagPose()).withPosition(5, 0).withSize(6, 1);
-        tab.addString("Red Tag Pose",  () -> getRobotToRedSpkrTagPose()) .withPosition(5, 2).withSize(6, 1);
-
         // cameraLayout(cam0Name, 0, tab).withPosition(4, 0).withSize(3, 9);
         // cameraLayout(cam1Name, 1, tab).withPosition(7, 0).withSize(3, 9);
         // cameraLayout(cam2Name, 2, tab).withPosition(10, 0).withSize(3, 9);
-
     }
     
     public ShuffleboardLayout cameraLayout(String name, int cameraID, ShuffleboardTab tab) {

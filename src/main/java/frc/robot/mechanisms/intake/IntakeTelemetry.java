@@ -8,9 +8,9 @@ public class IntakeTelemetry {
 
     public IntakeTelemetry( IntakeSubSys intake) {
         tab = Shuffleboard.getTab("Intake");
-        tab.addString("Gamepiece Detected?",  () -> intake.isGamepieceDetected()) .withPosition(0, 0).withSize(3, 2);
-        tab.addNumber("Motor Speed:",         () -> intake.getMotorSpeed())       .withPosition(0, 2).withSize(3, 2);
-        tab.addNumber("IR Sensor Value:",     () -> intake.getSensorVal())        .withPosition(0, 4).withSize(3, 2);
-        tab.add("Current Commands:",          intake)                             .withPosition(0, 6).withSize(5, 2);
+        tab.addBoolean("Gamepiece Detected?",  () -> intake.getGamepieceDetected()) .withPosition(0, 0).withSize(2, 1);
+        tab.addNumber("Motor Speed:",         () -> intake.getMotorSpeed())       .withPosition(0, 1).withSize(2, 2);
+        tab.addNumber("IR Sensor Value:",     () -> intake.getSensorVal())        .withPosition(0, 3).withSize(2, 2);
+        tab.addString("State", () -> intake.getStateString()) .withPosition(0, 4).withSize(2, 1);
     }
 }

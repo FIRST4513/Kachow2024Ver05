@@ -108,6 +108,17 @@ public class ShooterSubSys extends SubsystemBase {
     }
 
     public double getEncoderPosition()      { return pivotMotor.getSelectedSensorPosition(); }
+    public double getAngle() { return currentArmAngle; }
+    public boolean getAtTarget() {
+        double difference = currentArmAngle - pivotTargetAngle;
+
+        // if within threshold, stop arm
+        if (Math.abs(difference) < ShooterConfig.PIVOT_ANGLE_TOLDERANCE) {
+            return true;
+        } else {
+            return false;
+        }
+    }
     public double getPivotPower() { return pivotMotor.getMotorOutputPercent(); }
     
     public void updateCurrentPositions() {
@@ -170,6 +181,12 @@ public class ShooterSubSys extends SubsystemBase {
     public double getTopPWM() { return topMotor.get(); }
     public double getTopRPS() { return topMotor.getVelocity().getValueAsDouble(); }
     public double getBottomRPS() { return bottomMotor.getVelocity().getValueAsDouble(); }
+
+    // This is just a placeholder for now
+    public boolean getIsAtVelocityTgt() {
+        return false;
+    }
+
 
     public String getFireStateString() {
         switch (fireState) {

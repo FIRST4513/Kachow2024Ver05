@@ -20,25 +20,25 @@ public class DrivetrainTelemetry {
     public DrivetrainTelemetry(DrivetrainSubSys swerve) {
         this.swerve = swerve;
         tab = Shuffleboard.getTab("Swerve");
-        tab.addNumber("Heading from Pose", () -> swerve.getPoseHdgDegrees()).withPosition(9, 0).withSize(2, 1);
-        tab.addNumber("Odometry X", () -> swerve.getPose().getX()).withPosition(9, 1).withSize(2, 1);
-        tab.addNumber("Odometry Y", () -> swerve.getPose().getY()).withPosition(9, 2).withSize(2, 1);
-        tab.addNumber("Gyro Yaw", () -> Rmath.mRound(swerve.getGyroYawDegrees(), 2)).withPosition(9, 3).withSize(2, 1);
+        tab.addNumber("Heading from Pose", () -> swerve.getPoseHdgDegrees()).withPosition(7, 0).withSize(2, 1);
+        tab.addNumber("Odometry X", () -> swerve.getPose().getX()).withPosition(7, 1).withSize(2, 1);
+        tab.addNumber("Odometry Y", () -> swerve.getPose().getY()).withPosition(7, 2).withSize(2, 1);
+        tab.addNumber("Gyro Yaw", () -> Rmath.mRound(swerve.getGyroYawDegrees(), 2)).withPosition(7, 3).withSize(2, 1);
 
-        tab.addNumber("Pilot Input X", () -> Robot.pilotGamepad.getDriveFwdPositive()).withPosition(11,0).withSize(2, 1);
-        tab.addNumber("Pilot Input Y", () -> Robot.pilotGamepad.getDriveLeftPositive()).withPosition(11,1).withSize(2, 1);
+        tab.addNumber("Pilot Input X", () -> Robot.pilotGamepad.getDriveFwdPositive()).withPosition(9,0).withSize(2, 1);
+        tab.addNumber("Pilot Input Y", () -> Robot.pilotGamepad.getDriveLeftPositive()).withPosition(9,1).withSize(2, 1);
         
-        tab.addString("VisionPose", () -> Robot.swerve.getVisionPose().toString()).withPosition(11, 2).withSize(2, 7);
-        tab.addBoolean("VisionValid", () -> Robot.swerve.isVisionPoseValid()).withPosition(11, 2).withSize(2, 1);
+        tab.addBoolean("VisionValid", () -> Robot.swerve.isVisionPoseValid()).withPosition(9, 2).withSize(2, 2);
+        tab.addString("VisionPose", () -> Robot.swerve.getVisionPose().toString()).withPosition(7, 4).withSize(6, 1);
         Mod0Name = swerve.swerveMods[0].modName;
         Mod1Name = swerve.swerveMods[1].modName;
         Mod2Name = swerve.swerveMods[2].modName;
         Mod3Name = swerve.swerveMods[3].modName;
 
-        moduleLayout(Mod0Name, 0, tab).withPosition(0, 0).withSize(3, 2);
-        moduleLayout(Mod1Name, 1, tab).withPosition(4, 0).withSize(3, 2);
-        moduleLayout(Mod2Name, 2, tab).withPosition(0, 3).withSize(3, 2);
-        moduleLayout(Mod3Name, 3, tab).withPosition(4, 3).withSize(3, 2);
+        moduleLayout(Mod0Name, 0, tab).withPosition(0, 0).withSize(3, 3);
+        moduleLayout(Mod1Name, 1, tab).withPosition(3, 0).withSize(3, 3);
+        moduleLayout(Mod2Name, 2, tab).withPosition(0, 3).withSize(3, 3);
+        moduleLayout(Mod3Name, 3, tab).withPosition(3, 3).withSize(3, 3);
     }
 
     public ShuffleboardLayout moduleLayout(String name, int moduleNum, ShuffleboardTab tab) {

@@ -25,6 +25,10 @@ public class PilotGamepadTelemetry {
     public PilotGamepadTelemetry(PilotGamepad gp) {
         m_tab = Shuffleboard.getTab("Gamepad Pilot");
         gamepad = gp;
+
+        m_tab.addNumber("Drive FWD", () -> gamepad.getDriveFwdPositive());
+        m_tab.addNumber("Drive L/R", () -> gamepad.getDriveLeftPositive());
+        m_tab.addNumber("Drive Rot", () -> gamepad.getDriveRotationCCWPositive());
     }
 
     public void initialize() {

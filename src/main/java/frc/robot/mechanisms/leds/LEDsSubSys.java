@@ -43,7 +43,7 @@ public class LEDsSubSys extends SubsystemBase {
             time = counter * 0.02;  // time is seconds in the 10s loop
                                     // it is really 0.1 increments
 
-            Robot.print("LED display mode: " + displayMode);
+            // Robot.print("LED display mode: " + displayMode);
 
             switch( displayMode) {
                 case SETUP_STATUS:
