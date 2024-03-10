@@ -15,6 +15,7 @@ import frc.robot.XBoxCtrlrs.pilot.PilotGamepadTelemetry;
 import frc.robot.auto.Auto;
 import frc.robot.drivetrain.DrivetrainTelemetry;
 import frc.robot.mechanisms.climber.ClimberTelemetry;
+import frc.robot.mechanisms.intake.IntakeTelemetry;
 import frc.robot.mechanisms.passthrough.PassthroughSubSys;
 import frc.robot.mechanisms.passthrough.PassthroughTelemetry;
 import frc.robot.mechanisms.rotarySwitch.RotarySwitchTelemetry;
@@ -26,16 +27,17 @@ public class RobotTelemetry extends TelemetrySubsystem {
     private static boolean disablePrints = false;
 
     // Telemetry for Basic Robot Functionality    
-    public static DrivetrainTelemetry      m_SwerveTelemetry;
+    public static DrivetrainTelemetry       m_SwerveTelemetry;
     // public static RotarySwitchTelemetry    m_RotarySwitchTelemetry;
-    public static VisionTelemetry          m_VisionTelemetry;
-    public static PilotGamepadTelemetry    m_PilotTelemetry;
+    public static VisionTelemetry           m_VisionTelemetry;
+    public static PilotGamepadTelemetry     m_PilotTelemetry;
     // public static OperatorGamepadTelemetry m_OperatorTelemetry;
     
     // Telemetry for Gamepiece Manipulation and Climbing
-    public static PassthroughTelemetry     m_PassthroughTelemetry;
-    public static ShooterTelemetry         m_ShooterTelemetry;
-    public static ClimberTelemetry         m_ClimberTelemetry;
+    public static IntakeTelemetry           m_IntakeTelemetry;
+    public static PassthroughTelemetry      m_PassthroughTelemetry;
+    public static ShooterTelemetry          m_ShooterTelemetry;
+    public static ClimberTelemetry          m_ClimberTelemetry;
 
     // Alerts
     private static Alert batteryAlert = new Alert("Low Battery < 12v", AlertType.WARNING);
@@ -62,7 +64,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
         m_PilotTelemetry =          new PilotGamepadTelemetry(Robot.pilotGamepad);
         // m_OperatorTelemetry =       new OperatorGamepadTelemetry(Robot.operatorGamepad);
         m_VisionTelemetry =         new VisionTelemetry(Robot.vision);
-        // m_IntakeTelemetry =         new IntakeTelemetry(Robot.intake);
+        m_IntakeTelemetry =         new IntakeTelemetry(Robot.intake);
         m_PassthroughTelemetry =    new PassthroughTelemetry(Robot.passthrough);
         m_ShooterTelemetry =        new ShooterTelemetry(Robot.shooter);
         m_ClimberTelemetry =        new ClimberTelemetry(Robot.climber);

@@ -20,7 +20,7 @@ public class PassthroughSubSys extends SubsystemBase {
     private PassthroughState state = PassthroughState.STOPPED;
 
     // Devices
-    protected TalonFX motor = new TalonFX(Motors.shooterMotorID);
+    protected TalonFX motor = new TalonFX(Motors.passthroughMotorID);
     protected AnalogInput gamepieceSensor = new AnalogInput(RobotConfig.AnalogPorts.passthroughSensor);
 
     // Control for motors

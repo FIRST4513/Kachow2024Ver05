@@ -7,8 +7,6 @@ public class ShooterTelemetry {
     protected ShuffleboardTab tab;
 
     public ShooterTelemetry( ShooterSubSys shooter) {
-        // todo: better tabing
-
         tab = Shuffleboard.getTab("Shooter");
         
         tab.addNumber("Top Power:",         () -> shooter.getBottomPWM());
@@ -16,7 +14,11 @@ public class ShooterTelemetry {
         tab.addNumber("Top RPS", () -> shooter.getTopRPS());
         tab.addNumber("Bottom RPS", () -> shooter.getBottomRPS());
 
-        tab.addString("Current State", () -> shooter.getStateString());
-        tab.add("Current Commands:",          shooter);
+        tab.addNumber("Pivot Enc", () -> shooter.getEncoderPosition());
+        tab.addNumber("Target angle", () -> shooter.getTargetAngle());
+        tab.addNumber("Pivot Power", () -> shooter.getPivotPower());
+
+        tab.addString("Fire State", () -> shooter.getFireStateString());
+        tab.addString("Pivot State", () -> shooter.getPivotStateString());
     }
 }

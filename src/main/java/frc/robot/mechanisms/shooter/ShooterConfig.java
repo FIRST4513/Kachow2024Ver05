@@ -1,10 +1,5 @@
 package frc.robot.mechanisms.shooter;
 
-import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
-import com.ctre.phoenix6.configs.Slot0Configs;
-import com.ctre.phoenix6.configs.TalonFXConfiguration;
-import com.ctre.phoenix6.signals.NeutralModeValue;
-
 public class ShooterConfig {
     // future angles needed
 
@@ -20,49 +15,16 @@ public class ShooterConfig {
     protected static final double RETRACT_BOTTOM = 40; //-106;
     protected static final double RETRACT_TOP = 40; //-106;
 
-    /* Inverts */
-    protected static final boolean bottomMotorInvert = true;
-    protected static final boolean topMotorInvert = true;
+    // pivot limits
+    protected static final double PIVOT_MAX_ENC = 4000;
+    protected static final double PIVOT_MIN_ENC = 2000;
 
-    // TEST PID VALUES !!!!!!
-    /* PID Values */
-    private static final double kP = 0.65;   // (P)roportional value
-    private static final double kI = 0.4;   // (I)ntegral Value
-    private static final double kD = 0.0;   // (D)erivative Value
-    private static final double kV = 0.15;  // Kind of like a Feed Forward
-    private static final double kS = 0.01;  // (S)tiction Value:
+    // pivot move to angle speed
+    protected static final double PIVOT_MOVE_SPEED = 0.5;
 
-    /* Current Limiting */
-    private static final boolean enableCurrentLimitting = true;
-    private static final double suppCurrent = 38.8;      // Max Amps allowed in Supply
-    private static final double suppTimeThresh = 0.1;  // How long to allow unlimited Supply (s)
-
-    /* Neutral Mode */
-    private static final NeutralModeValue neutralMode = NeutralModeValue.Coast;
-
-    // --------------- Constuctor Setting Up Motor Config values -------------
-    public static TalonFXConfiguration getConfig() {
-        // Initialize config object
-        TalonFXConfiguration config = new TalonFXConfiguration();
-
-        // Configure PID Slot0 Values (PIDVS)
-        Slot0Configs slot0Configs = config.Slot0;
-        slot0Configs.kP = kP;
-        slot0Configs.kI = kI;
-        slot0Configs.kD = kD;
-        slot0Configs.kV = kV;
-        slot0Configs.kS = kS;
-
-        // Configure Current Limits
-        CurrentLimitsConfigs currentLimits = config.CurrentLimits;
-        currentLimits.SupplyCurrentLimitEnable = enableCurrentLimitting;
-        currentLimits.SupplyCurrentLimit = suppCurrent;
-        currentLimits.SupplyTimeThreshold = suppTimeThresh;
-
-        // Configure Neutral Mode
-        config.MotorOutput.NeutralMode = neutralMode;
-
-        // Finally return an object that will represent the configs we would like to 
-        return config;
-    }
+    // pivot angle tolerance and encoder conversions
+    public static final double PIVOT_DEG_TO_ENC = 11.3777777778;  // (4096/360)
+    public static final double PIVOT_ENC_TO_DEG = 0.087890625;  // (360/4096)
+    protected static final double PIVOT_ANGLE_TOLDERANCE = 3;
+    protected static final double PIVOT_ENC_OFFSET = 0;
 }

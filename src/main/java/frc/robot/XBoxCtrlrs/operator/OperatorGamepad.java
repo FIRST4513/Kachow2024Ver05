@@ -35,7 +35,7 @@ public class OperatorGamepad extends Gamepad {
     public void setupTeleopButtons() {
         gamepad.rightBumper.onTrue(ShooterCmds.shooterSetManualCmd()).onFalse(ShooterCmds.stopShooterCmd());
 
-        gamepad.aButton.onTrue(ShooterCmds.shooterSetRetractCmd()).onFalse(ShooterCmds.stopShooterCmd());
+        gamepad.aButton.onTrue(ShooterCmds.shooterSetHPIntakeCmd()).onFalse(ShooterCmds.stopShooterCmd());
         gamepad.bButton.onTrue(ShooterCmds.shooterSetSpeakerCmd()).onFalse(ShooterCmds.stopShooterCmd());
     }
 
@@ -47,6 +47,10 @@ public class OperatorGamepad extends Gamepad {
     // ---- value getters -----
     public double getTriggerTwist() {
         return intakeThrottleCurve.calculateMappedVal(gamepad.triggers.getTwist());
+    }
+
+    public double getPivotAdjust() {
+        return gamepad.rightStick.getY() / 2;
     }
 
     // ---- rumble method -----

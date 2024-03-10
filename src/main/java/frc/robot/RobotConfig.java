@@ -32,10 +32,11 @@ public final class RobotConfig {
         // ----- Other subsystems -----
         public final static int climbLeftMotorID   = 14;  // Can ID Kraken
         public final static int climbRightMotorID  = 15;  // Can ID Kraken
-        public final static int intakeMotorID      = 16;  // Can ID Redline (Phoenix5)
+        public final static int intakeMotorID      = 16;  // Can ID Redline (Phoenix 5, Talon SRX)
         public final static int passthroughMotorID = 17;  // Can ID Kraken
-        public final static int shooterMotorID     = 20;  // Can ID Falcon 500
-        public final static int shooterMotorID2    = 21;  // Can ID Falcon 500
+        public final static int pivotMotorID       = 18;  // Can ID Window (Phoenix 5, Talon SRX)
+        public final static int shooterMotorBottom = 20;  // Can ID Falcon 500
+        public final static int shooterMotorTop    = 21;  // Can ID Falcon 500
 
         // Can ID Max: theoretical 40, possible 27 [https://www.chiefdelphi.com/t/multiple-can-busses-without-canivore/403994]
     }
@@ -62,7 +63,7 @@ public final class RobotConfig {
     public final class AnalogPorts {
         public final static int intakeGamepieceSensor = 3;  // ANALOG Port
         public final static int passthroughSensor     = 4;  // ANALOG Port
-        // public final static int rotarySwitch          =  3;  // ANALOG Port
+        public final static int rotarySwitch          = 0;  // ANALOG Port
         
         // Analog Max Ports: 4
     }

@@ -18,6 +18,7 @@ import frc.robot.auto.Auto;
 import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.drivetrain.commands.DrivetrainCmds;
 import frc.robot.mechanisms.climber.ClimberSubSys;
+import frc.robot.mechanisms.intake.IntakeSubSys;
 import frc.robot.mechanisms.passthrough.PassthroughSubSys;
 // import frc.robot.mechanisms.leds.LEDs;
 // import frc.robot.mechanisms.leds.LEDsCommands;
@@ -64,6 +65,7 @@ public class Robot extends LoggedRobot  {
     public static VisionSubSys      vision;
 
     // Game Piece Manipulation
+    public static IntakeSubSys      intake;
     public static PassthroughSubSys passthrough;
     public static ShooterSubSys     shooter;
     public static ClimberSubSys     climber;
@@ -117,6 +119,7 @@ public class Robot extends LoggedRobot  {
         
         auto = new Auto();
         // Game Piece Manipulation
+        intake = new IntakeSubSys();
         passthrough = new PassthroughSubSys();
         shooter =  new ShooterSubSys();
         climber = new ClimberSubSys();
