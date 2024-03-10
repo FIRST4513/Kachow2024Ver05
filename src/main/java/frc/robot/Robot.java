@@ -19,6 +19,10 @@ import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.drivetrain.commands.DrivetrainCmds;
 import frc.robot.mechanisms.climber.ClimberSubSys;
 import frc.robot.mechanisms.intake.IntakeSubSys;
+import frc.robot.mechanisms.leds.LEDsSubSys;
+import frc.robot.mechanisms.leds.LEDsConfig;
+import frc.robot.mechanisms.leds.LEDsConfig.LEDDisplayMode;
+import frc.robot.mechanisms.leds.LEDsConfig.Section;
 import frc.robot.mechanisms.passthrough.PassthroughSubSys;
 // import frc.robot.mechanisms.leds.LEDs;
 // import frc.robot.mechanisms.leds.LEDsCommands;
@@ -71,7 +75,7 @@ public class Robot extends LoggedRobot  {
     public static ClimberSubSys     climber;
 
     // Misc
-    // public static LEDs              leds;
+    public static LEDsSubSys        leds;
     // public static RotarySwitchSubSys rotarySwitch;
 
     public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
@@ -125,7 +129,7 @@ public class Robot extends LoggedRobot  {
         climber = new ClimberSubSys();
 
         // Misc
-        // leds = new LEDs();
+        leds = new LEDsSubSys();
         // rotarySwitch = new RotarySwitchSubSys(); 
 
         // Telemetry (MUST BE LAST)
@@ -160,7 +164,14 @@ public class Robot extends LoggedRobot  {
         // else if ( m_rotarySwitch == 6) leds.solid( 0.75, Color.kAqua,   2);
         // // Otherwise turn off leds
         // else                           leds.solid( 0.75, Color.kBlack,  2);
-
+        if (alliance == TeamAlliance.BLUE) {
+            leds.solid(Section.all, Color.kBlue);
+        } else if (alliance == TeamAlliance.RED) {
+            leds.solid(Section.all, Color.kRed);
+        } else {
+            leds.wave(Section.all, Color.kBlue, Color.kRed, LEDsConfig.length, LEDsConfig.waveSlowDuration);
+        }
+        
     }
 
     @Override
@@ -197,6 +208,7 @@ public class Robot extends LoggedRobot  {
     // -----------------  TeleOp Mode Methods ------------------
     @Override
     public void teleopInit() {
+        leds.setLEDDisplayMode(LEDDisplayMode.BREATH);
         updateAlliance();           // Get current Alliance Color and init teleop positions
         pilotGamepad.setMaxSpeeds(pilotGamepad.getSelectedSpeed());
         pilotGamepad.setupTeleopButtons();

@@ -5,6 +5,7 @@ import java.util.Random;
 
 import edu.wpi.first.wpilibj.util.Color;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
+import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.mechanisms.leds.LEDsConfig.Section;
 import frc.robot.mechanisms.leds.LEDsConfig.LEDDisplayMode;
@@ -41,6 +42,8 @@ public class LEDsSubSys extends SubsystemBase {
         if (counter % 5 == 0) { // update the LEDs every 5th cycle
             time = counter * 0.02;  // time is seconds in the 10s loop
                                     // it is really 0.1 increments
+
+            Robot.print("LED display mode: " + displayMode);
 
             switch( displayMode) {
                 case SETUP_STATUS:
