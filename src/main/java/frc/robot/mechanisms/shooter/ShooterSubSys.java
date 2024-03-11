@@ -18,29 +18,18 @@ public class ShooterSubSys extends SubsystemBase {
     }
     private FireState fireState = FireState.STOPPED;
 
-    public enum PivotState {
-        TO_TARGET,  // like automatic
-        MANUAL,
-        STOPPED
-    }
-    private PivotState pivotState = PivotState.MANUAL;
-    private double pivotTargetAngle = 0;
 
     // Devices
     // protected TalonFX bottomMotor = new TalonFX(Motors.shooterMotorID, "CANFD");
     // protected TalonFX topMotor = new TalonFX(Motors.shooterMotorID2, "CANFD");
     protected TalonFX bottomMotor = new TalonFX(Motors.shooterMotorBottom);
     protected TalonFX topMotor = new TalonFX(Motors.shooterMotorTop);
-    protected TalonSRX pivotMotor = new TalonSRX(Motors.pivotMotorID);
+
 
     // Control for motors
     private DutyCycleOut pwmCtrlr = new DutyCycleOut(0);
     private VelocityVoltage velocityPIDCtrlr = new VelocityVoltage(0);
 
-    // Current Position Data
-    public double currentEncCount = 0.0;
-    public double currentArmAngle = 0.0;
-    public double currentArmPower = 0.0;
 
     /* ----- Constructor ----- */
     public ShooterSubSys() { 
@@ -51,7 +40,6 @@ public class ShooterSubSys extends SubsystemBase {
     /* ----- Periodic ----- */
     @Override
     public void periodic() {
-        updateCurrentPositions();
 
         // Set motor speeds on periodic based on current state
         switch (fireState) {
@@ -69,98 +57,6 @@ public class ShooterSubSys extends SubsystemBase {
                         topMotor.setControl(pwmCtrlr.withOutput(0));
         }     
         
-        switch (pivotState) {
-            case TO_TARGET: setPivotToAngle(pivotTargetAngle);
-            case MANUAL: setPivotManualLimits(Robot.operatorGamepad.getPivotAdjust());
-            case STOPPED:
-            default: setPivotByPWM(0);
-        }
-    }
-
-    // ------------------------------------------------------
-    // ---------------- Pivot Motor Methods -----------------
-    // ------------------------------------------------------
-
-    /* ----- Setters ----- */
-    private void setPivotByPWM(double power) {
-        pivotMotor.set(ControlMode.PercentOutput, power);
-    }
-
-    private void setPivotManualLimits(double power) {
-        // positive rotation
-        if ((getEncoderPosition() < ShooterConfig.PIVOT_MAX_ENC) && (getEncoderPosition() > ShooterConfig.PIVOT_MIN_ENC)) {
-            setPivotByPWM(power);
-        } else {
-            setPivotByPWM(0);
-        }
-    }
-
-    private void setPivotToAngle(double angle) {
-        double difference = currentArmAngle - angle;
-
-        // if within threshold, stop arm
-        if (Math.abs(difference) < ShooterConfig.PIVOT_ANGLE_TOLDERANCE) {
-            stopMotors();
-            return;
-        }
-
-        if (difference > 0) {
-            setPivotByPWM(-ShooterConfig.PIVOT_MOVE_SPEED);
-        } else {
-            setPivotByPWM(ShooterConfig.PIVOT_MOVE_SPEED);
-        }
-    }
-
-    public void setNewTargetAngle(double newTargetAngle) {
-        pivotTargetAngle = newTargetAngle;
-    }
-
-    /* ----- Getters ----- */
-
-    public double getEncoderPosition()      { return pivotMotor.getSelectedSensorPosition(); }
-    public double getAngle() { return currentArmAngle; }
-    public boolean getAtTarget() {
-        double difference = currentArmAngle - pivotTargetAngle;
-
-        // if within threshold, stop arm
-        if (Math.abs(difference) < ShooterConfig.PIVOT_ANGLE_TOLDERANCE) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public double getPivotPower() { return pivotMotor.getMotorOutputPercent(); }
-    
-    public void updateCurrentPositions() {
-        currentEncCount = pivotMotor.getSelectedSensorPosition();
-        currentEncCount = currentEncCount % 4096;
-        currentArmAngle = encCountsToAngle(currentEncCount);
-    }
-
-    public boolean isAtTarget() {
-        if ( checkInRange(currentArmAngle, pivotTargetAngle, ShooterConfig.PIVOT_ANGLE_TOLDERANCE)) {
-            return true; }
-        return false;   // Otherwise
-    }
-
-    public boolean checkInRange(double value, double target, double tolerence) {
-        if ((value < (target + tolerence)) &&
-            (value > target - tolerence)) {
-                return true;
-            }
-        return false;
-    }
-
-    public double encCountsToAngle(double counts) {
-        return (counts - ShooterConfig.PIVOT_ENC_OFFSET) * ShooterConfig.PIVOT_ENC_TO_DEG;
-    }
-
-    public double encAngleToCounts(double angle) {
-        return (angle * ShooterConfig.PIVOT_DEG_TO_ENC) + ShooterConfig.PIVOT_ENC_OFFSET;
-    }
-
-    public double getTargetAngle() {
-        return pivotTargetAngle;
     }
 
     // ---------------------------------------------------------
@@ -172,14 +68,7 @@ public class ShooterSubSys extends SubsystemBase {
     public void stopMotors() {
         bottomMotor.stopMotor();
         topMotor.stopMotor();
-        pivotMotor.set(ControlMode.PercentOutput, 0);
         setNewFireState(FireState.STOPPED);
-        setNewPivotState(PivotState.STOPPED);
-    }
-
-    public void stopPivot() {
-        pivotMotor.set(ControlMode.PercentOutput, 0);
-        setNewPivotState(PivotState.STOPPED);
     }
 
     /* ----- Getters ----- */
@@ -217,10 +106,6 @@ public class ShooterSubSys extends SubsystemBase {
         fireState = newState;
     }
 
-    public void setNewPivotState(PivotState newState) {
-        pivotState = newState;
-    }
-
     /* ----- Getters ----- */
 
     public String getFireStateString() {
@@ -233,12 +118,15 @@ public class ShooterSubSys extends SubsystemBase {
         }            
     }
 
-    public String getPivotStateString() {
-        switch (fireState) {
-            case MANUAL: return "MANUAL";
-            default:     return "DEFAULT";
-        }            
+    
+    public boolean checkInRange(double value, double target, double tolerence) {
+        if ((value < (target + tolerence)) &&
+            (value > target - tolerence)) {
+                return true;
+            }
+        return false;
     }
+
 
     // ----------------------------------------------------------------------
     // ---------------- Configure Shooter and Pivot Motors ------------------
@@ -252,10 +140,5 @@ public class ShooterSubSys extends SubsystemBase {
         topMotor.getConfigurator().apply(ShooterFalconConfigs.getConfig());
         topMotor.setInverted(ShooterFalconConfigs.topMotorInvert);
 
-        // Pivot Motor, Window driven by Talon SRX (Phoenix 5)
-        pivotMotor.configFactoryDefault();
-        pivotMotor.configAllSettings(PivotSRXConfig.getConfig());
-        pivotMotor.setInverted(PivotSRXConfig.motorInvert);
-        pivotMotor.setNeutralMode(PivotSRXConfig.neutralMode);
     }
 }

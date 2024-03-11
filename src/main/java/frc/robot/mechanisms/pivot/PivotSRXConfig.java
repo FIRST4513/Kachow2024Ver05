@@ -1,4 +1,4 @@
-package frc.robot.mechanisms.shooter;
+package frc.robot.mechanisms.pivot;
 
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRXConfiguration;

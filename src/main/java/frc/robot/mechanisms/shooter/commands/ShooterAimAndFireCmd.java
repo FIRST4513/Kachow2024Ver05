@@ -8,7 +8,8 @@ import frc.robot.Robot.TeamAlliance;
 import frc.robot.mechanisms.passthrough.PassthroughSubSys.PassthroughState;
 import frc.robot.mechanisms.shooter.ShooterConfig;
 import frc.robot.mechanisms.shooter.ShooterSubSys.FireState;
-import frc.robot.mechanisms.shooter.ShooterSubSys.PivotState;
+import frc.robot.mechanisms.pivot.PivotConfig;
+import frc.robot.mechanisms.pivot.PivotSubSys.PivotState;
 
 public class ShooterAimAndFireCmd extends Command {
     // Variables
@@ -37,7 +38,7 @@ public class ShooterAimAndFireCmd extends Command {
         Robot.shooter.setNewFireState(FireState.SPEAKER);
 
         // Set Pivot to To Target mode
-        Robot.shooter.setNewPivotState(PivotState.TO_TARGET);
+        Robot.pivot.setNewPivotState(PivotState.TO_TARGET);
     }
 
     // Periodic
@@ -50,13 +51,13 @@ public class ShooterAimAndFireCmd extends Command {
             if (distance < 0) { return; }  // less than 0 distance not possible, no target found or math error
 
             // drive shooter pivot to correct shot angle
-            Robot.shooter.setNewTargetAngle(distanceToPivotAngle(distance));
+            Robot.pivot.setNewTargetAngle(distanceToPivotAngle(distance));
 
             // if out of range for shot, return
-            if (distance > ShooterConfig.SPEAKER_MIX_SHOT_DISTANCE) { return; }
+            if (distance > PivotConfig.SPEAKER_MIX_SHOT_DISTANCE) { return; }
 
             // if shooter pivot not at correct angle, return
-            if (!Robot.shooter.isAtTarget()) { return; }
+            if (!Robot.pivot.isAtTarget()) { return; }
 
             // if shooter motors not at correct velocity, return
             if (!Robot.shooter.areMotorsAtVelocityTarget()) { return; }
@@ -91,7 +92,7 @@ public class ShooterAimAndFireCmd extends Command {
 
         // Stop Shooter, Pivot, and Passthrough
         Robot.shooter.setNewFireState(FireState.STOPPED);
-        Robot.shooter.setNewPivotState(PivotState.STOPPED);
+        Robot.pivot.setNewPivotState(PivotState.STOPPED);
         Robot.passthrough.setNewState(PassthroughState.STOPPED);
     }
 
@@ -122,17 +123,17 @@ public class ShooterAimAndFireCmd extends Command {
         // example: 1.4514 -> 50% or 0.5 -> 8.5º
 
         // Constrain distance to min and max range
-        distance = Math.min(Math.max(distance, ShooterConfig.SPEAKER_MIN_SHOT_DISTANCE), ShooterConfig.SPEAKER_MIX_SHOT_DISTANCE);
+        distance = Math.min(Math.max(distance, PivotConfig.SPEAKER_MIN_SHOT_DISTANCE), PivotConfig.SPEAKER_MIX_SHOT_DISTANCE);
 
         // Get range of possible distances
-        double range = ShooterConfig.SPEAKER_MIX_SHOT_DISTANCE - ShooterConfig.SPEAKER_MIN_SHOT_DISTANCE;
+        double range = PivotConfig.SPEAKER_MIX_SHOT_DISTANCE - PivotConfig.SPEAKER_MIN_SHOT_DISTANCE;
         // Get offset distance by subtracting min of range
-        double distanceFromMin = distance - ShooterConfig.SPEAKER_MIN_SHOT_DISTANCE;
+        double distanceFromMin = distance - PivotConfig.SPEAKER_MIN_SHOT_DISTANCE;
         // Get percent of range the current distance is, used for linearly scaling angle
         double percentOfRange = distanceFromMin / range;
 
         // Get range of angles we can shoot at
-        double angleRange = ShooterConfig.SPEAKER_MIX_SHOT_ANGLE - ShooterConfig.SPEAKER_MIN_SHOT_ANGLE;
+        double angleRange = PivotConfig.SPEAKER_MIX_SHOT_ANGLE - PivotConfig.SPEAKER_MIN_SHOT_ANGLE;
         // Linearly scale angle by percent of range we're at
         double finalAngle = angleRange * percentOfRange;
 

@@ -24,6 +24,7 @@ import frc.robot.mechanisms.leds.LEDsConfig;
 import frc.robot.mechanisms.leds.LEDsConfig.LEDDisplayMode;
 import frc.robot.mechanisms.leds.LEDsConfig.Section;
 import frc.robot.mechanisms.passthrough.PassthroughSubSys;
+import frc.robot.mechanisms.pivot.PivotSubSys;
 // import frc.robot.mechanisms.leds.LEDs;
 // import frc.robot.mechanisms.leds.LEDsCommands;
 import frc.robot.mechanisms.rotarySwitch.RotarySwitchSubSys;
@@ -71,6 +72,7 @@ public class Robot extends LoggedRobot  {
     // Game Piece Manipulation
     public static IntakeSubSys      intake;
     public static PassthroughSubSys passthrough;
+    public static PivotSubSys       pivot;
     public static ShooterSubSys     shooter;
     public static ClimberSubSys     climber;
 
@@ -125,6 +127,7 @@ public class Robot extends LoggedRobot  {
         // Game Piece Manipulation
         intake = new IntakeSubSys();
         passthrough = new PassthroughSubSys();
+        pivot = new PivotSubSys();
         shooter =  new ShooterSubSys();
         climber = new ClimberSubSys();
 

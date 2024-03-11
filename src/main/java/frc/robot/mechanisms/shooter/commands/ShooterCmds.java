@@ -6,7 +6,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
 import frc.robot.mechanisms.shooter.ShooterConfig;
 import frc.robot.mechanisms.shooter.ShooterSubSys.FireState;
-import frc.robot.mechanisms.shooter.ShooterSubSys.PivotState;
+import frc.robot.mechanisms.pivot.PivotSubSys.PivotState;
 
 public class ShooterCmds {
     public static void setupDefaultCommand() {
@@ -23,22 +23,22 @@ public class ShooterCmds {
     public static Command stopShooterAndPivotCmd() {
         return new SequentialCommandGroup(
             new InstantCommand(() -> Robot.shooter.stopMotors(), Robot.shooter),
-            new InstantCommand(() -> Robot.shooter.setNewPivotState(PivotState.STOPPED), Robot.shooter)
+            new InstantCommand(() -> Robot.pivot.setNewPivotState(PivotState.STOPPED), Robot.shooter)
         );
     }
 
     public static Command setShooterAndPivotManualCmd() {
         return new SequentialCommandGroup(
             new InstantCommand(() -> Robot.shooter.setNewFireState(FireState.MANUAL)),
-            new InstantCommand(() -> Robot.shooter.setNewPivotState(PivotState.MANUAL))
+            new InstantCommand(() -> Robot.pivot.setNewPivotState(PivotState.MANUAL))
         );
     }
 
     public static Command setShooterAndPivotHPIntakeCmd() {
         return new SequentialCommandGroup(
             new InstantCommand(() -> Robot.shooter.setNewFireState(FireState.HP_INTAKE)),
-            new InstantCommand(() -> Robot.shooter.setNewTargetAngle(ShooterConfig.HP_INTAKE_ANGLE)),
-            new InstantCommand(() -> Robot.shooter.setNewPivotState(PivotState.MANUAL))
+            new InstantCommand(() -> Robot.pivot.setNewTargetAngle(ShooterConfig.HP_INTAKE_ANGLE)),
+            new InstantCommand(() -> Robot.pivot.setNewPivotState(PivotState.MANUAL))
         );
     }
 }

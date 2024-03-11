@@ -20,15 +20,5 @@ public class ShooterTelemetry {
         // State and At Velocity Y/N
         tab.addString("Fire State",       () -> shooter.getFireStateString())       .withPosition(0, 2).withSize(2, 1);
         tab.addBoolean("At Velocity Tgt", () -> shooter.areMotorsAtVelocityTarget()).withPosition(2, 2).withSize(2, 1);
-
-        // Pivot Top Row - Enc Val, Deg, and Pivot State
-        tab.addNumber("Enc",         () -> shooter.getEncoderPosition()) .withPosition(5, 0).withSize(1, 1);
-        tab.addNumber("Deg",         () -> shooter.getAngle())           .withPosition(6, 0).withSize(1, 1);
-        tab.addString("Pivot State", () -> shooter.getPivotStateString()).withPosition(7, 0).withSize(2, 1);
-
-        // Pivot Bottom Row - Target Angle, At Target Y/N, and motor power
-        tab.addNumber("Target angle", () -> shooter.getTargetAngle()).withPosition(5, 1).withSize(2, 1);
-        tab.addBoolean("At Tgt",      () -> shooter.getAtTarget())   .withPosition(6, 1).withSize(1, 1);
-        tab.addNumber("Power",        () -> shooter.getPivotPower()) .withPosition(7, 1).withSize(2, 1);
     }
 }
