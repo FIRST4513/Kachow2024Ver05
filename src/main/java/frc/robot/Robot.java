@@ -164,6 +164,7 @@ public class Robot extends LoggedRobot  {
         // else if ( m_rotarySwitch == 6) leds.solid( 0.75, Color.kAqua,   2);
         // // Otherwise turn off leds
         // else                           leds.solid( 0.75, Color.kBlack,  2);
+        /*
         if (alliance == TeamAlliance.BLUE) {
             leds.solid(Section.all, Color.kBlue);
         } else if (alliance == TeamAlliance.RED) {
@@ -171,7 +172,8 @@ public class Robot extends LoggedRobot  {
         } else {
             leds.wave(Section.all, Color.kBlue, Color.kRed, LEDsConfig.length, LEDsConfig.waveSlowDuration);
         }
-        
+        */ 
+        leds.periodic();
     }
 
     @Override

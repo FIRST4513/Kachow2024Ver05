@@ -4,9 +4,9 @@ public class LEDsConfig {
     public static final int port = 0;
     public static final double strobeFastDuration = 0.1;
     public static final double strobeSlowDuration = 0.2;
-    public static final double breathDuration = 1.0;
+    public static final double breathDuration = 8.0;
     public static final double rainbowCycleLength = 25.0;
-    public static final double rainbowDuration = 0.25;
+    public static final double rainbowDuration = 4.0;
     public static final double waveExponent = 0.4;
     public static final double waveFastCycleLength = 25.0;
     public static final double waveFastDuration = 0.25;
@@ -16,18 +16,19 @@ public class LEDsConfig {
     public static final double waveAllianceDuration = 2.0;
     public static final double autoFadeTime = 2.5;
     public static final double autoFadeMaxTime = 5.0;
-    public static final boolean isSparkActive = true;
+    public static final boolean isSparkleActive = true;
     public static final boolean isLightningActive = true;
+    public static final double brightness = 0.2; // maximum of 1.0
 
     public static final double setupErrorFlashPeriod = 0.25; //s
     public static final double teleopReadyFlashPeriod = 0.25; //s
     public static final double teleopAutoDriveEngagedFlashPeriod = 0.5; //s
-    public static final double marqueePeriod = 0.5; //s
-    public static final double colorMarqueePeriod = 0.5; //s
+    public static final double marqueePeriod = 1.5; //s
+    public static final double colorMarqueePeriod = 1.5; //s
     public static final double kitPeriod = 4.0;
-    public static final int kitWidth = 10;
-    public static final double lightningProbability = 0.1;
-    public static final double sparkleProbability = 0.2;
+    public static final int kitWidth = 4;//10;
+    public static final double lightningProbability = 0.01;
+    public static final double sparkleProbability = 0.1;
 
 
     /*
@@ -37,10 +38,10 @@ public class LEDsConfig {
      * quarters: left, center left, center right, and right.
      * 
      */
-    private static final int lenLeftFront  = 45;
-    private static final int lenLeftBack   = 45;
-    private static final int lenRightFront = 45;
-    private static final int lenRightBack  = 45;
+    private static final int lenLeftFront  = 11;//45;
+    private static final int lenLeftBack   = 11;//45;
+    private static final int lenRightFront = 11;//45;
+    private static final int lenRightBack  = 12;//45;
     public static final int length = lenLeftFront + lenLeftBack +
                                      lenRightFront + lenRightBack;
 
@@ -104,6 +105,8 @@ public class LEDsConfig {
         METEOR,
         MARQUEE,
         COLOR_MARQUEE,
+        FLASH_TEST,
+        CLOUDS,
         NONE;
     }
 

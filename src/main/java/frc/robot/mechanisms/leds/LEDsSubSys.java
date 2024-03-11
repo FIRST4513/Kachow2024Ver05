@@ -12,20 +12,23 @@ import frc.robot.mechanisms.leds.LEDsConfig.LEDDisplayMode;
 import frc.robot.mechanisms.leds.LEDsConfig.Dest;
 
 public class LEDsSubSys extends SubsystemBase {
-    private int counter                         = 0;
-    private double time                         = 0;
-    private Color allianceColor                 = Color.kBlue; // assume blue unless overwritten
-    private boolean isSparkleActive             = false;
-    private boolean isLightningActive           = false;
-    private LEDDisplayMode displayMode          = LEDDisplayMode.NONE;
+    private int counter                = 0;
+    private double time                = 0;
+    private Color allianceColor        = Color.kYellow; // for fail fast!
+    private boolean isSparkleActive    = false;
+    private boolean isLightningActive  = false;
+    private double brightness          = 0;
+    private int length                 = 0;
+    private LEDDisplayMode displayMode = LEDDisplayMode.NONE;
     private LEDstrip ledstrip;
 
 
     // ---- CONSTRUCTOR ----
     public LEDsSubSys () {
         ledstrip            = new LEDstrip( LEDsConfig.port, LEDsConfig.length);
-        isSparkleActive     = LEDsConfig.isSparkActive;
+        isSparkleActive     = LEDsConfig.isSparkleActive;
         isLightningActive   = LEDsConfig.isLightningActive;
+        brightness          = LEDsConfig.brightness;
         displayMode         = LEDDisplayMode.NONE;
 
         counter             = 0;
@@ -34,7 +37,7 @@ public class LEDsSubSys extends SubsystemBase {
     } //end constructor
 
     public void periodic() {
-        counter = (counter + 1) % 500; // sets up timing for 10s loop
+        counter = (counter + 1);// % 500; // sets up timing for 10s loop
         // factors of 500: 2 2 5 5 5
         // factors of 24*20 = 480 = 2 2 2 2 2 3 5
         // factors of 4*9*25 = 900 - 2 2 3 3 5 5
@@ -43,7 +46,20 @@ public class LEDsSubSys extends SubsystemBase {
             time = counter * 0.02;  // time is seconds in the 10s loop
                                     // it is really 0.1 increments
 
-            // Robot.print("LED display mode: " + displayMode);
+            displayMode         = LEDDisplayMode.NONE;
+            displayMode         = LEDDisplayMode.TELEOP_STATUS;
+
+            displayMode         = LEDDisplayMode.FLASH_TEST; // tested
+            displayMode         = LEDDisplayMode.KIT; // tested
+            displayMode         = LEDDisplayMode.METEOR; // tested
+            displayMode         = LEDDisplayMode.MARQUEE; // tested
+            displayMode         = LEDDisplayMode.COLOR_MARQUEE; // tested
+            displayMode         = LEDDisplayMode.RAINBOW_WAVE; // tested
+            displayMode         = LEDDisplayMode.RAINBOW; // tested
+            displayMode         = LEDDisplayMode.SETUP_STATUS;
+            displayMode         = LEDDisplayMode.TELEOP_STATUS;
+            displayMode         = LEDDisplayMode.BREATH; // tested
+            displayMode         = LEDDisplayMode.CLOUDS; // tested
 
             switch( displayMode) {
                 case SETUP_STATUS:
@@ -61,30 +77,48 @@ public class LEDsSubSys extends SubsystemBase {
                           LEDsConfig.waveSlowDuration);
                     break;
                 case METEOR:
-                    meteor( Section.leftFront, allianceColor, 8, 0.5, 1.0, false);
-                    meteor( Section.leftBack, allianceColor, 8, 0.5, 1.0,  true);
+                    /*
+                    meteor( Section.leftFront,  allianceColor, 8, 0.5, 1.0, false);
+                    meteor( Section.leftBack,   allianceColor, 8, 0.5, 1.0,  true);
                     meteor( Section.rightFront, allianceColor, 8, 0.5, 1.0, false);
-                    meteor( Section.rightBack, allianceColor, 8, 0.5, 1.0, true);
+                    meteor( Section.rightBack,  allianceColor, 8, 0.5, 1.0, true);
+                    */
+                    meteor( Section.leftFront,  allianceColor, 4, 0.75, 2.0, false);
+                    meteor( Section.leftBack,   allianceColor, 4, 0.75, 2.0, true);
+                    meteor( Section.rightFront, allianceColor, 4, 0.75, 2.0, false);
+                    meteor( Section.rightBack,  allianceColor, 4, 0.75, 2.0, true);
                     break;
                 case MARQUEE:
                     int [] pattern = {1,0,0};
                     marquee( Section.all, allianceColor, pattern,
-                             LEDsConfig.marqueePeriod);
-                    break;
+                             LEDsConfig.marqueePeriod, true);
                 case COLOR_MARQUEE:
                     Color [] colorPattern = { Color.kRed, Color.kWhite, Color.kBlue};
                     colorMarquee( Section.all, colorPattern,
-                                  LEDsConfig.colorMarqueePeriod);
+                                  LEDsConfig.colorMarqueePeriod,
+                                  true);
+                    break;
+                case FLASH_TEST:
+                    flash( Section.leftFront,  Color.kYellow, 1.0);
+                    flash( Section.leftBack,   Color.kRed,    0.5);
+                    flash( Section.rightFront, Color.kGreen,  0.2);
+                    flash( Section.rightBack,  Color.kBlue,   0.1);
+                    break;
+                case BREATH:
+                    breath( Section.all, Color.kRed, Color.kBlue, 5.0);
+                    break;
+                case CLOUDS:
+                    clouds( Section.all, changeBrightness( Color.kWhite, 0.05));
                     break;
                 case KIT:
                 case NONE:
                 default:
                     //TODO nice if kit could use discontinuous LEDs: front and back
 		    // do it on all four strips for now
-                    kit( Section.leftFront, allianceColor, LEDsConfig.kitWidth, LEDsConfig.kitPeriod);
-                    kit( Section.leftBack, allianceColor, LEDsConfig.kitWidth, LEDsConfig.kitPeriod);
-                    kit( Section.rightFront, allianceColor, LEDsConfig.kitWidth, LEDsConfig.kitPeriod);
-                    kit( Section.rightBack, allianceColor, LEDsConfig.kitWidth, LEDsConfig.kitPeriod);
+                    kit( Section.leftFront,  allianceColor, LEDsConfig.kitWidth, LEDsConfig.kitPeriod, false);
+                    kit( Section.leftBack,   allianceColor, LEDsConfig.kitWidth, LEDsConfig.kitPeriod, true);
+                    kit( Section.rightFront, allianceColor, LEDsConfig.kitWidth, LEDsConfig.kitPeriod, false);
+                    kit( Section.rightBack,  allianceColor, LEDsConfig.kitWidth, LEDsConfig.kitPeriod, true);
             }
 
             // check on enchanted modes
@@ -108,8 +142,9 @@ public class LEDsSubSys extends SubsystemBase {
      */
     public void solid( Section section, Color color) {
         if (color != null) {
+            Color solidColor = changeBrightness( color, brightness);
             for (int i = section.start(); i < section.end(); i++) {
-                ledstrip.setLED( i, color);
+                ledstrip.setLED( i, solidColor);
             }
         }
     }
@@ -149,7 +184,7 @@ public class LEDsSubSys extends SubsystemBase {
     public void strobe( Section section, Color color, double duration, double dutyCycle) {
         for (int i = section.start(); i < section.end(); i++) {
             boolean on = ((time % duration) / duration) <= dutyCycle;
-            ledstrip.setLED( i, on ? color : Color.kBlack);
+            ledstrip.setLED( i, on ? changeBrightness(color, brightness) : Color.kBlack);
         }
     }
 
@@ -174,7 +209,9 @@ public class LEDsSubSys extends SubsystemBase {
     public void flashRandomly( Section section, Color color, double probability) {
         Random random = new Random();
         if (random.nextDouble() < probability) {
-            solid( section, color);
+            for (int i = section.start(); i < section.end(); i++) {
+                ledstrip.setLED( i, color); // brightness is not applied
+            }
         }
     }
 
@@ -190,7 +227,7 @@ public class LEDsSubSys extends SubsystemBase {
         int offset = 0;
         if (random.nextDouble() < probability) {
             offset = (int) Math.round( (section.end() - section.start()) * random.nextDouble());
-            ledstrip.setLED( section.start() + offset, color);
+            ledstrip.setLED( section.start() + offset, color); //Brightness not applied
         }
     }
 
@@ -257,9 +294,9 @@ public class LEDsSubSys extends SubsystemBase {
             if (Double.isNaN( ratio)) {
                 ratio = 0.5;
             }
-            double red = (c1.red * (1 - ratio)) + (c2.red * ratio);
-            double green = (c1.green * (1 - ratio)) + (c2.green * ratio);
-            double blue = (c1.blue * (1 - ratio)) + (c2.blue * ratio);
+            double red = brightness * (c1.red * (1 - ratio)) + (c2.red * ratio);
+            double green = brightness * (c1.green * (1 - ratio)) + (c2.green * ratio);
+            double blue = brightness * (c1.blue * (1 - ratio)) + (c2.blue * ratio);
             ledstrip.setLED( i, new Color(red, green, blue));
         }
     }
@@ -299,19 +336,33 @@ public class LEDsSubSys extends SubsystemBase {
                         Section section,
                         Color color,
                         double width,
-                        double duration) {
+                        double duration,
+                        boolean isReversed) {
 
         double ratio = time % duration / duration;
         if (ratio > 0.5) { // fold the ratio in half
             ratio = 1 - ratio;
         }
-        int position = (int) (section.start() + ratio * (section.end() - section.start()));
-        for( int i = section.start(); i < section.end(); i++) {
-            if (i >= position - width/2 && i < position + width/2){
-                ledstrip.setLED( i, color);
-            } else {
-                ledstrip.setLED( i, Color.kBlack);
+        Color kitColor = changeBrightness( color, brightness);
+        length = section.end() - section.start();
+        int position = (int) Math.round ( length * ratio * 2);
+        if (!isReversed) {
+            for( int i = 0; i < length; i++) {
+                if (i >= position - width/2 && i < position + width/2){
+                    ledstrip.setLED( section.start() + i, kitColor);
+                } else {
+                    ledstrip.setLED( section.start() + i, Color.kBlack);
+                }
             }
+        } else {
+            for( int i = 0; i < length; i++) {
+                if (i >= position - width/2 && i < position + width/2){
+                    ledstrip.setLED( section.end() - i -1, kitColor);
+                } else {
+                    ledstrip.setLED( section.end() - i -1, Color.kBlack);
+                }
+            }
+
         }
     }
 
@@ -328,38 +379,34 @@ public class LEDsSubSys extends SubsystemBase {
      */
     public void meteor(
                         Section section,
-                        Color color,
-                        double tailLength,
-                        double shotTime,
-                        double cycleTime,
+                        Color   color,
+                        double  tailLength,
+                        double  shotTime,
+                        double  cycleTime,
                         boolean isReversed) {
 
-        if ((time % cycleTime) < shotTime) {
-            double ratio = time % shotTime / shotTime;
-            if (!isReversed) {
-                int position = (int) (section.start() + ratio * (section.end() - section.start()));
-                for( int i = section.start(); i < section.end(); i++) {
-                    if (i >= position - tailLength && i <= position){
-                        double brightness = (1.0 - (position - i) / tailLength);
-                        int r = (int) Math.round( color.red * brightness * 255);
-                        int g = (int) Math.round( color.green * brightness * 255);
-                        int b = (int) Math.round( color.red * brightness * 255);
-                        ledstrip.setLED( i, r, g, b);
+        double timeInCycle = time % cycleTime;
+        if (timeInCycle < shotTime) {
+            length = section.end() - section.start();
+            double ratio = timeInCycle / shotTime;
+            int position = (int) Math.round( ratio * length);
+            for( int i = 0; i <= length; i++) {
+                if (i >= position - tailLength && i <= position){
+                    double meteorBrightness = 1.0 - ((position - i) / tailLength);
+                    int r = (int) Math.round( brightness * meteorBrightness * color.red * 255);
+                    int g = (int) Math.round( brightness * meteorBrightness * color.green * 255);
+                    int b = (int) Math.round( brightness * meteorBrightness * color.red * 255);
+                    if (!isReversed) {
+                        Robot.print("Meteor Tail:" +  (section.start() + i) + " " +  r+ " " + g + " " + b);
+                        ledstrip.setLED( section.start() + i, r, g, b);
                     } else {
-                        ledstrip.setLED( i, Color.kBlack) ;
+                        ledstrip.setLED( section.end() - i - 1, r, g, b);
                     }
-                }
-            } else { // reverse start and end
-                int position = (int) (section.end() - ratio * (section.end() - section.start()));
-                for( int i = section.end() - 1; i > section.start(); i--) {
-                    if (i >= position && i <= position + tailLength){
-                        double brightness = (1.0 - (position - i) / tailLength);
-                        int r = (int) Math.round( color.red * brightness * 255);
-                        int g = (int) Math.round( color.green * brightness * 255);
-                        int b = (int) Math.round( color.red * brightness * 255);
-                        ledstrip.setLED( i, r, g, b);
+                } else {
+                    if (!isReversed) {
+                        ledstrip.setLED( section.start() + i, Color.kBlack);
                     } else {
-                        ledstrip.setLED( i, Color.kBlack);
+                        ledstrip.setLED( section.end() - i - 1, Color.kBlack);
                     }
                 }
             }
@@ -380,16 +427,22 @@ public class LEDsSubSys extends SubsystemBase {
             Section section,
             Color color,
             int [] pattern,
-            double duration) {
+            double duration,
+            boolean isReversed) {
         
         int offset; 
         double ratio; 
+        Color marqueeColor = changeBrightness( color, brightness);
 
         ratio = time % duration / duration;
-        offset = (int) ratio * pattern.length;
+        if (!isReversed) {
+            offset = (int) Math.round( ratio * pattern.length);
+        } else {
+            offset = pattern.length - (int) Math.round( ratio * pattern.length);
+        }
         for (int i = section.start(); i < section.end(); i++) { 
-            if (pattern[( (i + offset) % pattern.length)] == 1) {
-                ledstrip.setLED( i, color);
+            if (pattern[( (i + offset + pattern.length) % pattern.length)] == 1) {
+                ledstrip.setLED( i, marqueeColor);
             } else {
                 ledstrip.setLED( i, Color.kBlack);
             }
@@ -403,19 +456,29 @@ public class LEDsSubSys extends SubsystemBase {
      * @param section   The section of the LEDs to set
      * @param List <Color>  A list of colors for the pattern
      * @param duration  The time it takes to go through one cycle
+     * @param isReversed The circulation is reversed
      */
+
     public void colorMarquee(
                                 Section section,
                                 Color [] pattern,
-                                double duration) {
+                                double duration,
+                                boolean isReversed) {
         
         double ratio;
         int offset;
+        for (int i = 0; i < pattern.length; i++) {
+            pattern[i] = changeBrightness( pattern[i], brightness);
+        }
         ratio = time % duration / duration;
-        offset = (int) ratio * pattern.length;
+        if (isReversed) {
+            offset = pattern.length - (int) Math.round( ratio * pattern.length);
+        } else {
+            offset = (int) Math.round( ratio * pattern.length);
+        }
         //need an offset into pattern
         for (int i = section.start(); i < section.end(); i++) { 
-            ledstrip.setLED( i, pattern[ i + offset  % pattern.length]);
+            ledstrip.setLED( i, pattern[ (i + offset)  % pattern.length]);
         }
     }
 
@@ -569,6 +632,18 @@ public class LEDsSubSys extends SubsystemBase {
                             LEDsConfig.teleopAutoDriveEngagedFlashPeriod);
             }
         }
+    }
+
+    public void clouds ( Section section, Color color) {
+        solid( section, color);
+    }
+
+
+    public Color changeBrightness ( Color color, double brightness) {
+        return new Color(
+                            color.red   * brightness,
+                            color.green * brightness,
+                            color.blue  * brightness);
     }
 
     public void setLEDDisplayMode ( LEDDisplayMode mode) {
