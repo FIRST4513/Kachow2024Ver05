@@ -17,14 +17,15 @@ public class PivotSubSys  extends SubsystemBase  {
     }
     private PivotState pivotState = PivotState.MANUAL;
 
-    private double pivotTargetAngle = 0;
-
     protected TalonSRX pivotMotor = new TalonSRX(Motors.pivotMotorID);
     
     // Current Position Data
-    public double currentEncCount = 0.0;
-    public double currentArmAngle = 0.0;
-    public double currentArmPower = 0.0;
+    public double currentEncAbsolutePos = 0.0;
+    public double currentEncRawCount = 0.0;
+    public double currentPivotAngle = 0.0;
+    public double currentShooterAngle = 0.0;
+    public double currentPivotPower = 0.0;
+    private double pivotTargetAngle = 0;
 
     /* ----- Periodic ----- */
     @Override
@@ -34,51 +35,46 @@ public class PivotSubSys  extends SubsystemBase  {
         switch (pivotState) {
             case TO_TARGET: setPivotToAngle(pivotTargetAngle);
             case MANUAL: setPivotManualLimits(Robot.operatorGamepad.getPivotAdjust());
-            case STOPPED:
+            case STOPPED: stopMotors();
             default: setPivotByPWM(0);
         }
     }
 
-    /* ----- Setters ----- */
-
-    public void stop() {
-        pivotMotor.set(ControlMode.PercentOutput, 0);
-        setNewPivotState(PivotState.STOPPED);
-    }
-
-    
-    public void setNewPivotState(PivotState newState) {
-        pivotState = newState;
-    }
+    /* ----- State Setters ----- */
+    public void setNewPivotState(PivotState newState)       { pivotState = newState; }
+    public void setStopState()                              { pivotState = PivotState.STOPPED; }
 
 
     // ------------------------------------------------------
     // ---------------- Pivot Motor Methods -----------------
     // ------------------------------------------------------
 
-    /* ----- Setters ----- */
+    public void stopMotors() {
+        pivotMotor.set(ControlMode.PercentOutput, 0);
+        setNewPivotState(PivotState.STOPPED);
+    }
+
     private void setPivotByPWM(double power) {
         pivotMotor.set(ControlMode.PercentOutput, power);
     }
 
     private void setPivotManualLimits(double power) {
         // positive rotation
-        if ((getEncoderPosition() < PivotConfig.PIVOT_MAX_ENC) && (getEncoderPosition() > PivotConfig.PIVOT_MIN_ENC)) {
-            setPivotByPWM(power);
-        } else {
-            setPivotByPWM(0);
-        }
+        if ((getEncoderAbsolutePosition() < PivotConfig.PIVOT_MAX_ADJUSTED_ENC) && 
+            (getEncoderAbsolutePosition() > PivotConfig.PIVOT_MIN_ADJUSTED_ENC)) {
+                    setPivotByPWM(power);
+            } else {
+                    setPivotByPWM(0);
+            }
     }
 
     private void setPivotToAngle(double angle) {
-        double difference = currentArmAngle - angle;
-
-        // if within threshold, stop arm
+        double difference = currentPivotAngle - angle;
+        // if within threshold, stop pivot
         if (Math.abs(difference) < PivotConfig.PIVOT_ANGLE_TOLDERANCE) {
-            stop();
+            stopMotors();
             return;
         }
-
         if (difference > 0) {
             setPivotByPWM(-PivotConfig.PIVOT_MOVE_SPEED);
         } else {
@@ -90,22 +86,65 @@ public class PivotSubSys  extends SubsystemBase  {
         pivotTargetAngle = newTargetAngle;
     }
 
-    /* ----- Getters ----- */
 
-    public double getEncoderPosition()      { return pivotMotor.getSelectedSensorPosition(); }
-    public double getAngle() { return currentArmAngle; }
-    public boolean getAtTarget() {
-        double difference = currentArmAngle - pivotTargetAngle;
-
-        // if within threshold, stop arm
-        if (Math.abs(difference) < PivotConfig.PIVOT_ANGLE_TOLDERANCE) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    public double getPivotPower() { return pivotMotor.getMotorOutputPercent(); }
+    // -------------- Pivot Angle Methods ----------------
     
+    public boolean isAtTarget() {
+        return ( checkInRange(currentPivotAngle, pivotTargetAngle, PivotConfig.PIVOT_ANGLE_TOLDERANCE));
+    }
+
+    public boolean checkInRange(double value, double target, double tolerence) {
+        double diff = value - target;
+        if (Math.abs(diff) < tolerence) {
+            return true;
+        }
+        return false;
+    }
+
+
+    // --------------- Conversion Methods ----------------
+    public double encAbsoluteCountsToAngle(double counts) {
+        return (counts  * PivotConfig.PIVOT_ENC_TO_DEG);
+    }
+
+    public double encAngleToCounts(double angle) {
+        return (angle * PivotConfig.PIVOT_DEG_TO_ENC) + PivotConfig.PIVOT_ENC_OFFSET;
+    }
+
+    public double encCountsToAbsolutePos( double counts) {
+        return (counts - PivotConfig.PIVOT_OFFSET) % 4096.0;
+    }
+
+    public double shooterAngleFromEncoder ( double angle ){
+        // Encoder Angle 0-110 degrees Shooter Angle 0-17 degrees
+        return angle * PivotConfig.PIVOT_ANGLE_TO_SHOOTER_ANGLE;
+    }
+
+    public double encoderAngleFromShooterAngle ( double angle ){
+        // Encoder Angle 0-110 degrees Shooter Angle 0-17 degrees
+        return angle * PivotConfig.SHOOTER_ANGLE_TO_PIVOT_ANGLE;
+    }
+
+
+    // -------------- Update Current Position Data ------------------
+    public void updateCurrentPositions() {
+        currentPivotPower = pivotMotor.getMotorOutputPercent();
+
+        currentEncRawCount =    pivotMotor.getSelectedSensorPosition();
+        currentEncAbsolutePos = encCountsToAbsolutePos( currentEncRawCount );
+        currentPivotAngle =     encCountsToAbsolutePos( currentEncAbsolutePos );
+        currentShooterAngle = encoderAngleFromShooterAngle( currentEncAbsolutePos);
+    }
+
+    /* ----- Getters For Telemetry ----- */
+    public double getEncoderRawPosition()           { return currentEncRawCount; }
+    public double getEncoderAbsolutePosition()      { return currentEncAbsolutePos; }
+    public double getEncoderAngle()                 { return currentPivotAngle; }
+    public double getShooterAngle()                 { return currentShooterAngle; }
+    public double getTargetAngle()                  { return pivotTargetAngle; }
+
+    public double getPivotPower()                   { return currentPivotPower; }
+
     public String getPivotStateString() {
         switch (pivotState) {
             case MANUAL: return "MANUAL";
@@ -113,44 +152,10 @@ public class PivotSubSys  extends SubsystemBase  {
         }            
     }
 
-    public void updateCurrentPositions() {
-        currentEncCount = pivotMotor.getSelectedSensorPosition();
-        currentEncCount = currentEncCount % 4096;
-        currentArmAngle = encCountsToAngle(currentEncCount);
-    }
-
-    public boolean isAtTarget() {
-        if ( checkInRange(currentArmAngle, pivotTargetAngle, PivotConfig.PIVOT_ANGLE_TOLDERANCE)) {
-            return true; }
-        return false;   // Otherwise
-    }
-
-    public boolean checkInRange(double value, double target, double tolerence) {
-        if ((value < (target + tolerence)) &&
-            (value > target - tolerence)) {
-                return true;
-            }
-        return false;
-    }
-
-    public double encCountsToAngle(double counts) {
-        return (counts - PivotConfig.PIVOT_ENC_OFFSET) * PivotConfig.PIVOT_ENC_TO_DEG;
-    }
-
-    public double encAngleToCounts(double angle) {
-        return (angle * PivotConfig.PIVOT_DEG_TO_ENC) + PivotConfig.PIVOT_ENC_OFFSET;
-    }
-
-    public double getTargetAngle() {
-        return pivotTargetAngle;
-    }
-
-
     // ----------------------------------------------------------------------
-    // ---------------- Configure Shooter and Pivot Motors ------------------
+    // --------------------- Configure Pivot Motor --------------------------
     // ----------------------------------------------------------------------
     public void configureMotors(){
-
         // Pivot Motor, Window driven by Talon SRX (Phoenix 5)
         pivotMotor.configFactoryDefault();
         pivotMotor.configAllSettings(PivotSRXConfig.getConfig());
