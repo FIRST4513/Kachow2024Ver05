@@ -4,9 +4,7 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import frc.robot.Robot;
-import frc.robot.mechanisms.shooter.ShooterConfig;
 import frc.robot.mechanisms.shooter.ShooterSubSys.FireState;
-import frc.robot.mechanisms.pivot.PivotSubSys.PivotState;
 
 public class ShooterCmds {
     public static void setupDefaultCommand() {
@@ -20,25 +18,21 @@ public class ShooterCmds {
     // speaker   | shooter: SPEAKER   | pivot: TO TARGET [º from vision]
 
     // Robot.shooter subsystem requirement should stop any running ShooterAimAndFireCmd
-    public static Command stopShooterAndPivotCmd() {
+    public static Command stopCmd() {
         return new SequentialCommandGroup(
-            new InstantCommand(() -> Robot.shooter.stopMotors(), Robot.shooter),
-            new InstantCommand(() -> Robot.pivot.setNewPivotState(PivotState.STOPPED), Robot.shooter)
+            new InstantCommand(() -> Robot.shooter.stopMotors(), Robot.shooter)
         );
     }
 
-    public static Command setShooterAndPivotManualCmd() {
+    public static Command setManualCmd() {
         return new SequentialCommandGroup(
-            new InstantCommand(() -> Robot.shooter.setNewFireState(FireState.MANUAL)),
-            new InstantCommand(() -> Robot.pivot.setNewPivotState(PivotState.MANUAL))
+            new InstantCommand(() -> Robot.shooter.setNewFireState(FireState.MANUAL))
         );
     }
 
-    public static Command setShooterAndPivotHPIntakeCmd() {
+    public static Command setHPIntakeCmd() {
         return new SequentialCommandGroup(
-            new InstantCommand(() -> Robot.shooter.setNewFireState(FireState.HP_INTAKE)),
-            new InstantCommand(() -> Robot.pivot.setNewTargetAngle(ShooterConfig.HP_INTAKE_ANGLE)),
-            new InstantCommand(() -> Robot.pivot.setNewPivotState(PivotState.MANUAL))
+            new InstantCommand(() -> Robot.shooter.setNewFireState(FireState.HP_INTAKE))
         );
     }
 }

@@ -1,8 +1,6 @@
 package frc.robot.mechanisms.shooter;
 
 public class ShooterConfig {
-    // Shooter Pivot Angles for Presets
-    public static final double HP_INTAKE_ANGLE = 0;
 
     // falcon rpm at 1: 6380
     // pulley gear ratio: 0.625 from falcon-to-wheel

@@ -7,6 +7,7 @@ import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Robot;
 import frc.robot.mechanisms.intake.commands.IntakeCmds;
 import frc.robot.mechanisms.passthrough.commands.PassthroughCmds;
+import frc.robot.mechanisms.pivot.commands.PivotCmds;
 import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 
 public class OperatorGamepadCmds {
@@ -20,7 +21,8 @@ public class OperatorGamepadCmds {
         return new SequentialCommandGroup(
             IntakeCmds.intakeSetManualCmd(),
             PassthroughCmds.setManualCmd(),
-            ShooterCmds.setShooterAndPivotManualCmd()
+            ShooterCmds.setManualCmd(),
+            PivotCmds.setManualCmd()
         );
     }
 
@@ -28,7 +30,8 @@ public class OperatorGamepadCmds {
         return new SequentialCommandGroup(
             IntakeCmds.intakeStopCmd(),
             PassthroughCmds.stopPassthroughCmd(),
-            ShooterCmds.stopShooterAndPivotCmd()
+            ShooterCmds.stopCmd(),
+            PivotCmds.stopCmd()
         );
     }
 
@@ -36,7 +39,8 @@ public class OperatorGamepadCmds {
     public static Command hpIntakeUntilGamepiece() {
         return new SequentialCommandGroup(
             PassthroughCmds.setHPIntakeCmd(),  
-            ShooterCmds.setShooterAndPivotHPIntakeCmd(),
+            ShooterCmds.setHPIntakeCmd(),
+            PivotCmds.setHPIntakeCmd(),
             new WaitUntilCommand(() -> Robot.passthrough.getGamepieceDetected()),
             stopAllCmd()
         );

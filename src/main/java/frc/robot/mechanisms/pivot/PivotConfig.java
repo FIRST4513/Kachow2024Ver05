@@ -1,7 +1,9 @@
 package frc.robot.mechanisms.pivot;
 
 public class PivotConfig {
-    
+        // Shooter Pivot Angles for Presets
+        public static final double HP_INTAKE_ANGLE = 0;
+        
         // pivot limits
         protected static final double PIVOT_MAX_ENC = 4000;
         protected static final double PIVOT_MIN_ENC = 2000;

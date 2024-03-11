@@ -7,7 +7,6 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotConfig.Motors;
 import frc.robot.mechanisms.pivot.PivotConfig;
-//import frc.robot.mechanisms.pivot.PivotSubSys.FireState;
 
 public class PivotSubSys  extends SubsystemBase  {
     
