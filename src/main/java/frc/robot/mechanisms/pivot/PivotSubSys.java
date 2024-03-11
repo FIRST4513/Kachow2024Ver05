@@ -41,12 +41,7 @@ public class PivotSubSys  extends SubsystemBase  {
 
     /* ----- Setters ----- */
 
-    public void stopMotors() {
-        pivotMotor.set(ControlMode.PercentOutput, 0);
-        setNewPivotState(PivotState.STOPPED);
-    }
-
-    public void stopPivot() {
+    public void stop() {
         pivotMotor.set(ControlMode.PercentOutput, 0);
         setNewPivotState(PivotState.STOPPED);
     }
@@ -80,7 +75,7 @@ public class PivotSubSys  extends SubsystemBase  {
 
         // if within threshold, stop arm
         if (Math.abs(difference) < PivotConfig.PIVOT_ANGLE_TOLDERANCE) {
-            stopMotors();
+            stop();
             return;
         }
 

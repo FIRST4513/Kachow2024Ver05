@@ -22,7 +22,8 @@ public class ShooterAimAndFireCmd extends Command {
     public ShooterAimAndFireCmd(double secondsRunAfterGamepiece) {
         this.extraTime = secondsRunAfterGamepiece;
 
-        addRequirements(Robot.shooter);
+        addRequirements(Robot.shooter, Robot.pivot);
+
     }
 
     // Initialize
