@@ -70,6 +70,9 @@ public class PivotSubSys  extends SubsystemBase  {
 
     private void setPivotToAngle(double angle) {
         double difference = currentPivotAngle - angle;
+        // TODO check for closest direction to travel
+        
+
         // if within threshold, stop pivot
         if (Math.abs(difference) < PivotConfig.PIVOT_ANGLE_TOLDERANCE) {
             stopMotors();
@@ -130,10 +133,10 @@ public class PivotSubSys  extends SubsystemBase  {
     public void updateCurrentPositions() {
         currentPivotPower = pivotMotor.getMotorOutputPercent();
 
-        currentEncRawCount =    pivotMotor.getSelectedSensorPosition();
+        currentEncRawCount =    pivotMotor.getSelectedSensorPosition() * PivotConfig.PIVOT_ENC_INVERT; // Inverts if necc.
         currentEncAbsolutePos = encCountsToAbsolutePos( currentEncRawCount );
         currentPivotAngle =     encCountsToAbsolutePos( currentEncAbsolutePos );
-        currentShooterAngle = encoderAngleFromShooterAngle( currentEncAbsolutePos);
+        currentShooterAngle =   encoderAngleFromShooterAngle( currentEncAbsolutePos);
     }
 
     /* ----- Getters For Telemetry ----- */
