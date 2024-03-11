@@ -75,28 +75,42 @@ public class PivotSubSys  extends SubsystemBase  {
         
     }
 
-    private void setPivotToAngle(double angle) {
-        if ( angle > PivotConfig.PIVOT_MAX_ANGLE) angle = PivotConfig.PIVOT_MAX_ANGLE;
-        if ( angle < PivotConfig.PIVOT_MIN_ANGLE) angle = PivotConfig.PIVOT_MIN_ANGLE;
-        pivotTargetAngle = angle;
-        double difference = currentPivotAngle - angle;
+    private void setPivotToAngle(double tgtAngle) {
+        if ( tgtAngle > PivotConfig.PIVOT_MAX_ANGLE) tgtAngle = PivotConfig.PIVOT_MAX_ANGLE;
+        if ( tgtAngle < PivotConfig.PIVOT_MIN_ANGLE) tgtAngle = PivotConfig.PIVOT_MIN_ANGLE;
+        pivotTargetAngle = tgtAngle;
 
-        // TODO check for closest direction to travel
-
+        double difference = currentPivotAngle - tgtAngle;
 
         // if within threshold, stop pivot
         if (Math.abs(difference) < PivotConfig.PIVOT_ANGLE_TOLDERANCE) {
             stopMotors();
             return;
         }
-        if (difference > 0) {
-            setPivotByPWM(-PivotConfig.PIVOT_MOVE_SPEED);
-        } else {
-            setPivotByPWM(PivotConfig.PIVOT_MOVE_SPEED);
+
+        if (difference > 180)  {
+            // GO Counter Clockwise This is a shorter route we can go. Invert direction and recalculate
+            setPivotByPWM(PivotConfig.PIVOT_CCW_SPEED);
+            return;
+        }
+        if (difference < -180)  {
+            // GO Counter Clockwise This is a shorter route we can go. Invert direction and recalculate
+            setPivotByPWM(PivotConfig.PIVOT_CW_SPEED);
+            return;
+        }
+        if (difference > 0)  {
+            // GO Counter Clockwise This is a shorter route we can go. Invert direction and recalculate
+            setPivotByPWM(PivotConfig.PIVOT_CW_SPEED);
+            return;
+        }
+        if (difference < 0)  {
+            // GO Counter Clockwise This is a shorter route we can go. Invert direction and recalculate
+            setPivotByPWM(PivotConfig.PIVOT_CCW_SPEED);
+            return;
         }
     }
 
-    
+
 
     public void setNewEncoderAngle(double angle) {
         if ( angle > PivotConfig.PIVOT_MAX_ANGLE) angle = PivotConfig.PIVOT_MAX_ANGLE;
@@ -145,7 +159,7 @@ public class PivotSubSys  extends SubsystemBase  {
     }
 
     public double encCountsToAbsolutePos( double counts) {
-        return (counts - PivotConfig.PIVOT_OFFSET) % 4096.0;
+        return (counts - PivotConfig.PIVOT_ENC_OFFSET) % 4096.0;
     }
 
     public double shooterAngleFromEncoder ( double angle ){

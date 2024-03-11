@@ -5,12 +5,12 @@ public class PivotConfig {
         public static final double HP_INTAKE_ANGLE = 0;
         
         // pivot limits
-        protected static final double PIVOT_OFFSET = 1500;  
+        protected static final double PIVOT_ENC_OFFSET = 1500;  
 
         protected static final double PIVOT_MAX_ADJUSTED_ENC = 4000;
         protected static final double PIVOT_MIN_ADJUSTED_ENC = 2000;
 
-        protected static final double PIVOT_MAX_ANGLE = 120.0;                    // Degrees
+        protected static final double PIVOT_MAX_ANGLE = 195.0;                    // Degrees
         protected static final double PIVOT_MIN_ANGLE = 0.0;     
         
         
@@ -19,8 +19,9 @@ public class PivotConfig {
         protected static final double SHOOTER_MIN_ANGLE = 0.0;
 
         // pivot move to angle speed
-        protected static final double PIVOT_MOVE_SPEED = 0.5;
-    
+        protected static final double PIVOT_CCW_SPEED = 0.5;
+        protected static final double PIVOT_CW_SPEED = -0.5;
+
         // pivot angle tolerance and encoder conversions
 
         public static final double PIVOT_ENC_INVERT = 1.0; // (Counter Clockwise positive)
@@ -28,10 +29,9 @@ public class PivotConfig {
         public static final double PIVOT_DEG_TO_ENC = 11.3777777778;  // (4096/360)
         public static final double PIVOT_ENC_TO_DEG = 0.087890625;  // (360/4096)
         protected static final double PIVOT_ANGLE_TOLDERANCE = 3;
-        protected static final double PIVOT_ENC_OFFSET = 0;
 
 
-        protected static final double PIVOT_ANGLE_TO_SHOOTER_ANGLE = SHOOTER_MAX_ANGLE / PIVOT_MAX_ANGLE; // 0.154545 (17.0 degrees / 110.0 degrees);
+        protected static final double PIVOT_ANGLE_TO_SHOOTER_ANGLE = SHOOTER_MAX_ANGLE / PIVOT_MAX_ANGLE; // 0.154545 (17.0 degrees / 195.0 degrees);
         protected static final double SHOOTER_ANGLE_TO_PIVOT_ANGLE = 1.0 / PIVOT_ANGLE_TO_SHOOTER_ANGLE; // 6.470607  
 
         // Speaker Shot Distance
