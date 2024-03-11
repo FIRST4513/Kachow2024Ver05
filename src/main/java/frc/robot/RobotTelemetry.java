@@ -1,7 +1,5 @@
 package frc.robot;
 
-import edu.wpi.first.wpilibj.AnalogInput;
-import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
 import frc.lib.telemetry.Alert;
@@ -16,8 +14,8 @@ import frc.robot.auto.Auto;
 import frc.robot.drivetrain.DrivetrainTelemetry;
 import frc.robot.mechanisms.climber.ClimberTelemetry;
 import frc.robot.mechanisms.intake.IntakeTelemetry;
-import frc.robot.mechanisms.passthrough.PassthroughSubSys;
 import frc.robot.mechanisms.passthrough.PassthroughTelemetry;
+import frc.robot.mechanisms.pivot.PivotTelemetry;
 import frc.robot.mechanisms.rotarySwitch.RotarySwitchTelemetry;
 import frc.robot.mechanisms.shooter.ShooterTelemetry;
 import frc.robot.vision.VisionTelemetry;
@@ -36,6 +34,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
     // Telemetry for Gamepiece Manipulation and Climbing
     public static IntakeTelemetry           m_IntakeTelemetry;
     public static PassthroughTelemetry      m_PassthroughTelemetry;
+    public static PivotTelemetry            m_PivotTelemetry;
     public static ShooterTelemetry          m_ShooterTelemetry;
     public static ClimberTelemetry          m_ClimberTelemetry;
 
@@ -66,6 +65,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
         m_VisionTelemetry =         new VisionTelemetry(Robot.vision);
         m_IntakeTelemetry =         new IntakeTelemetry(Robot.intake);
         m_PassthroughTelemetry =    new PassthroughTelemetry(Robot.passthrough);
+        m_PivotTelemetry =          new PivotTelemetry(Robot.pivot);
         m_ShooterTelemetry =        new ShooterTelemetry(Robot.shooter);
         m_ClimberTelemetry =        new ClimberTelemetry(Robot.climber);
 
