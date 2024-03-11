@@ -15,26 +15,27 @@ public class IntakeCmds {
         Robot.intake.setDefaultCommand(intakeStopCmd());
     }
 
-    // ------------ Intake Stop ------------------
+    /* ----- Intake Stop Command ----- */
     public static Command intakeStopCmd() {
         return new InstantCommand( () -> Robot.intake.stopMotors(), Robot.intake);
     }
 
-    // ----- Intake Set State Commands -----
+    /* ----- Intake Set State Commands ----- */
     public static Command intakeSetState(IntakeState newState) {
         return new InstantCommand(() -> Robot.intake.setNewState(newState));
     }
 
-    // ----- Intake Set State Command Shortcuts -----
+    /* ----- Intake Set State Command Shortcuts ----- */
     public static Command intakeSetGroundCmd() { return intakeSetState(IntakeState.GROUND); }
-    public static Command intakeSetFeedCmd() { return intakeSetState(IntakeState.SHOOTER_FEED); }
-    public static Command intakeSetTrapCmd() { return intakeSetState(IntakeState.TRAP); }
-    public static Command intakeSetAmpCmd() { return intakeSetState(IntakeState.AMP); }
+    public static Command intakeSetFeedCmd()   { return intakeSetState(IntakeState.SHOOTER_FEED); }
+    public static Command intakeSetTrapCmd()   { return intakeSetState(IntakeState.TRAP); }
+    public static Command intakeSetAmpCmd()    { return intakeSetState(IntakeState.AMP); }
     public static Command intakeSetManualCmd() { return intakeSetState(IntakeState.MANUAL); }
 
-    // ----- Intake Commands with Until Conditions -----
+    /* ----- Intake Command with Until Conditions */
+
     /**
-     * Runs the intake at the ground intake speed until a gamepiece is detected. Will timeout after 10 seconds and quit.
+     * Runs the intake at the ground intake speed until a gamepiece is detected. Will run indefinitely until Interrupted.
      * @return A SequentialCommandGroup
      */
     public static Command intakeGroundUntilGamepieceCmd() {

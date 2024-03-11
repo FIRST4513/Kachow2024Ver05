@@ -8,7 +8,6 @@ import com.ctre.phoenix6.hardware.TalonFX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotConfig.Motors;
-import frc.robot.XBoxCtrlrs.operator.OperatorGamepad;
 
 public class ShooterSubSys extends SubsystemBase {
     public enum FireState {
@@ -78,11 +77,11 @@ public class ShooterSubSys extends SubsystemBase {
     }
 
     /* Pivot Motor Methods */
-    public void setPivotByPWM(double power) {
+    private void setPivotByPWM(double power) {
         pivotMotor.set(ControlMode.PercentOutput, power);
     }
 
-    public void setPivotManualLimits(double power) {
+    private void setPivotManualLimits(double power) {
         // positive rotation
         if ((getEncoderPosition() < ShooterConfig.PIVOT_MAX_ENC) && (getEncoderPosition() > ShooterConfig.PIVOT_MIN_ENC)) {
             setPivotByPWM(power);
@@ -91,7 +90,7 @@ public class ShooterSubSys extends SubsystemBase {
         }
     }
 
-    public void setPivotToAngle(double angle) {
+    private void setPivotToAngle(double angle) {
         double difference = currentArmAngle - angle;
 
         // if within threshold, stop arm
@@ -153,6 +152,10 @@ public class ShooterSubSys extends SubsystemBase {
         return pivotTargetAngle;
     }
 
+    public void setNewTargetAngle(double newTargetAngle) {
+        pivotTargetAngle = newTargetAngle;
+    }
+
     // ---------------------------------------------------------
     // ---------------- Shooter Motor Methods ------------------
     // ---------------------------------------------------------
@@ -181,6 +184,24 @@ public class ShooterSubSys extends SubsystemBase {
     public double getTopPWM() { return topMotor.get(); }
     public double getTopRPS() { return topMotor.getVelocity().getValueAsDouble(); }
     public double getBottomRPS() { return bottomMotor.getVelocity().getValueAsDouble(); }
+
+    private boolean getMotorsAtVelocityTarget(double topVel, double bottomVel) {
+        return (
+            checkInRange(bottomMotor.getVelocity().getValueAsDouble(), bottomVel, ShooterConfig.SHOT_VELOCITY_TOLERANCE)
+            &&
+            checkInRange(topMotor.getVelocity().getValueAsDouble(), topVel, ShooterConfig.SHOT_VELOCITY_TOLERANCE)
+        );
+    }
+
+    public boolean areMotorsAtVelocityTarget() {
+        switch (fireState) {
+            case SPEAKER:   return getMotorsAtVelocityTarget(ShooterConfig.SPEAKER_TOP, ShooterConfig.SPEAKER_BOTTOM);
+            case HP_INTAKE: return getMotorsAtVelocityTarget(ShooterConfig.RETRACT_TOP, ShooterConfig.RETRACT_BOTTOM);
+            case STOPPED:   return getMotorsAtVelocityTarget(0, 0);
+            default:        return false;
+            // Manual included in default
+        }
+    }
 
     // This is just a placeholder for now
     public boolean getIsAtVelocityTgt() {

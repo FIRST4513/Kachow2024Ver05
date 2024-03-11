@@ -23,15 +23,16 @@ public class PassthroughSubSys extends SubsystemBase {
     protected TalonFX motor = new TalonFX(Motors.passthroughMotorID);
     protected AnalogInput gamepieceSensor = new AnalogInput(RobotConfig.AnalogPorts.passthroughSensor);
 
-    // Control for motors
+    // Phoenix 6 Control Method - PWM output
     protected DutyCycleOut pwmCtrlr = new DutyCycleOut(0);
 
-    // Constructor
+    /* ----- Constructor ----- */
     public PassthroughSubSys() {
         configureMotors();
         stopMotors();
     }
 
+    /* ----- Periodic ----- */
     @Override
     public void periodic() {
         // Set motor speeds on periodic based on current state
@@ -43,12 +44,15 @@ public class PassthroughSubSys extends SubsystemBase {
             case EJECT: motor.setControl(pwmCtrlr.withOutput(PassthroughConfig.SPEAKER_EJECT));
                         break;
             case MANUAL: motor.setControl(pwmCtrlr.withOutput(Robot.operatorGamepad.getTriggerTwist()));
+                         break;
             case STOPPED:
             default:    motor.setControl(pwmCtrlr.withOutput(0));
         }    
     }
 
-    /* ----- Passthrough Motor Methods ---- */
+    // -------------------------------------------------
+    // ---------------- Setter Methods -----------------
+    // -------------------------------------------------
     public void setNewState(PassthroughState newState) {
         state = newState;
     }
@@ -58,7 +62,16 @@ public class PassthroughSubSys extends SubsystemBase {
         setNewState(PassthroughState.STOPPED);
     }
 
+    // -------------------------------------------------
+    // ---------------- Getter Methods -----------------
+    // -------------------------------------------------
+
+    /* ----- Motor Getters ----- */
     public double getMotorPower() { return motor.get(); }
+
+    /* ----- State Getters ----- */
+
+    public PassthroughState getState() { return state; }
 
     public String getStateString() {
         switch (state) {
@@ -70,7 +83,7 @@ public class PassthroughSubSys extends SubsystemBase {
         }
     }
 
-    /* ----- Gamepiece Detection Methods ----- */
+    /* ----- Gamepiece Detection Getters ----- */
     public double getSensorVal() {
         return gamepieceSensor.getAverageVoltage();
     }
@@ -90,7 +103,9 @@ public class PassthroughSubSys extends SubsystemBase {
         return "Not Detected";
     }
 
-    /* ---- Configure Motor ---- */
+    // ------------------------------------------------------
+    // ---------------- Motor Configuration -----------------
+    // ------------------------------------------------------
     public void configureMotors(){
         motor.getConfigurator().apply(PassthroughConfig.getConfig());
     }

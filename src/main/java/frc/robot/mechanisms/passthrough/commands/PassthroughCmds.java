@@ -14,23 +14,23 @@ public class PassthroughCmds {
         Robot.passthrough.setDefaultCommand(stopPassthroughCmd());
     }
 
-    // ------------ Intake Stop ------------------
+    /* ----- Passthrough Stop Command ----- */
     public static Command stopPassthroughCmd() {
         return new InstantCommand( () -> Robot.passthrough.stopMotors(), Robot.passthrough);
     }
 
-    // ----- Intake Set State Commands -----
+    /* ----- Passthrough Set State Command ----- */
     public static Command passthroughSetState(PassthroughState newState) {
         return new InstantCommand(() -> Robot.passthrough.setNewState(newState));
     }
 
-    // ----- Intake Set State Command Shortcuts -----
+    /* ----- Passthrough Set State Command Shortcuts ----- */
     public static Command setGroundIntakeCmd() { return passthroughSetState(PassthroughState.GROUND_INTAKE); }
-    public static Command setHPIntakeCmd() { return passthroughSetState(PassthroughState.HP_INTAKE); }
-    public static Command setEjectCmd() { return passthroughSetState(PassthroughState.EJECT); }
-    public static Command setManualCmd() { return passthroughSetState(PassthroughState.MANUAL); }
+    public static Command setHPIntakeCmd()     { return passthroughSetState(PassthroughState.HP_INTAKE); }
+    public static Command setEjectCmd()        { return passthroughSetState(PassthroughState.EJECT); }
+    public static Command setManualCmd()       { return passthroughSetState(PassthroughState.MANUAL); }
 
-    // ----- Commands with custom timing and until conditions -----
+    /* ----- Commands with custom timing and until-conditions ----- */
     public static Command groundIntakeUntilGamepieceCmd() {
         return new SequentialCommandGroup(
             setGroundIntakeCmd(),

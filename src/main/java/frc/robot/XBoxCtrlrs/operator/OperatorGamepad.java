@@ -5,6 +5,7 @@ import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
+import frc.robot.mechanisms.shooter.commands.ShooterAimAndFireCmd;
 import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 
 public class OperatorGamepad extends Gamepad {
@@ -33,10 +34,16 @@ public class OperatorGamepad extends Gamepad {
     
     // ----- Gamepad specific methods for button assignments -----
     public void setupTeleopButtons() {
-        gamepad.rightBumper.onTrue(ShooterCmds.shooterSetManualCmd()).onFalse(ShooterCmds.stopShooterCmd());
+        /* ----- Overrides ----- */
+        gamepad.leftBumper.onTrue(OperatorGamepadCmds.stopAllCmd());
+        gamepad.rightBumper.onTrue(OperatorGamepadCmds.manualAllCmd()).onFalse(OperatorGamepadCmds.stopAllCmd());
 
-        gamepad.aButton.onTrue(ShooterCmds.shooterSetHPIntakeCmd()).onFalse(ShooterCmds.stopShooterCmd());
-        gamepad.bButton.onTrue(ShooterCmds.shooterSetSpeakerCmd()).onFalse(ShooterCmds.stopShooterCmd());
+        /* ----- Intaking ----- */
+        gamepad.aButton.and(gamepad.Dpad.Up).onTrue(OperatorGamepadCmds.hpIntakeUntilGamepiece());
+        gamepad.aButton.and(gamepad.Dpad.Down).onTrue(OperatorGamepadCmds.groundIntakeUntilGamepieceCmd());
+
+        /* ----- Ejecting ----- */
+        gamepad.bButton.and(gamepad.Dpad.Up).onTrue(new ShooterAimAndFireCmd(30));
     }
 
     @Override

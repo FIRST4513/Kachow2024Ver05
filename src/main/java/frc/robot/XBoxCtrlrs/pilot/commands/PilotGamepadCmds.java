@@ -5,9 +5,11 @@ import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
+import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.auto.Auto;
 import frc.robot.auto.comands.AutoCmds;
 import frc.robot.drivetrain.commands.SwerveDriveCmd;
+import frc.robot.mechanisms.shooter.commands.ShooterAimAndFireCmd;
 import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 
 /** Add your docs here. */
@@ -61,15 +63,12 @@ public class PilotGamepadCmds {
 
     public static Command BluebackandfwdCmd() {
         return new SequentialCommandGroup(
-            ShooterCmds.shooterSetSpeakerCmd(),
-            new WaitCommand(1),
-            ShooterCmds.stopShooterCmd(),
+            new ShooterAimAndFireCmd(2),
             AutoCmds.initAndFollowPath("Blueback1m"),
-            new WaitCommand(3),
+            OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
             AutoCmds.followPath("Bluefwd1m"),
-            ShooterCmds.shooterSetSpeakerCmd(),
-            new WaitCommand(1),
-            ShooterCmds.stopShooterCmd()
+            new ShooterAimAndFireCmd(2),
+            OperatorGamepadCmds.stopAllCmd()
         );
     }
 

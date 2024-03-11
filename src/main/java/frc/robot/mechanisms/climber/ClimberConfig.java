@@ -4,7 +4,10 @@ import com.ctre.phoenix6.configs.CurrentLimitsConfigs;
 import com.ctre.phoenix6.configs.MotionMagicConfigs;
 import com.ctre.phoenix6.configs.Slot0Configs;
 import com.ctre.phoenix6.configs.TalonFXConfiguration;
+import com.ctre.phoenix6.signals.InvertedValue;
 import com.ctre.phoenix6.signals.NeutralModeValue;
+
+import frc.robot.RobotConfig;
 
 public class ClimberConfig {
     /* constants for height definitions */
@@ -16,7 +19,7 @@ public class ClimberConfig {
     public static final double posFullClimb = 0;
 
     /* configuration constants */
-    private static final double mmCruiseVelocity = 50;   // 5 rpm cruise
+    private static final double mmCruiseVelocity = 50;  // 5 rpm cruise
     private static final double mmAcceleration   = 30;  // ~0.5 seconds to max vel.
     private static final double mmJerk           = 75;  // ~0.2 seconds to max accel.
 
@@ -30,13 +33,13 @@ public class ClimberConfig {
     private static final double  suppCurrent = 40;      // Max Amps allowed in Supply
     private static final double  suppTimeThresh = 0.1;  // How long to allow unlimited Supply (s)
 
-    protected static final boolean leftMotorInvert = false;
-    protected static final boolean rightMotorInvert = true;
+    protected static final InvertedValue leftMotorInvert  = InvertedValue.CounterClockwise_Positive;  // when running at negative power: should be clockwise
+    protected static final InvertedValue rightMotorInvert = InvertedValue.Clockwise_Positive;  // when running at negative power: should be counterclockwise
 
     private static final NeutralModeValue neutralMode = NeutralModeValue.Brake;
 
     // --------------- Constuctor Setting Up Motor Config values -------------
-    protected static TalonFXConfiguration getConfig() {
+    protected static TalonFXConfiguration getConfig(int motorCanID) {
         /* Declare Configuration Object */
         TalonFXConfiguration config = new TalonFXConfiguration();
 
@@ -66,6 +69,15 @@ public class ClimberConfig {
 
         // Configure neutral mode
         config.MotorOutput.NeutralMode = neutralMode;
+
+        // Configure Inverts based on which motor is being configured
+        if (motorCanID == RobotConfig.Motors.climbLeftMotorID) {
+            config.MotorOutput.Inverted = leftMotorInvert;
+        } else if (motorCanID == RobotConfig.Motors.climbRightMotorID) {
+            config.MotorOutput.Inverted = rightMotorInvert;
+        } else {
+            // do nothing, leave at default
+        }
 
         // finally return an object that will represent the configs we would like to 
         return config;

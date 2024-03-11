@@ -10,40 +10,38 @@ import frc.robot.RobotConfig;
 
 public class ClimberSubSys extends SubsystemBase {
     public enum ClimbState {
-        // Current height, sends 0 power to motors
-        STOPPED,
-        // Manual Control
-        MANUAL,
-        // No load
-        BOTTOM,  // bottom, 0 height, includes holding power
-        TOP,  // top, full height
-        ON_CHAIN,  // lowered enough to hook and pull chain taught
-        // Hold, one power, like a feed forward
-        HOLD_WITH_LOAD
+        STOPPED,        // sends 0 power to motors
+        MANUAL,         // manual control from Operator Gamepad
+        BOTTOM,         // move to height of 0 at -0.25 pwr, includes holding power of -0.015
+        TOP,            // mm to top height
+        ON_CHAIN,       // mm to on-chain position, pulls it taught
+        HOLD_WITH_LOAD  // hold power when climbed, like a feed forward
     }
 
     private ClimbState state = ClimbState.STOPPED;
 
     // Devices - Krakens
-    protected TalonFX leftMotor  = new TalonFX(RobotConfig.Motors.climbLeftMotorID, "CANFD");
+    protected TalonFX leftMotor  = new TalonFX(RobotConfig.Motors.climbLeftMotorID,  "CANFD");
     protected TalonFX rightMotor = new TalonFX(RobotConfig.Motors.climbRightMotorID, "CANFD");
 
-    // possible lower limit switch? Up to mechanical
-    private DigitalInput leftLimitSw = new DigitalInput(RobotConfig.LimitSwitches.climberLeftLowerSw);
+    // Limit Switches
+    private DigitalInput leftLimitSw  = new DigitalInput(RobotConfig.LimitSwitches.climberLeftLowerSw);
     private DigitalInput rightLimitSw = new DigitalInput(RobotConfig.LimitSwitches.climberRightLowerSw);
 
-    // Controls- Phoenix 6 MotionMagic and target positions
+    // Phoenix 6 Control Methods, Motion Magic and PWM out
     private MotionMagicVoltage mmCtrlr = new MotionMagicVoltage(0);
     private DutyCycleOut pwmCtrlr = new DutyCycleOut(0);
 
-    // Constructor
-    public ClimberSubSys() { 
+    /* ----- Constructor ----- */
+    public ClimberSubSys() {
         configureMotors();
         stopMotors();
     } 
 
+    /* ----- Periodic ----- */
     @Override
     public void periodic() {
+        // Move motors based on current state
         switch (state) {
             case STOPPED: stopMotors();
                           break;
@@ -55,17 +53,40 @@ public class ClimberSubSys extends SubsystemBase {
                       break;
             case ON_CHAIN: setMM(ClimberConfig.posOnChain);
                            break;
-            case HOLD_WITH_LOAD: break;
+            case HOLD_WITH_LOAD: break;  // TODO: ADD METHOD HERE FOR HOLD WITH LOAD
             default: setPWM(0);
         }
 
+        // Set encoder to 0 if at bottom for each motor individually
         if (getLeftLowerSw()) { resetLeftEncoder(); }
         if (getRightLowerSw()) { resetRightEncoder(); }
     }
 
-    // ---------------------------------------------------------
-    // ---------------- Climber Motor Methods ------------------
-    // ---------------------------------------------------------
+    // -------------------------------------------------
+    // ---------------- Motor Methods ------------------
+    // -------------------------------------------------
+
+    /* ----- Basic Methods ----- */
+    public void stopMotors() {
+        leftMotor.stopMotor();
+        rightMotor.stopMotor();
+        state = ClimbState.STOPPED;
+    }
+
+    private void setPWM(double output) {
+        setLeftPWM(output);
+        setRightPWM(output);
+    }
+
+    private void setMM(double rotationTarget) {
+        rotationTarget = clampInRange(rotationTarget);
+        
+        leftMotor.setControl(mmCtrlr.withPosition(rotationTarget));
+        rightMotor.setControl(mmCtrlr.withPosition(rotationTarget));
+    }
+
+    /* ----- Smart(er) Methods ----- */
+
     private void setBottom() {
         // Left
         if (getLeftLowerSw()) {
@@ -82,11 +103,6 @@ public class ClimberSubSys extends SubsystemBase {
         } else {
             rightMotor.setControl(pwmCtrlr.withOutput(-0.25));
         }
-    }
-
-    private void setPWM(double output) {
-        setLeftPWM(output);
-        setRightPWM(output);
     }
 
     private void setLeftPWM(double output) {
@@ -131,12 +147,11 @@ public class ClimberSubSys extends SubsystemBase {
         rightMotor.setControl(pwmCtrlr.withOutput(output));
     }
 
-    private void setMM(double rotationTarget) {
-        rotationTarget = clampInRange(rotationTarget);
-        
-        leftMotor.setControl(mmCtrlr.withPosition(rotationTarget));
-        rightMotor.setControl(mmCtrlr.withPosition(rotationTarget));
-    }
+    // ---------------------------------------------------
+    // ---------------- Encoder Methods ------------------
+    // ---------------------------------------------------
+
+    /* ----- Resetters ----- */
 
     private void resetLeftEncoder() {
         leftMotor.setPosition(0);
@@ -146,39 +161,23 @@ public class ClimberSubSys extends SubsystemBase {
         rightMotor.setPosition(0);
     }
 
+    /* ----- Getters ----- */
+
+    public double getLeftRotations() { return leftMotor.getPosition().getValueAsDouble(); }
+    public double getRightRotations() { return rightMotor.getPosition().getValueAsDouble(); }
+
+    // ---------------------------------------------------
+    // ---------------- State Methods --------------------
+    // ---------------------------------------------------
+
     public void setNewState(ClimbState newState) {
         state = newState;
     }
 
-    public void stopMotors() {
-        leftMotor.stopMotor();
-        rightMotor.stopMotor();
-        state = ClimbState.STOPPED;
-    }
+    /* ----- Getters ----- */
 
-    // ---------- Position Getters ----------
-    public double getLeftRotations() { return leftMotor.getPosition().getValueAsDouble(); }
-    public double getRightRotations() { return rightMotor.getPosition().getValueAsDouble(); }
+    public ClimbState getState() { return state; }
 
-    // ----- Conversion Methods -----
-
-    protected double clampInRange(double rotations) {
-        if (rotations < 0) return 0;
-        if (rotations > ClimberConfig.MAX_ROTATIONS) return ClimberConfig.MAX_ROTATIONS;
-        return rotations;
-    }
-
-    // ----- Speed Getters -----
-    public double getLeftPower() { return leftMotor.get(); }
-    public double getRightPower() { return rightMotor.get(); }
-
-    // ---------- Limit Switch and Position Getters --------
-
-    public boolean getLeftLowerSw() { return !leftLimitSw.get(); }
-    public boolean getRightLowerSw() { return !rightLimitSw.get(); }
-    public boolean isLeftAtTop() { return getLeftRotations() >= ClimberConfig.MAX_ROTATIONS; }
-    public boolean isRightAtTop() { return getRightRotations() >= ClimberConfig.MAX_ROTATIONS; }
-    public boolean isBothAtTop() { return isLeftAtTop() && isRightAtTop(); }
     public String getStateString() {
         switch (state) {
             case STOPPED: return "STOPPED";
@@ -191,14 +190,35 @@ public class ClimberSubSys extends SubsystemBase {
         }
     }
 
+    // ---------------------------------------------------
+    // ---------------- Misc. Getters --------------------
+    // ---------------------------------------------------
+
+    /* ----- Powers ----- */
+    public double getLeftPower() { return leftMotor.get(); }
+    public double getRightPower() { return rightMotor.get(); }
+
+    /* ----- Limit Switches ----- */
+    public boolean getLeftLowerSw() { return !leftLimitSw.get(); }
+    public boolean getRightLowerSw() { return !rightLimitSw.get(); }
+    public boolean isLeftAtTop() { return getLeftRotations() >= ClimberConfig.MAX_ROTATIONS; }
+    public boolean isRightAtTop() { return getRightRotations() >= ClimberConfig.MAX_ROTATIONS; }
+    public boolean isBothAtTop() { return isLeftAtTop() && isRightAtTop(); }
+
+
+    /* ----- Conversion Methods ----- */
+
+    protected double clampInRange(double rotations) {
+        if (rotations < 0) return 0;
+        if (rotations > ClimberConfig.MAX_ROTATIONS) return ClimberConfig.MAX_ROTATIONS;
+        return rotations;
+    }
+
     // ------------------------------------------------------------
     // ---------------- Configure Climber Motors ------------------
     // ------------------------------------------------------------
     public void configureMotors() {
-        leftMotor.getConfigurator().apply(ClimberConfig.getConfig());
-        leftMotor.setInverted(ClimberConfig.leftMotorInvert);
-
-        rightMotor.getConfigurator().apply(ClimberConfig.getConfig());
-        rightMotor.setInverted(ClimberConfig.rightMotorInvert);
+        leftMotor.getConfigurator().apply(ClimberConfig.getConfig(RobotConfig.Motors.climbLeftMotorID));
+        rightMotor.getConfigurator().apply(ClimberConfig.getConfig(RobotConfig.Motors.climbRightMotorID));
     }
 }

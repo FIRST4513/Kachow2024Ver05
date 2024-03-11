@@ -24,13 +24,14 @@ public class IntakeSubSys extends SubsystemBase {
     public WPI_TalonSRX intakeMotor = new WPI_TalonSRX(Motors.intakeMotorID);
     public AnalogInput gamepieceDetectSensor = new AnalogInput(AnalogPorts.intakeGamepieceSensor);
 
-    // Constructor
+    /* ----- Constructor ----- */
     public IntakeSubSys() { 
         configureTalonSRXControllers();
         stopMotors();
         setBrakeMode(true);
     } 
 
+    /* ----- Periodic ----- */
     @Override
     public void periodic() {
         // drive motor based on the current state
@@ -50,9 +51,11 @@ public class IntakeSubSys extends SubsystemBase {
         }
     }
 
-    // ------------------------------------------------------------
-    // ---------------- Intake Motor Set Methods ------------------
-    // ------------------------------------------------------------
+    // --------------------------------------------------------
+    // ---------------- Intake Motor Methods ------------------
+    // --------------------------------------------------------
+
+    /* ----- Setters ----- */
 
     public void setNewState(IntakeState newState) {
         state = newState;
@@ -73,11 +76,9 @@ public class IntakeSubSys extends SubsystemBase {
         }
     }
 
-    // ------------------------------------------------------------
-    // ---------------- Intake Motor Get Methods ------------------
-    // ------------------------------------------------------------
+    /* ----- Getters ---- */
 
-    public double getMotorSpeed()              { return intakeMotor.get(); }
+    public double getMotorSpeed() { return intakeMotor.get(); }
     public IntakeState getState() { return state; }
 
     public String getStateString() {
