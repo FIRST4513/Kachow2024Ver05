@@ -41,12 +41,4 @@ public class ShooterCmds {
             new InstantCommand(() -> Robot.shooter.setNewPivotState(PivotState.MANUAL))
         );
     }
-
-    public static Command setShooterAndPivotAutoSpeakerCmd() {
-        return new SequentialCommandGroup(
-            new InstantCommand(() -> Robot.shooter.setNewFireState(FireState.HP_INTAKE)),
-            new InstantCommand(() -> Robot.shooter.setNewTargetAngle(ShooterConfig.HP_INTAKE_ANGLE)),
-            new InstantCommand(() -> Robot.shooter.setNewPivotState(PivotState.MANUAL))
-        );
-    }
 }

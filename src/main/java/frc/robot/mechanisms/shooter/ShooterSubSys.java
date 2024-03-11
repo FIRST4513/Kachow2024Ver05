@@ -42,12 +42,13 @@ public class ShooterSubSys extends SubsystemBase {
     public double currentArmAngle = 0.0;
     public double currentArmPower = 0.0;
 
-    // Constructor
+    /* ----- Constructor ----- */
     public ShooterSubSys() { 
         configureMotors();
         stopMotors();
     } 
 
+    /* ----- Periodic ----- */
     @Override
     public void periodic() {
         updateCurrentPositions();
@@ -76,7 +77,11 @@ public class ShooterSubSys extends SubsystemBase {
         }
     }
 
-    /* Pivot Motor Methods */
+    // ------------------------------------------------------
+    // ---------------- Pivot Motor Methods -----------------
+    // ------------------------------------------------------
+
+    /* ----- Setters ----- */
     private void setPivotByPWM(double power) {
         pivotMotor.set(ControlMode.PercentOutput, power);
     }
@@ -105,6 +110,12 @@ public class ShooterSubSys extends SubsystemBase {
             setPivotByPWM(ShooterConfig.PIVOT_MOVE_SPEED);
         }
     }
+
+    public void setNewTargetAngle(double newTargetAngle) {
+        pivotTargetAngle = newTargetAngle;
+    }
+
+    /* ----- Getters ----- */
 
     public double getEncoderPosition()      { return pivotMotor.getSelectedSensorPosition(); }
     public double getAngle() { return currentArmAngle; }
@@ -152,20 +163,11 @@ public class ShooterSubSys extends SubsystemBase {
         return pivotTargetAngle;
     }
 
-    public void setNewTargetAngle(double newTargetAngle) {
-        pivotTargetAngle = newTargetAngle;
-    }
-
     // ---------------------------------------------------------
     // ---------------- Shooter Motor Methods ------------------
     // ---------------------------------------------------------
-    public void setNewFireState(FireState newState) {
-        fireState = newState;
-    }
 
-    public void setNewPivotState(PivotState newState) {
-        pivotState = newState;
-    }
+    /* ----- Setters ----- */
 
     public void stopMotors() {
         bottomMotor.stopMotor();
@@ -179,6 +181,8 @@ public class ShooterSubSys extends SubsystemBase {
         pivotMotor.set(ControlMode.PercentOutput, 0);
         setNewPivotState(PivotState.STOPPED);
     }
+
+    /* ----- Getters ----- */
     
     public double getBottomPWM() { return bottomMotor.get(); }
     public double getTopPWM() { return topMotor.get(); }
@@ -203,11 +207,21 @@ public class ShooterSubSys extends SubsystemBase {
         }
     }
 
-    // This is just a placeholder for now
-    public boolean getIsAtVelocityTgt() {
-        return false;
+    // -------------------------------------------------
+    // ---------------- State Methods ------------------
+    // -------------------------------------------------
+
+    /* ----- Setters ----- */
+
+    public void setNewFireState(FireState newState) {
+        fireState = newState;
     }
 
+    public void setNewPivotState(PivotState newState) {
+        pivotState = newState;
+    }
+
+    /* ----- Getters ----- */
 
     public String getFireStateString() {
         switch (fireState) {
@@ -226,9 +240,9 @@ public class ShooterSubSys extends SubsystemBase {
         }            
     }
 
-    // -----------------------------------------------------------
-    // ---------------- Configure Shooter Motor ------------------
-    // -----------------------------------------------------------
+    // ----------------------------------------------------------------------
+    // ---------------- Configure Shooter and Pivot Motors ------------------
+    // ----------------------------------------------------------------------
     public void configureMotors(){
         // Bottom Motor (Phoenix 6)
         bottomMotor.getConfigurator().apply(ShooterFalconConfigs.getConfig());

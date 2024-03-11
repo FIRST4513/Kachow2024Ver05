@@ -18,8 +18,8 @@ public class ShooterTelemetry {
         tab.addNumber("Bottom RPS",    () -> shooter.getBottomRPS()).withPosition(2, 1).withSize(2, 1);
 
         // State and At Velocity Y/N
-        tab.addString("Fire State",       () -> shooter.getFireStateString()).withPosition(0, 2).withSize(2, 1);
-        tab.addBoolean("At Velocity Tgt", () -> shooter.getIsAtVelocityTgt()).withPosition(2, 2).withSize(2, 1);
+        tab.addString("Fire State",       () -> shooter.getFireStateString())       .withPosition(0, 2).withSize(2, 1);
+        tab.addBoolean("At Velocity Tgt", () -> shooter.areMotorsAtVelocityTarget()).withPosition(2, 2).withSize(2, 1);
 
         // Pivot Top Row - Enc Val, Deg, and Pivot State
         tab.addNumber("Enc",         () -> shooter.getEncoderPosition()) .withPosition(5, 0).withSize(1, 1);

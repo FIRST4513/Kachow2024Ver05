@@ -2,11 +2,9 @@ package frc.robot.XBoxCtrlrs.operator;
 
 import frc.lib.gamepads.Gamepad;
 import frc.lib.gamepads.mapping.ExpCurve;
-import frc.robot.Robot;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.mechanisms.shooter.commands.ShooterAimAndFireCmd;
-import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 
 public class OperatorGamepad extends Gamepad {
     public static ExpCurve intakeThrottleCurve = new ExpCurve(
@@ -43,7 +41,7 @@ public class OperatorGamepad extends Gamepad {
         gamepad.aButton.and(gamepad.Dpad.Down).onTrue(OperatorGamepadCmds.groundIntakeUntilGamepieceCmd());
 
         /* ----- Ejecting ----- */
-        gamepad.bButton.and(gamepad.Dpad.Up).onTrue(new ShooterAimAndFireCmd(30));
+        gamepad.bButton.and(gamepad.Dpad.Up).onTrue(new ShooterAimAndFireCmd(5));
     }
 
     @Override
