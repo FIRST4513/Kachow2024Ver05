@@ -26,6 +26,7 @@ public class PivotSubSys  extends SubsystemBase  {
     public double currentShooterAngle = 0.0;
     public double currentPivotPower = 0.0;
     private double pivotTargetAngle = 0;
+    private double shooterTargetAngle = 0;
 
     /* ----- Periodic ----- */
     @Override
@@ -34,6 +35,7 @@ public class PivotSubSys  extends SubsystemBase  {
         
         switch (pivotState) {
             case TO_TARGET: setPivotToAngle(pivotTargetAngle);
+
             case MANUAL: setPivotManualLimits(Robot.operatorGamepad.getPivotAdjust());
             case STOPPED: stopMotors();
             default: setPivotByPWM(0);
@@ -52,10 +54,14 @@ public class PivotSubSys  extends SubsystemBase  {
     public void stopMotors() {
         pivotMotor.set(ControlMode.PercentOutput, 0);
         setNewPivotState(PivotState.STOPPED);
+        //pivotTargetAngle = 0.0;     // clear any previous target
+        //shooterTargetAngle = 0.0;        
     }
 
     private void setPivotByPWM(double power) {
         pivotMotor.set(ControlMode.PercentOutput, power);
+        //pivotTargetAngle = 0.0;     // clear any previous target
+        //shooterTargetAngle = 0.0;
     }
 
     private void setPivotManualLimits(double power) {
@@ -66,12 +72,17 @@ public class PivotSubSys  extends SubsystemBase  {
             } else {
                     setPivotByPWM(0);
             }
+        
     }
 
     private void setPivotToAngle(double angle) {
+        if ( angle > PivotConfig.PIVOT_MAX_ANGLE) angle = PivotConfig.PIVOT_MAX_ANGLE;
+        if ( angle < PivotConfig.PIVOT_MIN_ANGLE) angle = PivotConfig.PIVOT_MIN_ANGLE;
+        pivotTargetAngle = angle;
         double difference = currentPivotAngle - angle;
+
         // TODO check for closest direction to travel
-        
+
 
         // if within threshold, stop pivot
         if (Math.abs(difference) < PivotConfig.PIVOT_ANGLE_TOLDERANCE) {
@@ -85,10 +96,29 @@ public class PivotSubSys  extends SubsystemBase  {
         }
     }
 
-    public void setNewTargetAngle(double newTargetAngle) {
-        pivotTargetAngle = newTargetAngle;
+    
+
+    public void setNewEncoderAngle(double angle) {
+        if ( angle > PivotConfig.PIVOT_MAX_ANGLE) angle = PivotConfig.PIVOT_MAX_ANGLE;
+        if ( angle < PivotConfig.PIVOT_MIN_ANGLE) angle = PivotConfig.PIVOT_MIN_ANGLE;
+        pivotTargetAngle = angle;
+        shooterTargetAngle = shooterAngleFromEncoder(pivotTargetAngle);
     }
 
+    public void setNewShooterAngle(double angle) {
+        if ( angle > PivotConfig.SHOOTER_MAX_ANGLE) angle = PivotConfig.SHOOTER_MAX_ANGLE;
+        if ( angle < PivotConfig.SHOOTER_MIN_ANGLE) angle = PivotConfig.SHOOTER_MIN_ANGLE;
+        shooterTargetAngle = angle;
+        pivotTargetAngle = encoderAngleFromShooterAngle(shooterTargetAngle);
+    }
+
+    private void setShooterToAngle( double angle) {
+        // Angle 0 degrees to 17 Degrees
+        if ( angle > PivotConfig.SHOOTER_MAX_ANGLE) angle = PivotConfig.SHOOTER_MAX_ANGLE;
+        if ( angle < PivotConfig.SHOOTER_MIN_ANGLE) angle = PivotConfig.SHOOTER_MIN_ANGLE;
+        shooterTargetAngle = angle;
+        setPivotToAngle( encoderAngleFromShooterAngle(angle) );
+    }
 
     // -------------- Pivot Angle Methods ----------------
     

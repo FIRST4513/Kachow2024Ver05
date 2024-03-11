@@ -33,7 +33,7 @@ public class PivotCmds {
 
     public static Command setHPIntakeCmd() {
         return new SequentialCommandGroup(
-            new InstantCommand(() -> Robot.pivot.setNewTargetAngle(PivotConfig.HP_INTAKE_ANGLE)),
+            new InstantCommand(() -> Robot.pivot.setNewShooterAngle(PivotConfig.HP_INTAKE_ANGLE)),
             new InstantCommand(() -> Robot.pivot.setNewPivotState(PivotState.MANUAL))
         );
     }

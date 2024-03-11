@@ -52,7 +52,7 @@ public class ShooterAimAndFireCmd extends Command {
             if (distance < 0) { return; }  // less than 0 distance not possible, no target found or math error
 
             // drive shooter pivot to correct shot angle
-            Robot.pivot.setNewTargetAngle(distanceToPivotAngle(distance));
+            Robot.pivot.setNewShooterAngle(distanceToPivotAngle(distance));
 
             // if out of range for shot, return
             if (distance > PivotConfig.SPEAKER_MIX_SHOT_DISTANCE) { return; }
