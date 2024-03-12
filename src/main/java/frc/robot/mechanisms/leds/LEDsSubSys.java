@@ -15,6 +15,7 @@ public class LEDsSubSys extends SubsystemBase {
     private int counter                = 0;
     private double time                = 0;
     private Color allianceColor        = Color.kYellow; // for fail fast!
+    private Color notAllianceColor     = Color.kPurple; // for fail fast!
     private boolean isSparkleActive    = false;
     private boolean isLightningActive  = false;
     private double brightness          = 0;
@@ -124,7 +125,7 @@ public class LEDsSubSys extends SubsystemBase {
 
             // check on enchanted modes
             if ( isLightningActive) {
-                flashRandomly( Section.all, Color.kWhite,
+                flashRandomly( Section.all, notAllianceColor,
                                LEDsConfig.lightningProbability);
             }
             if ( isSparkleActive) {
@@ -658,5 +659,13 @@ public class LEDsSubSys extends SubsystemBase {
 
     public void setLEDTeamColor ( Color color) {
         allianceColor = color;
+
+        if (color == Color.kRed) {
+            notAllianceColor = Color.kBlue;
+        } else if (color == Color.kBlue) {
+            notAllianceColor = Color.kRed;
+        } else {
+            notAllianceColor = Color.kPurple;
+        }
     }
 } //end LEDsSubSys

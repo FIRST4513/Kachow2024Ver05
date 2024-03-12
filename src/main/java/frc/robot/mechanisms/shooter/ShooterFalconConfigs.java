@@ -8,7 +8,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 public class ShooterFalconConfigs {
     /* Inverts */
     protected static final boolean bottomMotorInvert = true;
-    protected static final boolean topMotorInvert = false   ;
+    protected static final boolean topMotorInvert = false;
     
     /* PID Values */
     private static final double kP = 0.65;   // (P)roportional value
@@ -23,7 +23,7 @@ public class ShooterFalconConfigs {
     private static final double suppTimeThresh = 0.1;  // How long to allow unlimited Supply (s)
 
     /* Neutral Mode */
-    private static final NeutralModeValue neutralMode = NeutralModeValue.Coast;
+    private static final NeutralModeValue neutralMode = NeutralModeValue.Brake;
 
     // --------------- Constuctor Setting Up Motor Config values -------------
     public static TalonFXConfiguration getConfig() {

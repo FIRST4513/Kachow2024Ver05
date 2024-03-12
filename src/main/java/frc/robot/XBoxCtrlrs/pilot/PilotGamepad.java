@@ -67,6 +67,10 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());
         gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetOnChain());
         gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetManual());
+
+        // Possible climber control:
+        // Left D-pad: control left with right stick
+        // Right D-pad: control right with right stick
         
 
         // buttons for testing shooter
@@ -99,12 +103,7 @@ public class PilotGamepad extends Gamepad {
 
     // side-to-side across the field
     public double getDriveLeftPositive() {
-        // right will be priority in code, but not primarily used in driving practice
-        if (Math.abs(this.gamepad.rightStick.getX()) > Math.abs(this.gamepad.leftStick.getX())) {
-            return sidewaysSpeedCurve.calculateMappedVal(this.gamepad.rightStick.getX()) * 1;  // change later to scale
-        } else {
-            return sidewaysSpeedCurve.calculateMappedVal(this.gamepad.leftStick.getX());
-        }
+        return sidewaysSpeedCurve.calculateMappedVal(this.gamepad.leftStick.getX());
     }
 
     //Positive is counter-clockwise, left Trigger is positive
