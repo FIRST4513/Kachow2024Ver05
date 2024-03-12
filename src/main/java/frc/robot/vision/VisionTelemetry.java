@@ -29,8 +29,14 @@ public class VisionTelemetry {
         tab.addNumber("Best Tag Ambiguity", () -> Robot.vision.getBestAmbiguity()).withPosition(0, 3).withSize(4, 1);
         tab.addNumber("Timestamp/Latency", () -> Robot.vision.getVisionPoseEst().getTimestamp()).withPosition(0, 4).withSize(4, 1);
 
-        tab.addString("Pose To Blue Spkr Tag", () -> getRobotToBlueSpkrTagPose()).withPosition(5, 0).withSize(4, 1);
-        tab.addString("Pose To Red Spkr Tag",  () -> getRobotToRedSpkrTagPose()) .withPosition(5, 1).withSize(4, 1);
+
+        if (Robot.alliance == Robot.TeamAlliance.BLUE) {
+            tab.add("Spkr Color", "Blue")                                .withPosition(5, 0).withSize(4, 1);
+            tab.addString("Spkr Tag", () -> getRobotToBlueSpkrTagPose()) .withPosition(5, 1).withSize(4, 1);
+        } else {
+            tab.add("Spkr Color", "RED")                                 .withPosition(5, 0).withSize(4, 1);
+            tab.addString("Spkr Tag",  () -> getRobotToRedSpkrTagPose()) .withPosition(5, 1).withSize(4, 1);
+        }
 
         // cam0Name = vision.cameras[0].getName();
         // cam1Name = vision.cameras[1].getName();

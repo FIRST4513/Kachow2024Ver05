@@ -89,7 +89,7 @@ public class Robot extends LoggedRobot  {
     public void robotInit() {
         sysTimer.reset();			// System timer for Competition run
         sysTimer.start();
-        // updateAlliance();           // Get current Alliance Color and init teleop positions
+        //updateAlliance();           // Get current Alliance Color and init teleop positions
         Timer.delay( 2.0 );         // Delay for 2 seconds for robot to come fully up
         // getIdentity();          // Look up mac address and set robot enum
         //MAC = Network.getMACaddress();
