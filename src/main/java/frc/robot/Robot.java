@@ -77,7 +77,7 @@ public class Robot extends LoggedRobot  {
     public static ClimberSubSys     climber;
 
     // Misc
-    public static LEDsSubSys        leds;
+    // public static LEDsSubSys        leds;
     // public static RotarySwitchSubSys rotarySwitch;
 
     public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
@@ -132,7 +132,7 @@ public class Robot extends LoggedRobot  {
         climber = new ClimberSubSys();
 
         // Misc
-        leds = new LEDsSubSys();
+        // leds = new LEDsSubSys();
         // rotarySwitch = new RotarySwitchSubSys(); 
 
         // Telemetry (MUST BE LAST)
@@ -176,7 +176,7 @@ public class Robot extends LoggedRobot  {
             leds.wave(Section.all, Color.kBlue, Color.kRed, LEDsConfig.length, LEDsConfig.waveSlowDuration);
         }
         */ 
-        leds.periodic();
+        // leds.periodic();
     }
 
     @Override
@@ -213,7 +213,7 @@ public class Robot extends LoggedRobot  {
     // -----------------  TeleOp Mode Methods ------------------
     @Override
     public void teleopInit() {
-        leds.setLEDDisplayMode(LEDDisplayMode.BREATH);
+        // leds.setLEDDisplayMode(LEDDisplayMode.BREATH);
         updateAlliance();           // Get current Alliance Color and init teleop positions
         pilotGamepad.setMaxSpeeds(pilotGamepad.getSelectedSpeed());
         pilotGamepad.setupTeleopButtons();

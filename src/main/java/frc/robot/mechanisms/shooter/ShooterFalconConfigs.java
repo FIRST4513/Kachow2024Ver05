@@ -8,7 +8,7 @@ import com.ctre.phoenix6.signals.NeutralModeValue;
 public class ShooterFalconConfigs {
     /* Inverts */
     protected static final boolean bottomMotorInvert = true;
-    protected static final boolean topMotorInvert = true;
+    protected static final boolean topMotorInvert = false   ;
     
     /* PID Values */
     private static final double kP = 0.65;   // (P)roportional value

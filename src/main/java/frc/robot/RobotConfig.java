@@ -54,16 +54,16 @@ public final class RobotConfig {
     }
 
     public final class LimitSwitches {
-        public final static int climberLeftLowerSw  = 8;  // DIO Port
-        public final static int climberRightLowerSw = 9;  // DIO Port
+        public final static int climberLeftLowerSw  = 1;  // DIO Port
+        public final static int climberRightLowerSw = 0;  // DIO Port
         
         // DIO Max Ports: 10 (w/o breakout board)
     } 
 
     public final class AnalogPorts {
-        public final static int intakeGamepieceSensor = 3;  // ANALOG Port
-        public final static int passthroughSensor     = 4;  // ANALOG Port
-        public final static int rotarySwitch          = 0;  // ANALOG Port
+        public final static int intakeGamepieceSensor = 0;  // ANALOG Port
+        public final static int passthroughSensor     = 1;  // ANALOG Port
+        public final static int rotarySwitch          = 4;  // ANALOG Port
         
         // Analog Max Ports: 4
     }

@@ -40,7 +40,7 @@ public class IntakeSubSys extends SubsystemBase {
                                break;
             case GROUND: intakeMotor.set(IntakeConfig.GROUND);
                          break;
-            case MANUAL: intakeMotor.set(Robot.operatorGamepad.getTriggerTwist());
+            case MANUAL: intakeMotor.set(-Robot.operatorGamepad.getTriggerTwist());
                          break;
             case TRAP: intakeMotor.set(IntakeConfig.TRAP);
                        break;

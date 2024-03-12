@@ -16,8 +16,7 @@ public class PigeonGyro {
      * have to directly zero the gyro
      */
     public PigeonGyro() {
-        // pigeon2 = new Pigeon2(Gyros.Pigeon2ID, "CANFD");
-        pigeon2 = new Pigeon2(Gyros.Pigeon2ID);
+        pigeon2 = new Pigeon2(Gyros.Pigeon2ID, "CANFD");
         yawGetter = pigeon2.getYaw().clone();   // Degrees +CCW
         angularZVelGetter = pigeon2.getAngularVelocityZWorld().clone();
     }

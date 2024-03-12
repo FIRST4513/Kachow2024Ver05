@@ -20,7 +20,7 @@ public class PassthroughSubSys extends SubsystemBase {
     private PassthroughState state = PassthroughState.STOPPED;
 
     // Devices
-    protected TalonFX motor = new TalonFX(Motors.passthroughMotorID);
+    protected TalonFX motor = new TalonFX(Motors.passthroughMotorID, "CANFD");
     protected AnalogInput gamepieceSensor = new AnalogInput(RobotConfig.AnalogPorts.passthroughSensor);
 
     // Phoenix 6 Control Method - PWM output

@@ -35,8 +35,11 @@ public class PivotSubSys  extends SubsystemBase  {
         
         switch (pivotState) {
             case TO_TARGET: setPivotToAngle(pivotTargetAngle);
+                            break;
 
-            case MANUAL: setPivotManualLimits(Robot.operatorGamepad.getPivotAdjust());
+            // case MANUAL: setPivotManualLimits(Robot.operatorGamepad.getPivotAdjust());
+            case MANUAL: setPivotByPWM(Robot.operatorGamepad.getPivotAdjust());
+                         break;
             case STOPPED: stopMotors();
             default: setPivotByPWM(0);
         }

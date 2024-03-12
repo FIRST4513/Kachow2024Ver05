@@ -20,10 +20,8 @@ public class ShooterSubSys extends SubsystemBase {
 
 
     // Devices
-    // protected TalonFX bottomMotor = new TalonFX(Motors.shooterMotorID, "CANFD");
-    // protected TalonFX topMotor = new TalonFX(Motors.shooterMotorID2, "CANFD");
-    protected TalonFX bottomMotor = new TalonFX(Motors.shooterMotorBottom);
-    protected TalonFX topMotor = new TalonFX(Motors.shooterMotorTop);
+    protected TalonFX bottomMotor = new TalonFX(Motors.shooterMotorBottom, "CANFD");
+    protected TalonFX topMotor = new TalonFX(Motors.shooterMotorTop, "CANFD");
 
 
     // Control for motors

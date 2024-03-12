@@ -10,6 +10,7 @@ import frc.robot.Robot;
 import frc.robot.Robot.TeamAlliance;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
+import frc.robot.mechanisms.climber.commands.ClimberCmds;
 import frc.robot.mechanisms.shooter.commands.ShooterAimAndFireCmd;
 import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 import frc.util.FieldConstants;
@@ -61,6 +62,12 @@ public class PilotGamepad extends Gamepad {
         gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.resetPose()));
 
         gamepad.xButton.whileTrue(new ShooterAimAndFireCmd(2.0));
+
+        gamepad.Dpad.Up.onTrue(ClimberCmds.climberSetTop());
+        gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());
+        gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetOnChain());
+        gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetManual());
+        
 
         // buttons for testing shooter
         // gamepad.aButton.onTrue(ShooterCmds.stopShooterCmd());

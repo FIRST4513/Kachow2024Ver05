@@ -19,9 +19,9 @@ public class OperatorGamepadCmds {
     /* ----- Overrides ----- */
     public static Command manualAllCmd() {
         return new SequentialCommandGroup(
-            IntakeCmds.intakeSetManualCmd(),
-            PassthroughCmds.setManualCmd(),
-            ShooterCmds.setManualCmd(),
+            //IntakeCmds.intakeSetManualCmd(),
+            //PassthroughCmds.setManualCmd(),
+            //ShooterCmds.setManualCmd()
             PivotCmds.setManualCmd()
         );
     }
