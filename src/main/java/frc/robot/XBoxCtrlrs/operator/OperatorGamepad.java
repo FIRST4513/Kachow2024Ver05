@@ -38,11 +38,11 @@ public class OperatorGamepad extends Gamepad {
         gamepad.rightBumper.onTrue(OperatorGamepadCmds.manualAllCmd()).onFalse(OperatorGamepadCmds.stopAllCmd());
 
         /* ----- Intaking ----- */
-        gamepad.aButton.and(gamepad.Dpad.Up).onTrue(OperatorGamepadCmds.hpIntakeUntilGamepiece());
-        gamepad.aButton.and(gamepad.Dpad.Down).onTrue(OperatorGamepadCmds.groundIntakeUntilGamepieceCmd());
+        gamepad.aButton.and(gamepad.Dpad.Up)    .onTrue(OperatorGamepadCmds.hpIntakeUntilGamepiece());
+        gamepad.aButton.and(gamepad.Dpad.Down)  .onTrue(OperatorGamepadCmds.groundIntakeUntilGamepieceCmd());
 
         /* ----- Ejecting ----- */
-        gamepad.bButton.and(gamepad.Dpad.Up).onTrue(new ShooterAimAndFireCmd(5));
+        gamepad.bButton.and(gamepad.Dpad.Up)    .onTrue(new ShooterAimAndFireCmd(5));
     }
 
     @Override

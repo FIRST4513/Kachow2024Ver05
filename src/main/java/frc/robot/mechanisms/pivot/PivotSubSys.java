@@ -8,8 +8,6 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotConfig.Motors;
-import frc.robot.mechanisms.pivot.PivotConfig;
-import frc.util.PoseAndTimestamp;
 
 public class PivotSubSys  extends SubsystemBase  {
     
@@ -116,8 +114,6 @@ public class PivotSubSys  extends SubsystemBase  {
             return;
         }
     }
-
-
 
     public void setNewEncoderAngle(double angle) {
         if ( angle > PivotConfig.PIVOT_MAX_ANGLE) angle = PivotConfig.PIVOT_MAX_ANGLE;
