@@ -1,5 +1,7 @@
 package frc.robot.mechanisms.pivot;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
@@ -7,6 +9,7 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotConfig.Motors;
 import frc.robot.mechanisms.pivot.PivotConfig;
+import frc.util.PoseAndTimestamp;
 
 public class PivotSubSys  extends SubsystemBase  {
     
@@ -32,6 +35,7 @@ public class PivotSubSys  extends SubsystemBase  {
     @Override
     public void periodic() {
         updateCurrentPositions(); 
+        logPivotData();
         
         switch (pivotState) {
             case TO_TARGET: setPivotToAngle(pivotTargetAngle);
@@ -197,9 +201,22 @@ public class PivotSubSys  extends SubsystemBase  {
 
     public String getPivotStateString() {
         switch (pivotState) {
-            case MANUAL: return "MANUAL";
+            case MANUAL:    return "MANUAL";
+            case TO_TARGET: return "TO TARGET";
+            case STOPPED: return "STOPPED";
             default:     return "DEFAULT";
         }            
+    }
+
+    // -------------------------- Misc Methods ------------------------
+
+    public synchronized void logPivotData() {
+        Logger.recordOutput("Pivot State", getPivotStateString());
+        Logger.recordOutput("Pivot Pwr", currentPivotPower);
+        Logger.recordOutput("Pivot Enc Raw", currentEncRawCount);
+        Logger.recordOutput("Pivot Enc Abs", currentEncAbsolutePos);
+        Logger.recordOutput("Pivot Angle", currentPivotAngle);
+        Logger.recordOutput("Pivot Shooter Angle", currentShooterAngle);
     }
 
     // ----------------------------------------------------------------------
