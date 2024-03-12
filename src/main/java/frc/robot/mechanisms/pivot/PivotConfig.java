@@ -36,7 +36,7 @@ public class PivotConfig {
 
         // Speaker Shot Distance
         public static final double SPEAKER_MIN_SHOT_DISTANCE = 1.016;  // meters
-        public static final double SPEAKER_MIX_SHOT_DISTANCE = 1.887;  // meters
+        public static final double SPEAKER_MAX_SHOT_DISTANCE = 1.887;  // meters
         public static final double SPEAKER_MIN_SHOT_ANGLE = 0;         // degrees
-        public static final double SPEAKER_MIX_SHOT_ANGLE = 13;        // degrees
+        public static final double SPEAKER_MAX_SHOT_ANGLE = 13;        // degrees
 }
