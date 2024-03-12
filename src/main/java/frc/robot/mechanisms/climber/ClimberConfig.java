@@ -13,8 +13,8 @@ public class ClimberConfig {
     /* constants for height definitions */
     public static final double MAX_ROTATIONS = 55;
 
-    public static final double posTop       = 54;
-    public static final double posOnChain   = 40;
+    public static final double posTop       = 51.5;
+    public static final double posOnChain   = 28;
     public static final double posMidClimb  = 11.37;
     public static final double posFullClimb = 0;
 

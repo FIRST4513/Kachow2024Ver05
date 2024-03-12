@@ -46,13 +46,11 @@ public class LEDsSubSys extends SubsystemBase {
             time = counter * 0.02;  // time is seconds in the 10s loop
                                     // it is really 0.1 increments
 
-            displayMode         = LEDDisplayMode.NONE;
             displayMode         = LEDDisplayMode.TELEOP_STATUS;
 
             displayMode         = LEDDisplayMode.FLASH_TEST; // tested
             displayMode         = LEDDisplayMode.KIT; // tested
             displayMode         = LEDDisplayMode.METEOR; // tested
-            displayMode         = LEDDisplayMode.MARQUEE; // tested
             displayMode         = LEDDisplayMode.COLOR_MARQUEE; // tested
             displayMode         = LEDDisplayMode.RAINBOW_WAVE; // tested
             displayMode         = LEDDisplayMode.RAINBOW; // tested
@@ -60,6 +58,8 @@ public class LEDsSubSys extends SubsystemBase {
             displayMode         = LEDDisplayMode.TELEOP_STATUS;
             displayMode         = LEDDisplayMode.BREATH; // tested
             displayMode         = LEDDisplayMode.CLOUDS; // tested
+            displayMode         = LEDDisplayMode.NONE;
+            displayMode         = LEDDisplayMode.MARQUEE; // tested
 
             switch( displayMode) {
                 case SETUP_STATUS:
@@ -89,9 +89,10 @@ public class LEDsSubSys extends SubsystemBase {
                     meteor( Section.rightBack,  allianceColor, 4, 0.75, 2.0, true);
                     break;
                 case MARQUEE:
-                    int [] pattern = {1,0,0};
+                    int [] pattern = {1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
                     marquee( Section.all, allianceColor, pattern,
                              LEDsConfig.marqueePeriod, true);
+                    break;
                 case COLOR_MARQUEE:
                     Color [] colorPattern = { Color.kRed, Color.kWhite, Color.kBlue};
                     colorMarquee( Section.all, colorPattern,
@@ -208,9 +209,10 @@ public class LEDsSubSys extends SubsystemBase {
      */
     public void flashRandomly( Section section, Color color, double probability) {
         Random random = new Random();
+        Color flashColor = changeBrightness( color, LEDsConfig.lightningBrightness);
         if (random.nextDouble() < probability) {
             for (int i = section.start(); i < section.end(); i++) {
-                ledstrip.setLED( i, color); // brightness is not applied
+                ledstrip.setLED( i, flashColor);
             }
         }
     }
@@ -225,9 +227,13 @@ public class LEDsSubSys extends SubsystemBase {
     public void sparkleRandomly( Section section, Color color, double probability) {
         Random random = new Random();
         int offset = 0;
+        Color sparkleColor = changeBrightness( color, LEDsConfig.sparkleBrightness);
         if (random.nextDouble() < probability) {
             offset = (int) Math.round( (section.end() - section.start()) * random.nextDouble());
-            ledstrip.setLED( section.start() + offset, color); //Brightness not applied
+            if (offset >= (section.end() - section.start()) ) {
+                offset = section.end() - section.start() - 1;
+            }
+            ledstrip.setLED( section.start() + offset, sparkleColor);
         }
     }
 

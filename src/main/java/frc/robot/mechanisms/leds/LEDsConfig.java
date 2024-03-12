@@ -19,6 +19,8 @@ public class LEDsConfig {
     public static final boolean isSparkleActive = true;
     public static final boolean isLightningActive = true;
     public static final double brightness = 0.2; // maximum of 1.0
+    public static final double lightningBrightness = 0.4; // maximum of 1.0
+    public static final double sparkleBrightness = 0.4; // maximum of 1.0
 
     public static final double setupErrorFlashPeriod = 0.25; //s
     public static final double teleopReadyFlashPeriod = 0.25; //s
@@ -27,7 +29,7 @@ public class LEDsConfig {
     public static final double colorMarqueePeriod = 1.5; //s
     public static final double kitPeriod = 4.0;
     public static final int kitWidth = 4;//10;
-    public static final double lightningProbability = 0.01;
+    public static final double lightningProbability = 0.02;
     public static final double sparkleProbability = 0.1;
 
 
@@ -38,10 +40,10 @@ public class LEDsConfig {
      * quarters: left, center left, center right, and right.
      * 
      */
-    private static final int lenLeftFront  = 11;//45;
-    private static final int lenLeftBack   = 11;//45;
-    private static final int lenRightFront = 11;//45;
-    private static final int lenRightBack  = 12;//45;
+    private static final int lenLeftFront  = 45;
+    private static final int lenLeftBack   = 45;
+    private static final int lenRightFront = 45;
+    private static final int lenRightBack  = 45;
     public static final int length = lenLeftFront + lenLeftBack +
                                      lenRightFront + lenRightBack;
 
