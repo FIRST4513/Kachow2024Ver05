@@ -31,27 +31,27 @@ public class PassthroughCmds {
     public static Command setManualCmd()       { return passthroughSetState(PassthroughState.MANUAL); }
 
     /* ----- Commands with custom timing and until-conditions ----- */
-    public static Command groundIntakeUntilGamepieceCmd() {
-        return new SequentialCommandGroup(
-            setGroundIntakeCmd(),
-            new WaitUntilCommand(() -> Robot.passthrough.getGamepieceDetected()),
-            stopPassthroughCmd()
-        );
-    }
+    // public static Command groundIntakeUntilGamepieceCmd() {
+    //     return new SequentialCommandGroup(
+    //         setGroundIntakeCmd(),
+    //         new WaitUntilCommand(() -> Robot.passthrough.getGamepieceDetected()),
+    //         stopPassthroughCmd()
+    //     );
+    // }
 
-    public static Command hpIntakeUntilGamepieceCmd() {
-        return new SequentialCommandGroup(
-            setHPIntakeCmd(),
-            new WaitUntilCommand(() -> Robot.passthrough.getGamepieceDetected()),
-            stopPassthroughCmd()
-        );
-    }
+    // public static Command hpIntakeUntilGamepieceCmd() {
+    //     return new SequentialCommandGroup(
+    //         setHPIntakeCmd(),
+    //         new WaitUntilCommand(() -> Robot.passthrough.getGamepieceDetected()),
+    //         stopPassthroughCmd()
+    //     );
+    // }
 
-    public static Command speakerShootUntilNoGamepieceCmd() {
-        return new SequentialCommandGroup(
-            setEjectCmd(),
-            new WaitUntilCommand(() -> Robot.passthrough.getGamepieceNotDetected()),
-            stopPassthroughCmd()
-        );
-    }
+    // public static Command speakerShootUntilNoGamepieceCmd() {
+    //     return new SequentialCommandGroup(
+    //         setEjectCmd(),
+    //         new WaitUntilCommand(() -> Robot.passthrough.getGamepieceNotDetected()),
+    //         stopPassthroughCmd()
+    //     );
+    // }
 }

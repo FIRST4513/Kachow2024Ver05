@@ -8,13 +8,13 @@ public class IntakeConfig {
     protected static final double gamepieceDetectDistance = 1;
 
     // retract/eject speeds
-    protected static final double GROUND = -0.4;
-    protected static final double AMP = 0.4;
-    protected static final double TRAP = 0.4;
+    protected static final double GROUND = 1.0;
+    protected static final double AMP = 0.4;  // TODO: Remove for week 3 code
+    protected static final double TRAP = 0.4;  // TODO: Remove for week 3 code
     protected static final double FEED = 1.2;
 
     /* Neutral Modes */
-    protected static final NeutralMode intakeNeutralMode = NeutralMode.Coast;
+    protected static final NeutralMode intakeNeutralMode = NeutralMode.Brake;
 
     /* Inverts */
     protected static final boolean intakeMotorInvert = false;

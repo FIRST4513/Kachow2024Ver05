@@ -16,7 +16,7 @@ public class LEDsConfig {
     public static final double waveAllianceDuration = 2.0;
     public static final double autoFadeTime = 2.5;
     public static final double autoFadeMaxTime = 5.0;
-    public static final boolean isSparkleActive = true;
+    public static final boolean isSparkleActive = false;
     public static final boolean isLightningActive = true;
     public static final double brightness = 0.2; // maximum of 1.0
     public static final double lightningBrightness = 0.4; // maximum of 1.0

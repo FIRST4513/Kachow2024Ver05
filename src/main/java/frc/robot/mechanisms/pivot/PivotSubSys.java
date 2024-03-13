@@ -3,6 +3,7 @@ package frc.robot.mechanisms.pivot;
 import org.littletonrobotics.junction.Logger;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
+import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
@@ -18,8 +19,8 @@ public class PivotSubSys  extends SubsystemBase  {
     }
     private PivotState pivotState = PivotState.MANUAL;
 
-    protected TalonSRX pivotMotor = new TalonSRX(Motors.pivotMotorID);
-    
+    protected TalonSRX pivotMotor;
+  
     // Current Position Data
     public double currentEncAbsolutePos = 0.0;
     public double currentEncRawCount = 0.0;
@@ -28,6 +29,13 @@ public class PivotSubSys  extends SubsystemBase  {
     public double currentPivotPower = 0.0;
     private double pivotTargetAngle = 0;
     private double shooterTargetAngle = 0;
+    private double pivotPwr = 0;
+
+    public PivotSubSys() {
+        pivotMotor = new TalonSRX(Motors.pivotMotorID);
+
+        configureMotors();
+    }
 
     /* ----- Periodic ----- */
     @Override
@@ -51,6 +59,9 @@ public class PivotSubSys  extends SubsystemBase  {
     public void setNewPivotState(PivotState newState)       { pivotState = newState; }
     public void setStopState()                              { pivotState = PivotState.STOPPED; }
 
+    public void setPivotSpeed(double speed){
+        pivotPwr = speed;
+    }
 
     // ------------------------------------------------------
     // ---------------- Pivot Motor Methods -----------------
@@ -64,7 +75,7 @@ public class PivotSubSys  extends SubsystemBase  {
     }
 
     private void setPivotByPWM(double power) {
-        pivotMotor.set(ControlMode.PercentOutput, power);
+        pivotMotor.set(ControlMode.PercentOutput, -power);
         //pivotTargetAngle = 0.0;     // clear any previous target
         //shooterTargetAngle = 0.0;
     }
@@ -95,31 +106,32 @@ public class PivotSubSys  extends SubsystemBase  {
 
         if (difference > 180)  {
             // GO Counter Clockwise This is a shorter route we can go. Invert direction and recalculate
-            setPivotByPWM(PivotConfig.PIVOT_CCW_SPEED);
+            setPivotByPWM(PivotConfig.PIVOT_CCW_DIR * pivotPwr);
             return;
         }
         if (difference < -180)  {
             // GO Counter Clockwise This is a shorter route we can go. Invert direction and recalculate
-            setPivotByPWM(PivotConfig.PIVOT_CW_SPEED);
+            setPivotByPWM(PivotConfig.PIVOT_CW_DIR * pivotPwr);
             return;
         }
         if (difference > 0)  {
             // GO Counter Clockwise This is a shorter route we can go. Invert direction and recalculate
-            setPivotByPWM(PivotConfig.PIVOT_CW_SPEED);
+            setPivotByPWM(PivotConfig.PIVOT_CW_DIR * pivotPwr);
             return;
         }
         if (difference < 0)  {
             // GO Counter Clockwise This is a shorter route we can go. Invert direction and recalculate
-            setPivotByPWM(PivotConfig.PIVOT_CCW_SPEED);
+            setPivotByPWM(PivotConfig.PIVOT_CCW_DIR * pivotPwr);
             return;
         }
     }
 
-    public void setNewEncoderAngle(double angle) {
+    public void setNewEncoderAngle(double angle, double newPwr) {
         if ( angle > PivotConfig.PIVOT_MAX_ANGLE) angle = PivotConfig.PIVOT_MAX_ANGLE;
         if ( angle < PivotConfig.PIVOT_MIN_ANGLE) angle = PivotConfig.PIVOT_MIN_ANGLE;
         pivotTargetAngle = angle;
         shooterTargetAngle = shooterAngleFromEncoder(pivotTargetAngle);
+        pivotPwr = newPwr;
     }
 
     public void setNewShooterAngle(double angle) {
@@ -162,7 +174,11 @@ public class PivotSubSys  extends SubsystemBase  {
     }
 
     public double encCountsToAbsolutePos( double counts) {
-        return (counts - PivotConfig.PIVOT_ENC_OFFSET) % 4096.0;
+        double offsetCounts = counts - PivotConfig.PIVOT_ENC_OFFSET;
+        double moddedCounts = offsetCounts % 4096;
+
+        if (moddedCounts < 0) { return moddedCounts + 4096; }
+        else { return moddedCounts; }
     }
 
     public double shooterAngleFromEncoder ( double angle ){
@@ -182,7 +198,7 @@ public class PivotSubSys  extends SubsystemBase  {
 
         currentEncRawCount =    pivotMotor.getSelectedSensorPosition() * PivotConfig.PIVOT_ENC_INVERT; // Inverts if necc.
         currentEncAbsolutePos = encCountsToAbsolutePos( currentEncRawCount );
-        currentPivotAngle =     encCountsToAbsolutePos( currentEncAbsolutePos );
+        currentPivotAngle =     shooterAngleFromEncoder( currentEncAbsolutePos );
         currentShooterAngle =   encoderAngleFromShooterAngle( currentEncAbsolutePos);
     }
 
@@ -202,6 +218,10 @@ public class PivotSubSys  extends SubsystemBase  {
             case STOPPED: return "STOPPED";
             default:     return "DEFAULT";
         }            
+    }
+
+    public boolean isStopped() {
+        return pivotState == PivotState.STOPPED;
     }
 
     // -------------------------- Misc Methods ------------------------
@@ -224,6 +244,7 @@ public class PivotSubSys  extends SubsystemBase  {
         pivotMotor.configAllSettings(PivotSRXConfig.getConfig());
         pivotMotor.setInverted(PivotSRXConfig.motorInvert);
         pivotMotor.setNeutralMode(PivotSRXConfig.neutralMode);
+        pivotMotor.configSelectedFeedbackSensor(FeedbackDevice. CTRE_MagEncoder_Absolute);
     }
 }
 

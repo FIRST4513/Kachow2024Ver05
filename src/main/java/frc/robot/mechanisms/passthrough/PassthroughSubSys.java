@@ -21,7 +21,6 @@ public class PassthroughSubSys extends SubsystemBase {
 
     // Devices
     protected TalonFX motor = new TalonFX(Motors.passthroughMotorID, "CANFD");
-    protected AnalogInput gamepieceSensor = new AnalogInput(RobotConfig.AnalogPorts.passthroughSensor);
 
     // Phoenix 6 Control Method - PWM output
     protected DutyCycleOut pwmCtrlr = new DutyCycleOut(0);
@@ -81,26 +80,6 @@ public class PassthroughSubSys extends SubsystemBase {
             case EJECT:         return "EJECT";
             default:            return "DEFAULT";
         }
-    }
-
-    /* ----- Gamepiece Detection Getters ----- */
-    public double getSensorVal() {
-        return gamepieceSensor.getAverageVoltage();
-    }
-
-    public boolean getGamepieceDetected() {
-        if (getSensorVal() > PassthroughConfig.gamepieceDetectDistance) { return true; }
-        return false;
-    }
-
-    public boolean getGamepieceNotDetected() {
-        return !getGamepieceDetected();
-    }
-
-    public String isGamepieceDetected() {
-        if(getGamepieceDetected()) { 
-            return "Detected"; } 
-        return "Not Detected";
     }
 
     // ------------------------------------------------------

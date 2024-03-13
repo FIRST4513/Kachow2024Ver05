@@ -5,6 +5,7 @@ import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
+import frc.robot.mechanisms.pivot.commands.PivotCmds;
 import frc.robot.mechanisms.shooter.commands.ShooterAimAndFireCmd;
 
 public class OperatorGamepad extends Gamepad {
@@ -42,7 +43,13 @@ public class OperatorGamepad extends Gamepad {
         gamepad.aButton.and(gamepad.Dpad.Down)  .onTrue(OperatorGamepadCmds.groundIntakeUntilGamepieceCmd());
 
         /* ----- Ejecting ----- */
-        gamepad.bButton.and(gamepad.Dpad.Up)    .onTrue(new ShooterAimAndFireCmd(5));
+        // gamepad.bButton.and(gamepad.Dpad.Up)    .onTrue(new ShooterAimAndFireCmd(5));
+        gamepad.bButton.and(gamepad.Dpad.Left)  .onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());
+
+        // gamepad.xButton.and(gamepad.Dpad.Up)    .onTrue(PivotCmds.setHighAndRunCmd());
+        // gamepad.xButton.and(gamepad.Dpad.Right) .onTrue(PivotCmds.setMidAndRunCmd());
+        gamepad.xButton.and(gamepad.Dpad.Down)  .onTrue(PivotCmds.setLowAndRunCmd());
+        gamepad.xButton.and(gamepad.Dpad.Up).onTrue(PivotCmds.setHighAndRunCmd());
     }
 
     @Override

@@ -12,9 +12,9 @@ public class ShooterFalconConfigs {
     
     /* PID Values */
     private static final double kP = 0.65;   // (P)roportional value
-    private static final double kI = 0.4;   // (I)ntegral Value
+    private static final double kI = 0.5;   // (I)ntegral Value
     private static final double kD = 0.0;   // (D)erivative Value
-    private static final double kV = 0.15;  // Kind of like a Feed Forward
+    private static final double kV = 0.16;  // Kind of like a Feed Forward
     private static final double kS = 0.01;  // (S)tiction Value:
 
     /* Current Limiting */

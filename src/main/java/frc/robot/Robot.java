@@ -153,8 +153,6 @@ public class Robot extends LoggedRobot  {
     public void disabledInit() {
         resetCommandsAndButtons();
 
-        alliance = TeamAlliance.RED;
-
         if (alliance == TeamAlliance.BLUE) {
             leds.setLEDTeamColor(Color.kBlue);
         } else if (alliance == TeamAlliance.RED) {
@@ -187,7 +185,6 @@ public class Robot extends LoggedRobot  {
         }
         */ 
         leds.periodic();
-        
     }
 
     @Override

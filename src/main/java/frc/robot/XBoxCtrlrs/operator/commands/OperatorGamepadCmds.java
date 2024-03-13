@@ -3,6 +3,7 @@ package frc.robot.XBoxCtrlrs.operator.commands;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Robot;
 import frc.robot.mechanisms.intake.commands.IntakeCmds;
@@ -19,9 +20,9 @@ public class OperatorGamepadCmds {
     /* ----- Overrides ----- */
     public static Command manualAllCmd() {
         return new SequentialCommandGroup(
-            //IntakeCmds.intakeSetManualCmd(),
-            //PassthroughCmds.setManualCmd(),
-            //ShooterCmds.setManualCmd()
+            IntakeCmds.intakeSetManualCmd(),
+            PassthroughCmds.setManualCmd(),
+            ShooterCmds.setManualCmd(),
             PivotCmds.setManualCmd()
         );
     }
@@ -39,9 +40,10 @@ public class OperatorGamepadCmds {
     public static Command hpIntakeUntilGamepiece() {
         return new SequentialCommandGroup(
             PassthroughCmds.setHPIntakeCmd(),  
-            ShooterCmds.setHPIntakeCmd(),
             PivotCmds.setHPIntakeCmd(),
-            new WaitUntilCommand(() -> Robot.passthrough.getGamepieceDetected()),
+            new WaitUntilCommand(() -> Robot.pivot.isAtTarget()),
+            ShooterCmds.setHPIntakeCmd(),
+            new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
             stopAllCmd()
         );
     }
@@ -50,7 +52,33 @@ public class OperatorGamepadCmds {
         return new SequentialCommandGroup(
             PassthroughCmds.setGroundIntakeCmd(),
             IntakeCmds.intakeSetGroundCmd(),
-            new WaitUntilCommand(() -> Robot.passthrough.getGamepieceDetected()),
+            new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
+            new WaitCommand(0.15),
+            stopAllCmd(),
+            new WaitCommand(0.25),
+            PassthroughCmds.setHPIntakeCmd(),
+            new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
+            stopAllCmd()
+        );
+    }
+
+    // public static Command bumperSpeakerShot() {
+    //     return new SequentialCommandGroup(
+    //         ShooterCmds.setSpeakerSpeedCmd(),
+    //         PivotCmds.set
+    //         new WaitUntilCommand(() -> Robot.shooter.areMotorsAtVelocityTarget()),
+    //         PassthroughCmds.setEjectCmd(),
+    //         new WaitCommand(1.25),
+    //         stopAllCmd()
+    //     );
+    // }
+
+    public static Command noAutoPosSpeakerShot() {
+        return new SequentialCommandGroup(
+            ShooterCmds.setSpeakerSpeedCmd(),
+            new WaitUntilCommand(() -> Robot.shooter.areMotorsAtVelocityTarget()),
+            PassthroughCmds.setEjectCmd(),
+            new WaitCommand(1.25),
             stopAllCmd()
         );
     }

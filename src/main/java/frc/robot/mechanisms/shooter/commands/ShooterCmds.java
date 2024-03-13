@@ -35,4 +35,8 @@ public class ShooterCmds {
             new InstantCommand(() -> Robot.shooter.setNewFireState(FireState.HP_INTAKE))
         );
     }
+
+    public static Command setSpeakerSpeedCmd() {
+        return new InstantCommand(() -> Robot.shooter.setNewFireState(FireState.SPEAKER));
+    }
 }

@@ -10,9 +10,9 @@ public class PassthroughConfig {
     protected static final double gamepieceDetectDistance = 2.5;
 
     /* intake/eject speeds (pwm) */
-    protected static final double GROUND_INTAKE = 0.4;
-    protected static final double HP_INTAKE = -0.4;
-    protected static final double SPEAKER_EJECT = 1;
+    protected static final double GROUND_INTAKE = -0.1;
+    protected static final double HP_INTAKE = 0.2;
+    protected static final double SPEAKER_EJECT = -1;
 
     /* Inverts */
     protected static final InvertedValue motorInvert = InvertedValue.CounterClockwise_Positive;
@@ -23,7 +23,7 @@ public class PassthroughConfig {
     private static final double suppTimeThresh = 0.1;  // How long to allow unlimited Supply (s)
 
     /* Neutral Mode */
-    private static final NeutralModeValue neutralMode = NeutralModeValue.Coast;
+    private static final NeutralModeValue neutralMode = NeutralModeValue.Brake;
 
     // --------------- Constuctor Setting Up Motor Config values -------------
     public static TalonFXConfiguration getConfig() {

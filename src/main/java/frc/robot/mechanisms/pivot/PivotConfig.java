@@ -3,24 +3,28 @@ package frc.robot.mechanisms.pivot;
 public class PivotConfig {
         // Shooter Pivot Angles for Presets
         public static final double HP_INTAKE_ANGLE = 0;
+        public static final double PRESET_SHOT_BUMPER = 40;  // Degrees of pivot angle (on encoder)
         
         // pivot limits
-        protected static final double PIVOT_ENC_OFFSET = 1500;  
+        protected static final double PIVOT_ENC_OFFSET = 1550;
 
         protected static final double PIVOT_MAX_ADJUSTED_ENC = 4000;
         protected static final double PIVOT_MIN_ADJUSTED_ENC = 2000;
 
-        protected static final double PIVOT_MAX_ANGLE = 195.0;                    // Degrees
-        protected static final double PIVOT_MIN_ANGLE = 0.0;     
+        public static final double PIVOT_MAX_ANGLE = 190.0;  // Degrees of pivot angle (on encoder)
+        public static final double PIVOT_MID_ANGLE = 95;     // temp mid angle based on pivot degrees
+        public static final double PIVOT_MIN_ANGLE = 0.0;     
         
         
-        protected static final double SHOOTER_MAX_ANGLE = 17.0;                    // Degrees
-        protected static final double SHOOTER_MID_ANGLE = 8.5;                    // Degrees
+        protected static final double SHOOTER_MAX_ANGLE = 17.0;  // Degrees of shooter angle (run by cam)
+        protected static final double SHOOTER_MID_ANGLE = 8.5;   // Degrees
         protected static final double SHOOTER_MIN_ANGLE = 0.0;
 
         // pivot move to angle speed
-        protected static final double PIVOT_CCW_SPEED = 0.5;
-        protected static final double PIVOT_CW_SPEED = -0.5;
+        protected static final double PIVOT_CCW_SPEED = 0.75;
+        protected static final double PIVOT_CW_SPEED = -0.75;
+        protected static final double PIVOT_CW_DIR =   -1.0;
+        protected static final double PIVOT_CCW_DIR =   1.0;
 
         // pivot angle tolerance and encoder conversions
 
