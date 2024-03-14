@@ -41,6 +41,7 @@ public class Auto {
         actionChooser.setDefaultOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
         actionChooser.addOption(         "One Note",            AutoConfig.kActionOneNoteOnly);
         actionChooser.addOption(         "Two Note",            AutoConfig.kActionTwoNote);
+        actionChooser.addOption(         "Three Note",            AutoConfig.kActionThreeNote);
         actionChooser.addOption(         "One Note and Crossline", AutoConfig.kOneNoteCrossOnlySelect);
         actionChooser.addOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
     }
@@ -66,11 +67,11 @@ public class Auto {
         // ----------------------------- One Note Only ---------------------------
         if (oneNoteOnly()) {
             System.out.println("********* One Note Cross Line Selection *********");
-            if ( spkrLeft() )           { return AutoCmds.SpeakerShootCmd("Left"); }
-            if ( spkrCtr() )            { return AutoCmds.SpeakerShootCmd("Ctr"); }
-            if ( spkrRight() )          { return AutoCmds.SpeakerShootCmd("Right"); }
+            if ( spkrLeft() )           { return AutoCmds.SpeakerShootCmd(); }
+            if ( spkrCtr() )            { return AutoCmds.SpeakerShootCmd(); }
+            if ( spkrRight() )          { return AutoCmds.SpeakerShootCmd(); }
             // should never get here
-            return AutoCmds.SpeakerShootCmd("Ctr");
+            return AutoCmds.SpeakerShootCmd();
         }
         
         // --------------------------- Cross Line Only ----------------------------
@@ -107,7 +108,7 @@ public class Auto {
 
         // ------------------------------ Two Note  -------------------------------
         if (twoNote()) {
-            System.out.println("********* One Note Cross Line Selection *********");
+            System.out.println("********* Two Selection *********");
             if (red()) {
                 Robot.print("REEDDDDDD");
                 if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "RedSpkrLeft"); }
@@ -117,6 +118,22 @@ public class Auto {
                 Robot.print("BLUEEEEE");
                 if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "BlueSpkrLeft" ); }
                 if ( spkrCtr() )            { return AutoCmds.TwoNoteCmd("Ctr", "BlueSpkrCtr", "BlueSpkrCtrReturn"); }
+                if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "BlueSpkrRight"); }
+            }
+        }
+
+        // ------------------------------ Three Note  -------------------------------
+        if (threeNote()) {
+            System.out.println("********* Three Selection *********");
+            if (red()) {
+                Robot.print("REEDDDDDD");
+                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "RedSpkrLeft"); }
+                if ( spkrCtr() )            { return AutoCmds.TwoNoteCmd("Ctr", "RedSpkrCtr", "RedSpkrCtrReturn"); }
+                if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "RedSpkrRight"); }
+            } else {
+                Robot.print("BLUEEEEE");
+                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "BlueSpkrLeft" ); }
+                if ( spkrCtr() )            { return AutoCmds.ThreeNoteCmd("Ctr", "BlueSpkrCtr", "BlueSpkrCtrReturn", "BlueSpkrCtr2ndNote", "BlueSpkrCtr2ndNoteReturn"); }
                 if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "BlueSpkrRight"); }
             }
         }
@@ -224,6 +241,11 @@ public class Auto {
 
     private static boolean twoNote() {
         if (actionSelect.equals(AutoConfig.kActionTwoNote)) { return true; }
+        return false;
+    }
+
+    private static boolean threeNote() {
+        if (actionSelect.equals(AutoConfig.kActionThreeNote)) { return true; }
         return false;
     }
 

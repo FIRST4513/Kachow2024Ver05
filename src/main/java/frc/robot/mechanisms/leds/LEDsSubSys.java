@@ -620,7 +620,7 @@ public class LEDsSubSys extends SubsystemBase {
         }
         // otherwise check for intake conditions - second priority
         else if (isPieceInPickup) {
-            breath(Section.all, Color.kBlack, Color.kGreen, 1.0);
+            breath(Section.all, Color.kDarkGreen, Color.kGreen, 0.5);
         } else if (isGroundIntaking) {
             int [] pattern = {1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
             marquee( Section.all, Color.kPurple, pattern,

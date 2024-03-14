@@ -14,7 +14,7 @@ public class DrivetrainConfig {
     // ----- Definitions for Kinematics -----
     public static final double trackWidth         = Units.inchesToMeters(23.75);  // Between Right/Left Wheel Ctrs
     public static final double wheelBase          = Units.inchesToMeters(23.75);  // Between Front/Back Wheel Ctrs
-    private static final double wheelDiameter      = Units.inchesToMeters(3.82 * 1.0243);   // 3.82in -> 0.097m;
+    private static final double wheelDiameter      = Units.inchesToMeters(3.82);   // 3.82 * 1.0243  // colson
     private static final double wheelCircumference = wheelDiameter * Math.PI;      // 2πr = πd = π * 0.094m ≈ 0.295m circumference
 
     // locations for teach wheel location on the robot relative to center

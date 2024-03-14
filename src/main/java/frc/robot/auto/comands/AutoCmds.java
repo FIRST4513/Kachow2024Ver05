@@ -29,34 +29,15 @@ public class AutoCmds {
     }
 
     // ----------------------------- Speaker Shoot Commands ----------------------------------
-    public static Command SpeakerShootCmd( String pos ) {
-        if (pos  == "Left") {
-            return new SequentialCommandGroup(  
-                new InstantCommand(() -> System.out.println("Auto Shoot Left Speaker")),
-                // add commands here to shoot 
-                OperatorGamepadCmds.readyForBumperShotCmd(),
-                OperatorGamepadCmds.noAutoPosSpeakerShot()
-            );
-        }
-        if (pos  == "Ctr") {
-            return new SequentialCommandGroup(    
-                new InstantCommand(() -> System.out.println("Auto Shoot CTR Speaker")),
-                // add commands here to shoot 
-                OperatorGamepadCmds.readyForBumperShotCmd(),
-                OperatorGamepadCmds.noAutoPosSpeakerShot()
-            );
-        }
-        if (pos  == "Right") {
-            return new SequentialCommandGroup( 
-                new InstantCommand(() -> System.out.println("Auto Shoot Right Speaker")),
-                // add commands here to shoot 
-                OperatorGamepadCmds.readyForBumperShotCmd(),
-                OperatorGamepadCmds.noAutoPosSpeakerShot()
-            );
-        }
-        // Should never get here
-        return new InstantCommand(() -> System.out.println("ERROR With Shoot Speaker"));
-        }
+    // Removed the 3 if's because the shoot procedure is the same on all 3 sides of the speaker, technicians will align robot to shoot correctly and no correction necessary
+    public static Command SpeakerShootCmd() {
+        return new SequentialCommandGroup( 
+            new InstantCommand(() -> System.out.println("Auto Shoot Right Speaker")),
+            // add commands here to shoot 
+            OperatorGamepadCmds.readyForBumperShotCmd(),
+            OperatorGamepadCmds.noAutoPosSpeakerShot()
+        );
+    }
 
     // ----------------------------- Cross Line Commands -------------------------------------
     public static Command CrossLineOnlyCmd( String pathName ) {
@@ -70,7 +51,7 @@ public class AutoCmds {
     // ------------------------- One Note and Cross Line Only --------------------------------
     public static Command ShootAndCrossCmd( String pos, String pathName ) {
         return new SequentialCommandGroup(  
-            SpeakerShootCmd(pos),
+            SpeakerShootCmd(),
             CrossLineOnlyCmd( pathName)
         );    
     }
@@ -79,16 +60,60 @@ public class AutoCmds {
     public static Command TwoNoteCmd( String pos, String pathName, String pathNameBack ) {
         return new SequentialCommandGroup(  
             new InstantCommand( ()-> Robot.print( "Two Note Cmd ")),
-            SpeakerShootCmd(pos),
+            // Shoot pre-loaded note
+            SpeakerShootCmd(),
+            // Do the following two things at the same time: intake note, and follow paths
             new ParallelCommandGroup(
-                OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
-                initAndFollowPath(pathName)
+                // Intake note sequence
+                new SequentialCommandGroup(
+                    OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
+                    OperatorGamepadCmds.readyForBumperShotCmd()
+                ),
+                // First run to-note path, then run to-speaker path
+                new SequentialCommandGroup(
+                    initAndFollowPath(pathName),
+                    followPath(pathNameBack)
+                )
             ),
-            // Intake to shoot position
-            followPath(pathNameBack),
-            SpeakerShootCmd(pos)
-            // Intake to store pos cmd
-        );    
+            OperatorGamepadCmds.noAutoPosSpeakerShot()
+        );
+    }
+
+    // ----------------------------------- Two Note ------------------------------------------
+    public static Command ThreeNoteCmd( String pos, String pathName, String pathNameBack, String pathName2, String pathName2Back) {
+        return new SequentialCommandGroup(  
+            new InstantCommand( ()-> Robot.print( "Two Note Cmd ")),
+            // Shoot pre-loaded note
+            SpeakerShootCmd(),
+            // Do the following two things at the same time: intake note, and follow paths
+            new ParallelCommandGroup(
+                // Intake note sequence
+                new SequentialCommandGroup(
+                    OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
+                    OperatorGamepadCmds.readyForBumperShotCmd()
+                ),
+                // First run to-note path, then run to-speaker path
+                new SequentialCommandGroup(
+                    initAndFollowPath(pathName),
+                    followPath(pathNameBack)
+                )
+            ),
+            OperatorGamepadCmds.noAutoPosSpeakerShot(),
+            // Do the following two things at the same time: intake note, and follow paths
+            new ParallelCommandGroup(
+                // Intake note sequence
+                new SequentialCommandGroup(
+                    OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
+                    OperatorGamepadCmds.readyForBumperShotCmd()
+                ),
+                // First run to-note path, then run to-speaker path
+                new SequentialCommandGroup(
+                    initAndFollowPath(pathName2),
+                    followPath(pathName2Back)
+                )
+            ),
+            OperatorGamepadCmds.noAutoPosSpeakerShot()
+        );
     }
 
 
