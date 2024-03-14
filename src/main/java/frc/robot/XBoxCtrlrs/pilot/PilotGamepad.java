@@ -11,7 +11,6 @@ import frc.robot.Robot.TeamAlliance;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
 import frc.robot.mechanisms.climber.commands.ClimberCmds;
-import frc.robot.mechanisms.shooter.commands.ShooterAimAndFireCmd;
 import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 import frc.util.FieldConstants;
 
@@ -59,25 +58,19 @@ public class PilotGamepad extends Gamepad {
         gamepad.startButton.onTrue(new InstantCommand(() -> Robot.swerve.zeroGyroHeading()));
         
         // "Select" Button - Reset Odometry to (0, 0) & 0º [FOR TESTING, DON'T USE IN COMP]
-        gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.resetPose()));
+        // gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.resetPose()));
 
-        gamepad.xButton.whileTrue(new ShooterAimAndFireCmd(2.0));
+        // "Select" Button - Reset Gyro to 180
+        gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
 
         gamepad.Dpad.Up.onTrue(ClimberCmds.climberSetTop());
         gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());
         gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetOnChain());
         gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetManual());
 
-        // Possible climber control:
+        // Possible climber control for Corbin:
         // Left D-pad: control left with right stick
         // Right D-pad: control right with right stick
-        
-
-        // buttons for testing shooter
-        // gamepad.aButton.onTrue(ShooterCmds.stopShooterCmd());
-        // gamepad.xButton.onTrue(ShooterCmds.shooterSetSpeakerCmd());
-        // gamepad.bButton.onTrue(ShooterCmds.shooterSetRetractCmd());
-        // gamepad.yButton.onTrue(ShooterCmds.shooterSetAmpCmd());
 
         /* ----- Example Ways to use Buttons in different ways ---- */
 
@@ -170,6 +163,14 @@ public class PilotGamepad extends Gamepad {
 
     public void rumble(double intensity) {
         this.gamepad.setRumble(intensity, intensity);
+    }
+
+    public void rumblePilotByClimber() {
+        if (Robot.climber.getAnyAboveZero()) {
+            rumble(0.1);
+        } else {
+            rumble(0);
+        }
     }
 
     public void setupFieldPoses(){

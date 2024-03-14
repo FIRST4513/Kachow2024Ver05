@@ -17,7 +17,7 @@ public class VisionConfig {
     public static Transform3d frontRobotToCamTrsfm = frontCamToRobotTrsfm.inverse();
 
 
-    public static String backLeftCamName = ("Back Left Camera");                             
+    public static String backLeftCamName = ("Back Camera");                             
     public static Transform3d backLeftCamToRobotTrsfm = new Transform3d(
                             new Translation3d(
                                     Units.inchesToMeters( -15.0),
@@ -25,15 +25,7 @@ public class VisionConfig {
                                     Units.inchesToMeters( 6.0)),
                              new Rotation3d(0, 25.0, 135.0));
 
-    public static String backRtCamName = ("Back Right Camera");
-    public static Transform3d backRtCamToRobotTrsfm = new Transform3d(
-                            new Translation3d(
-                                    Units.inchesToMeters( -15.0),
-                                    Units.inchesToMeters( -15.0),
-                                    Units.inchesToMeters( 6.0)),
-                             new Rotation3d(0, 25, -135.0));
-
-    public static Transform3d cameraTransforms[] = {frontCamToRobotTrsfm};  // frontCamToRobotTrsfm, backLeftCamToRobotTrsfm, backRtCamToRobotTrsfm
+    public static Transform3d cameraTransforms[] = {};  // frontCamToRobotTrsfm, backLeftCamToRobotTrsfm, backRtCamToRobotTrsfm
 
     // ---------------------------------
     public enum RobotPoseStrategy {

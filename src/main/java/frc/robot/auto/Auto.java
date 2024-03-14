@@ -40,7 +40,7 @@ public class Auto {
         // Selector for Autonomous Desired Action
         actionChooser.setDefaultOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
         actionChooser.addOption(         "One Note",            AutoConfig.kActionOneNoteOnly);
-        // actionChooser.addOption(         "Two Note",            AutoConfig.kActionTwoNote);
+        actionChooser.addOption(         "Two Note",            AutoConfig.kActionTwoNote);
         actionChooser.addOption(         "One Note and Crossline", AutoConfig.kOneNoteCrossOnlySelect);
         actionChooser.addOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
     }
@@ -92,17 +92,33 @@ public class Auto {
         // ----------------------- One Note and Cross Line Only -------------------
         if (oneNoteCross()) {
             System.out.println("********* One Note Cross Line Selection *********");
-            if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "SpkrLeft1" ); }
-            if ( spkrCtr() )            { return AutoCmds.ShootAndCrossCmd("Ctr","SpkrCtr1"); }
-            if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right","SpkrRight1"); }
+            if (red()) {
+                Robot.print("REEDDDDDD");
+                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "RedSpkrLeft" ); }
+                if ( spkrCtr() )            { return AutoCmds.ShootAndCrossCmd("Ctr", "RedSpkrCtr"); }
+                if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "RedSpkrRight"); }
+            } else {
+                Robot.print("BLUEEEEE");
+                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "BlueSpkrLeft" ); }
+                if ( spkrCtr() )            { return AutoCmds.ShootAndCrossCmd("Ctr", "BlueSpkrCtr"); }
+                if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "BlueSpkrRight"); }
+            }
         } 
 
         // ------------------------------ Two Note  -------------------------------
         if (twoNote()) {
             System.out.println("********* One Note Cross Line Selection *********");
-            if ( spkrLeft() )           { return AutoCmds.TwoNoteCmd("Left",    "SpkrLeft1",    "SpkrLeft2" ); }
-            if ( spkrCtr() )            { return AutoCmds.TwoNoteCmd("Ctr",     "SpkrCtr1",     "SpkrCtr2"); }
-            if ( spkrRight() )          { return AutoCmds.TwoNoteCmd("Right",   "SpkrRight1",   "SpkrRight2"); }
+            if (red()) {
+                Robot.print("REEDDDDDD");
+                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "RedSpkrLeft"); }
+                if ( spkrCtr() )            { return AutoCmds.TwoNoteCmd("Ctr", "RedSpkrCtr", "RedSpkrCtrReturn"); }
+                if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "RedSpkrRight"); }
+            } else {
+                Robot.print("BLUEEEEE");
+                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "BlueSpkrLeft" ); }
+                if ( spkrCtr() )            { return AutoCmds.TwoNoteCmd("Ctr", "BlueSpkrCtr", "BlueSpkrCtrReturn"); }
+                if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "BlueSpkrRight"); }
+            }
         }
 
         // should never get here

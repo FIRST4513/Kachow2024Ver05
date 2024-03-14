@@ -28,8 +28,8 @@ public class DrivetrainTelemetry {
         tab.addNumber("Pilot Input X", () -> Robot.pilotGamepad.getDriveFwdPositive()).withPosition(9,0).withSize(2, 1);
         tab.addNumber("Pilot Input Y", () -> Robot.pilotGamepad.getDriveLeftPositive()).withPosition(9,1).withSize(2, 1);
         
-        tab.addBoolean("VisionValid", () -> Robot.swerve.isVisionPoseValid()).withPosition(9, 2).withSize(2, 2);
-        tab.addString("VisionPose", () -> Robot.swerve.getVisionPose().toString()).withPosition(7, 4).withSize(6, 1);
+        // tab.addBoolean("VisionValid", () -> Robot.swerve.isVisionPoseValid()).withPosition(9, 2).withSize(2, 2);
+        // tab.addString("VisionPose", () -> Robot.swerve.getVisionPose().toString()).withPosition(7, 4).withSize(6, 1);
         Mod0Name = swerve.swerveMods[0].modName;
         Mod1Name = swerve.swerveMods[1].modName;
         Mod2Name = swerve.swerveMods[2].modName;

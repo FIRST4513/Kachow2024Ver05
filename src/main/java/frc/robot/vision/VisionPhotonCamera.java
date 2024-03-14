@@ -161,11 +161,11 @@ public class VisionPhotonCamera {
 
         timestamp = camera.getLatestResult().getLatencyMillis();
 
-        if (Robot.vision.aprilTagFieldLayout.getTagPose(aprilTagID).isPresent())
-            aprilTagPose = Robot.vision.aprilTagFieldLayout.getTagPose(aprilTagID).get();
-        else {
-            aprilTagPose = new Pose3d();
-        }
+        // if (Robot.vision.aprilTagFieldLayout.getTagPose(aprilTagID).isPresent())
+        //     aprilTagPose = Robot.vision.aprilTagFieldLayout.getTagPose(aprilTagID).get();
+        // else {
+        //     aprilTagPose = new Pose3d();
+        // }
         cameraToTagTrsfm = tgt.getBestCameraToTarget();
     }
 

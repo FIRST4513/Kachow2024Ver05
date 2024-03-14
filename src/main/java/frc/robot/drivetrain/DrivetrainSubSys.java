@@ -187,8 +187,8 @@ public class DrivetrainSubSys extends SubsystemBase {
                                                     return rotationController.calculate(targetRadians.getAsDouble()); }
 
     // Vision Getters
-    public Pose2d getVisionPose()                   {return Robot.vision.getVisionPoseEst().pose.toPose2d();}
-    public boolean isVisionPoseValid()              {return Robot.vision.getVisionPoseEst().isNew();}
+    // public Pose2d getVisionPose()                   {return Robot.vision.getVisionPoseEst().pose.toPose2d();}
+    // public boolean isVisionPoseValid()              {return Robot.vision.getVisionPoseEst().isNew();}
 
     /***********************************************************************
     *                       Control - Request - Processing   

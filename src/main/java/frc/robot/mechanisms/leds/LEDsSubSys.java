@@ -8,14 +8,17 @@ import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.robot.Robot;
 import frc.robot.RobotTelemetry;
 import frc.robot.mechanisms.leds.LEDsConfig.Section;
+import frc.robot.mechanisms.passthrough.PassthroughSubSys.PassthroughState;
+import frc.robot.mechanisms.shooter.ShooterSubSys.FireState;
 import frc.robot.mechanisms.leds.LEDsConfig.LEDDisplayMode;
+import frc.robot.mechanisms.intake.IntakeSubSys.IntakeState;
 import frc.robot.mechanisms.leds.LEDsConfig.Dest;
 
 public class LEDsSubSys extends SubsystemBase {
     private int counter                = 0;
     private double time                = 0;
-    private Color allianceColor        = Color.kYellow; // for fail fast!
-    private Color notAllianceColor     = Color.kPurple; // for fail fast!
+    private Color allianceColor        = Color.kRed; // for fail fast!
+    private Color notAllianceColor     = Color.kGold; // for fail fast!
     private boolean isSparkleActive    = false;
     private boolean isLightningActive  = false;
     private double brightness          = 0;
@@ -47,20 +50,20 @@ public class LEDsSubSys extends SubsystemBase {
             time = counter * 0.02;  // time is seconds in the 10s loop
                                     // it is really 0.1 increments
 
-            displayMode         = LEDDisplayMode.TELEOP_STATUS;
+            // displayMode         = LEDDisplayMode.TELEOP_STATUS;
 
-            displayMode         = LEDDisplayMode.FLASH_TEST; // tested
-            displayMode         = LEDDisplayMode.KIT; // tested
-            displayMode         = LEDDisplayMode.METEOR; // tested
-            displayMode         = LEDDisplayMode.COLOR_MARQUEE; // tested
-            displayMode         = LEDDisplayMode.RAINBOW_WAVE; // tested
-            displayMode         = LEDDisplayMode.RAINBOW; // tested
-            displayMode         = LEDDisplayMode.SETUP_STATUS;
-            displayMode         = LEDDisplayMode.TELEOP_STATUS;
-            displayMode         = LEDDisplayMode.BREATH; // tested
-            displayMode         = LEDDisplayMode.CLOUDS; // tested
-            displayMode         = LEDDisplayMode.NONE;
-            displayMode         = LEDDisplayMode.MARQUEE; // tested
+            // displayMode         = LEDDisplayMode.FLASH_TEST; // tested
+            // displayMode         = LEDDisplayMode.KIT; // tested
+            // displayMode         = LEDDisplayMode.METEOR; // tested
+            // displayMode         = LEDDisplayMode.COLOR_MARQUEE; // tested
+            // displayMode         = LEDDisplayMode.RAINBOW_WAVE; // tested
+            // displayMode         = LEDDisplayMode.RAINBOW; // tested
+            // displayMode         = LEDDisplayMode.SETUP_STATUS;
+            // displayMode         = LEDDisplayMode.TELEOP_STATUS;
+            // displayMode         = LEDDisplayMode.BREATH; // tested
+            // displayMode         = LEDDisplayMode.CLOUDS; // tested
+            // displayMode         = LEDDisplayMode.NONE;
+            // displayMode         = LEDDisplayMode.MARQUEE; // tested
 
             switch( displayMode) {
                 case SETUP_STATUS:
@@ -573,27 +576,68 @@ public class LEDsSubSys extends SubsystemBase {
     }
 
     private void telopStatus() {
-        // this is an example, has a lot of make believe stuff in it
-        boolean isPieceInPickup = false; // get from pickup
-        boolean isPickupReadyToFire = false; // get from pickup, elevator, arm
-        boolean isShooterReadyToFire = false; // get from shooter, arm, elevator, and pickup
+        // this code has been modified from the example, with real life data and getters; thanks Kirk
+        // gamepiece manipulation - intake conditions
+        boolean isGroundIntaking = Robot.intake.getState() == IntakeState.GROUND;
+        boolean isHPIntaking = Robot.shooter.getFireState() == FireState.HP_INTAKE;
+        boolean isPieceInPickup = Robot.intake.getGamepieceDetected();
+
+        // gamepiece manipulation - eject conditions
+        boolean isShooterShootingSpeaker = Robot.shooter.getFireState() == FireState.SPEAKER;
+        boolean isShooterAtVelocity = Robot.shooter.areMotorsAtVelocityTarget();
+        boolean isFiring = (Robot.shooter.getFireState() == FireState.SPEAKER) && (Robot.passthrough.getState() == PassthroughState.EJECT);
+
+        // robot manipulation - Climbing
+        boolean isClimberAboveZero = Robot.climber.getAnyAboveZero();
+        boolean isClimberLowering  = Robot.climber.getAveragePower() < 0;
+
+        // robot auto drive (unused)
         boolean isAutoDriveEngaged = false; // get from drivetrain
         Dest destination = Dest.NONE;  // get from Drivestation
 
-        // top is for piece readiness
-        // slides are for destination information
-
         solid( Section.all, Color.kBlack);
-        if (isPieceInPickup) {
-            if (isPickupReadyToFire) {
-                flash( Section.all, Color.kBlack,
-                        LEDsConfig.teleopReadyFlashPeriod);
-            } else if (isShooterReadyToFire) {
-                flash( Section.all, Color.kBlack,
-                        LEDsConfig.teleopReadyFlashPeriod);
+        if (isClimberAboveZero) {
+            int [] pattern = {1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+            marquee( Section.all, Color.kBlue, pattern,
+                        LEDsConfig.marqueePeriod, true);
+        }
+        // first check for eject conditions - top priority
+        else if (isShooterShootingSpeaker) {
+            if (isShooterAtVelocity) {
+                // ready to fire, at speed
+                flash( Section.all, Color.kGreen,
+                       LEDsConfig.teleopReadyFlashPeriod * 4);
+            } else if (isFiring) {
+                // firing
+                flash( Section.all, Color.kPurple,
+                        LEDsConfig.teleopReadyFlashPeriod * 2);
+            } else {
+                // spooling up but going to shoot speaker
+                int [] pattern = {1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+                marquee( Section.all, Color.kRed, pattern,
+                            LEDsConfig.marqueePeriod, true);
             }
         }
+        // otherwise check for intake conditions - second priority
+        else if (isPieceInPickup) {
+            breath(Section.all, Color.kBlack, Color.kGreen, 1.0);
+        } else if (isGroundIntaking) {
+            int [] pattern = {1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+            marquee( Section.all, Color.kPurple, pattern,
+                        LEDsConfig.marqueePeriod, true);
+        } else if (isHPIntaking) {
+            int [] pattern = {1,1,1,1,1,1,1,1,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0,0};
+            marquee( Section.all, Color.kPurple, pattern,
+                        LEDsConfig.marqueePeriod, true);
+        }
+        // default condition
+        else {
+            wave( Section.all, Color.kBlack, allianceColor, LEDsConfig.length,
+                  LEDsConfig.waveSlowDuration);
+        }
 
+        // top is for piece readiness
+        // slides are for destination information
         if (isAutoDriveEngaged) {
             switch( destination) {
                 case SCORE_BLUE_AMP:
@@ -664,8 +708,18 @@ public class LEDsSubSys extends SubsystemBase {
             notAllianceColor = Color.kBlue;
         } else if (color == Color.kBlue) {
             notAllianceColor = Color.kRed;
+        } else if (color == Color.kMaroon) {
+            notAllianceColor = Color.kGold;
         } else {
             notAllianceColor = Color.kPurple;
         }
+    }
+
+    public void setLightningActive(boolean enabled) {
+        isLightningActive = enabled;
+    }
+
+    public void setSparkleActive(boolean enabled) {
+        isSparkleActive = enabled;
     }
 } //end LEDsSubSys

@@ -6,7 +6,7 @@ import frc.robot.Robot;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.mechanisms.pivot.commands.PivotCmds;
-import frc.robot.mechanisms.shooter.commands.ShooterAimAndFireCmd;
+import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 
 public class OperatorGamepad extends Gamepad {
     public static ExpCurve intakeThrottleCurve = new ExpCurve(
@@ -43,13 +43,14 @@ public class OperatorGamepad extends Gamepad {
         gamepad.aButton.and(gamepad.Dpad.Down)  .onTrue(OperatorGamepadCmds.groundIntakeUntilGamepieceCmd());
 
         /* ----- Ejecting ----- */
-        // gamepad.bButton.and(gamepad.Dpad.Up)    .onTrue(new ShooterAimAndFireCmd(5));
-        gamepad.bButton.and(gamepad.Dpad.Left)  .onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());
+        gamepad.bButton.and(gamepad.Dpad.Left)  .onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());   // manually spool up shooter for anticipation
+        gamepad.bButton.and(gamepad.Dpad.Up)    .onTrue(OperatorGamepadCmds.readyForBumperShotCmd());  // shoot speaker when bumpered up or close
+        gamepad.bButton.and(gamepad.Dpad.Right) .onTrue(OperatorGamepadCmds.readyForFarShotCmd());     // shoot speaker from far at max angle
 
-        // gamepad.xButton.and(gamepad.Dpad.Up)    .onTrue(PivotCmds.setHighAndRunCmd());
-        // gamepad.xButton.and(gamepad.Dpad.Right) .onTrue(PivotCmds.setMidAndRunCmd());
-        gamepad.xButton.and(gamepad.Dpad.Down)  .onTrue(PivotCmds.setLowAndRunCmd());
-        gamepad.xButton.and(gamepad.Dpad.Up).onTrue(PivotCmds.setHighAndRunCmd());
+        /* ----- Pivot Preset Positions ----- */
+        gamepad.xButton.and(gamepad.Dpad.Down)  .onTrue(PivotCmds.setZeroAndRunCmd());  // 0º angle
+        gamepad.xButton.and(gamepad.Dpad.Left)  .onTrue(PivotCmds.setLowAndRunCmd());   // 45º angle
+        gamepad.xButton.and(gamepad.Dpad.Up)    .onTrue(PivotCmds.setHighAndRunCmd());  // 195º angle
     }
 
     @Override

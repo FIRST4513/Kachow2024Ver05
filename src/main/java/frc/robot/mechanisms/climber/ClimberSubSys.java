@@ -1,5 +1,7 @@
 package frc.robot.mechanisms.climber;
 
+import org.littletonrobotics.junction.Logger;
+
 import com.ctre.phoenix6.controls.DutyCycleOut;
 import com.ctre.phoenix6.controls.MotionMagicVoltage;
 import com.ctre.phoenix6.hardware.TalonFX;
@@ -18,7 +20,7 @@ public class ClimberSubSys extends SubsystemBase {
         HOLD_WITH_LOAD  // hold power when climbed, like a feed forward
     }
 
-    private ClimbState state = ClimbState.STOPPED;
+    private ClimbState state = ClimbState.BOTTOM;
 
     // Devices - Krakens
     protected TalonFX leftMotor  = new TalonFX(RobotConfig.Motors.climbLeftMotorID,  "CANFD");
@@ -60,6 +62,12 @@ public class ClimberSubSys extends SubsystemBase {
         // Set encoder to 0 if at bottom for each motor individually
         if (getLeftLowerSw()) { resetLeftEncoder(); }
         if (getRightLowerSw()) { resetRightEncoder(); }
+
+        // Logger.recordOutput("Climber State", getStateString());
+        // Logger.recordOutput("Climber Sensor Left", getLeftLowerSw());
+        // Logger.recordOutput("Climber Sensor Right", getRightLowerSw());
+        // Logger.recordOutput("Climber Left Motor Power", getLeftPower());
+        // Logger.recordOutput("Climber Right Motor Power", getRightPower());
     }
 
     // -------------------------------------------------
@@ -91,7 +99,7 @@ public class ClimberSubSys extends SubsystemBase {
         // Left
         if (getLeftLowerSw()) {
             leftMotor.setControl(pwmCtrlr.withOutput(-0.015));
-            resetLeftEncoder();
+            // resetLeftEncoder();  // shouldn't have to do this???
         } else {
             leftMotor.setControl(pwmCtrlr.withOutput(-0.25));
         }
@@ -99,7 +107,7 @@ public class ClimberSubSys extends SubsystemBase {
         // Right
         if (getRightLowerSw()) {
             rightMotor.setControl(pwmCtrlr.withOutput(-0.015));
-            resetRightEncoder();
+            // resetRightEncoder();  // shouldn't have to do this???
         } else {
             rightMotor.setControl(pwmCtrlr.withOutput(-0.25));
         }
@@ -165,6 +173,7 @@ public class ClimberSubSys extends SubsystemBase {
 
     public double getLeftRotations() { return leftMotor.getPosition().getValueAsDouble(); }
     public double getRightRotations() { return rightMotor.getPosition().getValueAsDouble(); }
+    public boolean getAnyAboveZero() { return (getLeftRotations() > 0.1) || (getRightRotations() > 0.1); }
 
     // ---------------------------------------------------
     // ---------------- State Methods --------------------
@@ -197,6 +206,7 @@ public class ClimberSubSys extends SubsystemBase {
     /* ----- Powers ----- */
     public double getLeftPower() { return leftMotor.get(); }
     public double getRightPower() { return rightMotor.get(); }
+    public double getAveragePower() { return (getLeftPower() + getRightPower())/2; }
 
     /* ----- Limit Switches ----- */
     public boolean getLeftLowerSw() { return !leftLimitSw.get(); }

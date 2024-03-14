@@ -106,6 +106,10 @@ public class ShooterSubSys extends SubsystemBase {
 
     /* ----- Getters ----- */
 
+    public FireState getFireState() {
+        return fireState;
+    }
+
     public String getFireStateString() {
         switch (fireState) {
             case SPEAKER: return "SPEAKER";

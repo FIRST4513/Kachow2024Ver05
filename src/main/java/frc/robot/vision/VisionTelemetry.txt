@@ -23,11 +23,11 @@ public class VisionTelemetry {
         tab = Shuffleboard.getTab("Vision");
 
         // Main Robot Stuff (moved from robot layout for sizing fixes, nothing I was doing worked)
-        tab.addBoolean("Valid Target?", () -> Robot.vision.getVisionPoseEst().isNew()).withPosition(0, 0).withSize(4, 1);
-        tab.addString("Robot Vision Est Pose", () -> poseToString(Robot.vision.getVisionPoseEst().getPose())).withPosition(0, 1).withSize(4, 1);
-        tab.addNumber("Best Tag ID", () -> Robot.vision.getBestTagId()).withPosition(0, 2).withSize(4, 1);
-        tab.addNumber("Best Tag Ambiguity", () -> Robot.vision.getBestAmbiguity()).withPosition(0, 3).withSize(4, 1);
-        tab.addNumber("Timestamp/Latency", () -> Robot.vision.getVisionPoseEst().getTimestamp()).withPosition(0, 4).withSize(4, 1);
+        // tab.addBoolean("Valid Target?", () -> Robot.vision.getVisionPoseEst().isNew()).withPosition(0, 0).withSize(4, 1);
+        // tab.addString("Robot Vision Est Pose", () -> poseToString(Robot.vision.getVisionPoseEst().getPose())).withPosition(0, 1).withSize(4, 1);
+        // tab.addNumber("Best Tag ID", () -> Robot.vision.getBestTagId()).withPosition(0, 2).withSize(4, 1);
+        // tab.addNumber("Best Tag Ambiguity", () -> Robot.vision.getBestAmbiguity()).withPosition(0, 3).withSize(4, 1);
+        // tab.addNumber("Timestamp/Latency", () -> Robot.vision.getVisionPoseEst().getTimestamp()).withPosition(0, 4).withSize(4, 1);
 
 
         if (Robot.alliance == Robot.TeamAlliance.BLUE) {

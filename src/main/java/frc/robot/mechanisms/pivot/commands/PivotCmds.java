@@ -9,7 +9,7 @@ import frc.robot.mechanisms.pivot.PivotConfig;
 import frc.robot.mechanisms.pivot.PivotSubSys.PivotState;
 
 public class PivotCmds {
-        public static void setupDefaultCommand() {
+    public static void setupDefaultCommand() {
         // Robot.shooter.setDefaultCommand(shooterByJoyCmd());
     }
 
@@ -51,7 +51,7 @@ public class PivotCmds {
         return new SequentialCommandGroup(
             setTargetAndRunCmd(55, 0.75),
             new WaitUntilCommand(() -> Robot.pivot.isStopped()),
-            setTargetAndRunCmd(45, 0.25)
+            setTargetAndRunCmd(45, 0.3)
         );
     }
 
@@ -59,8 +59,12 @@ public class PivotCmds {
         return new SequentialCommandGroup(
             setTargetAndRunCmd(200, 0.75),
             new WaitUntilCommand(() -> Robot.pivot.isStopped()),
-            setTargetAndRunCmd(195, 0.1)
+            setTargetAndRunCmd(195, 0.25)
         );
+    }
+
+    public static Command setZeroAndRunCmd() {
+        return setTargetAndRunCmd(0, 0.5);
     }
     // public static Command setMidAndRunCmd() { return setTargetAndRunCmd(PivotConfig.PIVOT_MID_ANGLE); }
     // public static Command setHighAndRunCmd() { return setTargetAndRunCmd(PivotConfig.PIVOT_MAX_ANGLE); }

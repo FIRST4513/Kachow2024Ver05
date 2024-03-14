@@ -8,13 +8,13 @@ public class ShooterConfig {
     // wheel rps at 1: 106
 
     // retract/eject speeds (rps)
-    protected static final double SPEAKER_BOTTOM = -104; //.425
-    protected static final double SPEAKER_TOP = -104; //.45
+    protected static final double SPEAKER_BOTTOM = -105; //.425
+    protected static final double SPEAKER_TOP = -105; //.45
     
     protected static final double RETRACT_BOTTOM = 25; //-106;
     protected static final double RETRACT_TOP = 25; //-106;
 
-    protected static final double SHOT_VELOCITY_TOLERANCE = 1.5;  // ±1 rps tolerance
+    protected static final double SHOT_VELOCITY_TOLERANCE = 3;  // ±1 rps tolerance
 
 
 }
