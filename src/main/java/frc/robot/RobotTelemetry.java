@@ -2,6 +2,7 @@ package frc.robot;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.Timer;
+import edu.wpi.first.wpilibj.shuffleboard.SuppliedValueWidget;
 import frc.lib.telemetry.Alert;
 import frc.lib.telemetry.Alert.AlertType;
 import frc.lib.telemetry.TelemetrySubsystem;
@@ -95,6 +96,25 @@ public class RobotTelemetry extends TelemetrySubsystem {
                                                                         .withSize(3, 3)
                                                                         .withWidget("Simple Dial")
                                                                 .withProperties(Map.of("Min", 0, "Max", 135));
+
+        // Swerve Stuff
+                // CAN ABS Value
+        tab.addNumber("FL º", () -> Robot.swerve.swerveMods[0].getSteerAngle()).withPosition(6, 0).withSize(1, 1);
+        tab.addNumber("FL v", () -> Robot.swerve.swerveMods[0].getModuleVelocityMPS()).withPosition(7, 0).withSize(1, 1);
+
+        tab.addNumber("FR º", () -> Robot.swerve.swerveMods[1].getSteerAngle()).withPosition(6, 1).withSize(1, 1);
+        tab.addNumber("FR v", () -> Robot.swerve.swerveMods[1].getModuleVelocityMPS()).withPosition(7, 1).withSize(1, 1);
+
+        tab.addNumber("BL º", () -> Robot.swerve.swerveMods[2].getSteerAngle()).withPosition(8, 0).withSize(1, 1);
+        tab.addNumber("BL v", () -> Robot.swerve.swerveMods[3].getModuleVelocityMPS()).withPosition(9, 0).withSize(1, 1);
+
+        tab.addNumber("BR º", () -> Robot.swerve.swerveMods[3].getSteerAngle()).withPosition(8, 1).withSize(1, 1);
+        tab.addNumber("BR v", () -> Robot.swerve.swerveMods[3].getModuleVelocityMPS()).withPosition(9, 1).withSize(1, 1);
+
+        tab.addString("Intake State", () -> Robot.intake.getStateString()).withPosition(4, 4).withSize(2, 1);
+        tab.addString("Passthrough State", () -> Robot.passthrough.getStateString()).withPosition(4, 5).withSize(2, 1);
+        tab.addString("Shooter State", () -> Robot.shooter.getFireStateString()).withPosition(4, 6).withSize(2, 1);
+        tab.addString("Pivot State", () -> Robot.pivot.getPivotStateString()).withPosition(4, 7).withSize(2, 1);
 
         // tab.addBoolean("Climber Lower", () -> !climberLowerSw.get()).withPosition(7, 0);
         // tab.addBoolean("Climber Mid", () -> !climberMidSw.get()).withPosition(7, 2);

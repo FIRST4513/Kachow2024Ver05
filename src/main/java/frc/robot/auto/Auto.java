@@ -128,7 +128,7 @@ public class Auto {
             if (red()) {
                 Robot.print("REEDDDDDD");
                 if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "RedSpkrLeft"); }
-                if ( spkrCtr() )            { return AutoCmds.TwoNoteCmd("Ctr", "RedSpkrCtr", "RedSpkrCtrReturn"); }
+                if ( spkrCtr() )            { return AutoCmds.ThreeNoteCmd("Ctr", "RedSpkrCtr", "RedSpkrCtrReturn", "RedSpkrCtr2ndNote", "RedSpkrCtr2ndNoteReturn"); }
                 if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "RedSpkrRight"); }
             } else {
                 Robot.print("BLUEEEEE");

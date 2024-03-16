@@ -35,7 +35,7 @@ import frc.robot.vision.VisionSubSys;
 
 public class DrivetrainSubSys extends SubsystemBase {
 
-    protected SwerveModule   swerveMods[] = new SwerveModule[4];
+    public SwerveModule   swerveMods[] = new SwerveModule[4];
     public PigeonGyro        gyro;
     protected OdometryThread odometry;
     private final RotationController rotationController;
