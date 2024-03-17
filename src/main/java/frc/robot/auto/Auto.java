@@ -128,12 +128,12 @@ public class Auto {
             if (red()) {
                 Robot.print("REEDDDDDD");
                 if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "RedSpkrLeft"); }
-                if ( spkrCtr() )            { return AutoCmds.ThreeNoteCmd("Ctr", "RedSpkrCtr", "RedSpkrCtrReturn", "RedSpkrCtr2ndNote", "RedSpkrCtr2ndNoteReturn"); }
+                if ( spkrCtr() )            { return AutoCmds.ThreeNoteCmd("Ctr", "RedSpkrCtr2ndNote", "RedSpkrCtr2ndNoteReturn", "RedSpkrCtr", "RedSpkrCtrReturn"); }
                 if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "RedSpkrRight"); }
             } else {
                 Robot.print("BLUEEEEE");
                 if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "BlueSpkrLeft" ); }
-                if ( spkrCtr() )            { return AutoCmds.ThreeNoteCmd("Ctr", "BlueSpkrCtr", "BlueSpkrCtrReturn", "BlueSpkrCtr2ndNote", "BlueSpkrCtr2ndNoteReturn"); }
+                if ( spkrCtr() )            { return AutoCmds.ThreeNoteCmd("Ctr", "BlueSpkrCtr2ndNote", "BlueSpkrCtr2ndNoteReturn", "BlueSpkrCtr", "BlueSpkrCtrReturn"); }
                 if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "BlueSpkrRight"); }
             }
         }

@@ -114,6 +114,8 @@ public class RobotTelemetry extends TelemetrySubsystem {
         tab.addString("Intake State", () -> Robot.intake.getStateString()).withPosition(4, 4).withSize(2, 1);
         tab.addString("Passthrough State", () -> Robot.passthrough.getStateString()).withPosition(4, 5).withSize(2, 1);
         tab.addString("Shooter State", () -> Robot.shooter.getFireStateString()).withPosition(4, 6).withSize(2, 1);
+        tab.addNumber("Spd Top", () -> Robot.shooter.getTopRPS()).withPosition(6, 6).withSize(1, 1);
+        tab.addNumber("Spd Bot", () -> Robot.shooter.getTopRPS()).withPosition(6, 7).withSize(1, 1);
         tab.addString("Pivot State", () -> Robot.pivot.getPivotStateString()).withPosition(4, 7).withSize(2, 1);
 
         // tab.addBoolean("Climber Lower", () -> !climberLowerSw.get()).withPosition(7, 0);

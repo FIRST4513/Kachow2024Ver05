@@ -81,7 +81,10 @@ public class OperatorGamepadCmds {
     public static Command noAutoPosSpeakerShot() {
         return new SequentialCommandGroup(
             ShooterCmds.setSpeakerSpeedCmd(),
-            new WaitUntilCommand(() -> Robot.shooter.areMotorsAtVelocityTarget()),
+            new ParallelRaceGroup(
+                new WaitUntilCommand(() -> Robot.shooter.areMotorsAtVelocityTarget()),
+                new WaitCommand(0.5)
+            ),
             PassthroughCmds.setEjectCmd(),
             new WaitCommand(0.75),
             stopAllCmd()
