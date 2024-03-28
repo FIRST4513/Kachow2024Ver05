@@ -6,31 +6,22 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Robot;
-import frc.robot.mechanisms.intake.IntakeSubSys.IntakeState;
 
 public class IntakeCmds {
-    public static final double TIMEOUT = 10;
-
-    public static void setupDefaultCommand() {
+    public void setupDefaultCommand() {
         Robot.intake.setDefaultCommand(intakeStopCmd());
     }
 
     /* ----- Intake Stop Command ----- */
     public static Command intakeStopCmd() {
-        return new InstantCommand( () -> Robot.intake.stopMotors(), Robot.intake);
+        return new InstantCommand( () -> Robot.intake.stop(), Robot.intake);
     }
 
-    /* ----- Intake Set State Commands ----- */
-    public static Command intakeSetState(IntakeState newState) {
-        return new InstantCommand(() -> Robot.intake.setNewState(newState));
-    }
-
-    /* ----- Intake Set State Command Shortcuts ----- */
-    public static Command intakeSetGroundCmd() { return intakeSetState(IntakeState.GROUND); }
-    public static Command intakeSetFeedCmd()   { return intakeSetState(IntakeState.SHOOTER_FEED); }
-    public static Command intakeSetTrapCmd()   { return intakeSetState(IntakeState.TRAP); }
-    public static Command intakeSetAmpCmd()    { return intakeSetState(IntakeState.AMP); }
-    public static Command intakeSetManualCmd() { return intakeSetState(IntakeState.MANUAL); }
+    /* ----- Intake Simple Set Commands ----- */
+    public static Command intakeSetGroundCmd() { return new InstantCommand(() -> Robot.intake.setGround()); }
+    public static Command intakeSetFeedCmd()   { return new InstantCommand(() -> Robot.intake.setShooterFeed()); }
+    public static Command intakeSetHPCmd()     { return new InstantCommand(() -> Robot.intake.setHumanPlayer()); }
+    public static Command intakeSetManualCmd() { return new InstantCommand(() -> Robot.intake.setManual()); }
 
     /* ----- Intake Command with Until Conditions */
 
@@ -56,23 +47,6 @@ public class IntakeCmds {
     public static Command intakeFeedCmd(double secondsAfterGamepieceDeparture) {
         return new SequentialCommandGroup(
             intakeSetFeedCmd(),
-            // new WaitCommand(TIMEOUT).until(() -> Robot.intake.not()),  // possible change to WaitUntilCommand
-            new WaitCommand(secondsAfterGamepieceDeparture),
-            intakeStopCmd()
-        );
-    }
-
-    /**
-     * Run the intake at the amp eject speed until the gamepiece has left the intake, plus a given amount of time.
-     * <p>
-     * Will timeout after 10 seconds, plus your given time.
-     * @param secondsAfterGamepieceDeparture Time to keep running after the gamepiece has left the intake's sensor
-     * @return A SequentialCommandGroup
-     */
-    public static Command intakeAmpCmd(double secondsAfterGamepieceDeparture) {
-        return new SequentialCommandGroup(
-            intakeSetFeedCmd(),
-            new WaitCommand(TIMEOUT).until(() -> Robot.intake.getGamepieceDetected()),  // possible change to WaitUntilCommand
             new WaitCommand(secondsAfterGamepieceDeparture),
             intakeStopCmd()
         );

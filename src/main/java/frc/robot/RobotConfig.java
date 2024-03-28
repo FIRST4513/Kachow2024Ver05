@@ -38,6 +38,10 @@ public final class RobotConfig {
         public final static int shooterMotorBottom = 20;  // Can ID Falcon 500
         public final static int shooterMotorTop    = 21;  // Can ID Falcon 500
 
+        public final static int exElev1    = 30;  // Can ID Falcon 500
+        public final static int exElev2    = 31;  // Can ID Falcon 500
+        public final static int exElev3    = 32;  // Can ID Falcon 500
+
         // Can ID Max: theoretical 40, possible 27 [https://www.chiefdelphi.com/t/multiple-can-busses-without-canivore/403994]
     }
 
@@ -56,6 +60,7 @@ public final class RobotConfig {
     public final class LimitSwitches {
         public final static int climberLeftLowerSw  = 1;  // DIO Port
         public final static int climberRightLowerSw = 0;  // DIO Port
+        public final static int exElevatorLimitSw   = 2;  // DIO Port
         
         // DIO Max Ports: 10 (w/o breakout board)
     } 

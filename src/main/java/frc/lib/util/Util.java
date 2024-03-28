@@ -66,8 +66,12 @@ public class Util {
         return (RobotController.getInputVoltage() < minVoltage);
     }
 
-    public static boolean closeTo(double a, double b, double epsilon) {
-        return epsilonEquals(a, b, epsilon);
+    public static boolean checkInRange(double value, double target, double tolerance) {
+        if ((value < (target + tolerance)) &&
+        (value > target - tolerance)) {
+            return true;
+        }
+        return false;
     }
 
     public static boolean epsilonEquals(double a, double b, double epsilon) {
