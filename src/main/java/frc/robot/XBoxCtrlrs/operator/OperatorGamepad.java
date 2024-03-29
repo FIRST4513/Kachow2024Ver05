@@ -5,6 +5,7 @@ import frc.lib.gamepads.mapping.ExpCurve;
 import frc.robot.Robot;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
+import frc.robot.mechanisms.exampleElevator.ElevatorCmds;
 import frc.robot.mechanisms.pivot.commands.PivotCmds;
 import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 
@@ -35,22 +36,29 @@ public class OperatorGamepad extends Gamepad {
     // ----- Gamepad specific methods for button assignments -----
     public void setupTeleopButtons() {
         /* ----- Overrides ----- */
-        gamepad.leftBumper.onTrue(OperatorGamepadCmds.stopAllCmd());
-        gamepad.rightBumper.onTrue(OperatorGamepadCmds.manualAllCmd()).onFalse(OperatorGamepadCmds.stopAllCmd());
+        // gamepad.leftBumper.onTrue(OperatorGamepadCmds.stopAllCmd());
+        // gamepad.rightBumper.onTrue(OperatorGamepadCmds.manualAllCmd()).onFalse(OperatorGamepadCmds.stopAllCmd());
 
         /* ----- Intaking ----- */
-        gamepad.aButton.and(gamepad.Dpad.Up)    .onTrue(OperatorGamepadCmds.hpIntakeUntilGamepiece());
-        gamepad.aButton.and(gamepad.Dpad.Down)  .onTrue(OperatorGamepadCmds.groundIntakeUntilGamepieceCmd());
+        // gamepad.aButton.and(gamepad.Dpad.Up)    .onTrue(OperatorGamepadCmds.hpIntakeUntilGamepiece());
+        // gamepad.aButton.and(gamepad.Dpad.Down)  .onTrue(OperatorGamepadCmds.groundIntakeUntilGamepieceCmd());
 
         /* ----- Ejecting ----- */
-        gamepad.bButton.and(gamepad.Dpad.Left)  .onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());   // manually spool up shooter for anticipation
-        gamepad.bButton.and(gamepad.Dpad.Up)    .onTrue(OperatorGamepadCmds.readyForBumperShotCmd());  // shoot speaker when bumpered up or close
-        gamepad.bButton.and(gamepad.Dpad.Right) .onTrue(OperatorGamepadCmds.readyForFarShotCmd());     // shoot speaker from far at max angle
+        // gamepad.bButton.and(gamepad.Dpad.Left)  .onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());   // manually spool up shooter for anticipation
+        // gamepad.bButton.and(gamepad.Dpad.Up)    .onTrue(OperatorGamepadCmds.readyForBumperShotCmd());  // shoot speaker when bumpered up or close
+        // gamepad.bButton.and(gamepad.Dpad.Right) .onTrue(OperatorGamepadCmds.readyForFarShotCmd());     // shoot speaker from far at max angle
 
         /* ----- Pivot Preset Positions ----- */
-        gamepad.xButton.and(gamepad.Dpad.Down)  .onTrue(PivotCmds.setZeroAndRunCmd());  // 0º angle
-        gamepad.xButton.and(gamepad.Dpad.Left)  .onTrue(PivotCmds.setLowAndRunCmd());   // 45º angle
-        gamepad.xButton.and(gamepad.Dpad.Up)    .onTrue(PivotCmds.setHighAndRunCmd());  // 195º angle
+        // gamepad.xButton.and(gamepad.Dpad.Down)  .onTrue(PivotCmds.setZeroAndRunCmd());  // 0º angle
+        // gamepad.xButton.and(gamepad.Dpad.Left)  .onTrue(PivotCmds.setLowAndRunCmd());   // 45º angle
+        // gamepad.xButton.and(gamepad.Dpad.Up)    .onTrue(PivotCmds.setHighAndRunCmd());  // 195º angle
+
+        gamepad.aButton.onTrue(ElevatorCmds.setLow());
+        gamepad.bButton.onTrue(ElevatorCmds.setMid());
+        gamepad.yButton.onTrue(ElevatorCmds.setTop());
+        gamepad.xButton.onTrue(ElevatorCmds.setCustomCommand());
+
+        gamepad.startButton.onTrue(ElevatorCmds.setManual()).onFalse(ElevatorCmds.stopElevator());
     }
 
     @Override

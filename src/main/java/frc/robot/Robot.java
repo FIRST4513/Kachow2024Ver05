@@ -19,6 +19,7 @@ import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.drivetrain.commands.DrivetrainCmds;
 import frc.robot.mechanisms.climber.ClimberSubSys;
 import frc.robot.mechanisms.climber.ClimberSubSys.ClimbState;
+import frc.robot.mechanisms.exampleElevator.exElevator;
 import frc.robot.mechanisms.intake.IntakeSubSys;
 import frc.robot.mechanisms.leds.LEDsSubSys;
 import frc.robot.mechanisms.leds.LEDsConfig;
@@ -76,6 +77,7 @@ public class Robot extends LoggedRobot  {
     public static PivotSubSys       pivot;
     public static ShooterSubSys     shooter;
     public static ClimberSubSys     climber;
+    public static exElevator           elevator;
 
     // Misc
     public static LEDsSubSys        leds;
@@ -123,14 +125,15 @@ public class Robot extends LoggedRobot  {
         
         auto = new Auto();
         // Game Piece Manipulation
-        intake = new IntakeSubSys();
-        passthrough = new PassthroughSubSys();
-        pivot = new PivotSubSys();
-        shooter =  new ShooterSubSys();
-        climber = new ClimberSubSys();
+        // intake = new IntakeSubSys();
+        // passthrough = new PassthroughSubSys();
+        // pivot = new PivotSubSys();
+        // shooter =  new ShooterSubSys();
+        // climber = new ClimberSubSys();
+        elevator = new exElevator();
 
         // Misc
-        leds = new LEDsSubSys();
+        // leds = new LEDsSubSys();
         // rotarySwitch = new RotarySwitchSubSys(); 
 
         // Telemetry (MUST BE LAST)
@@ -151,9 +154,9 @@ public class Robot extends LoggedRobot  {
     public void disabledInit() {
         resetCommandsAndButtons();
 
-        leds.setLEDDisplayMode(LEDDisplayMode.MARQUEE);
+        // leds.setLEDDisplayMode(LEDDisplayMode.MARQUEE);
 
-        leds.setLightningActive(true);
+        // leds.setLightningActive(true);
     }
 
     @Override
@@ -180,7 +183,7 @@ public class Robot extends LoggedRobot  {
         */ 
         updateAlliance();
 
-        leds.periodic();
+        // leds.periodic();
     }
 
     @Override
@@ -199,7 +202,7 @@ public class Robot extends LoggedRobot  {
         // swerve.setLastAngleToCurrentAngle();
 
         // Set Climbers to go to bottom no matter what
-        climber.setNewState(ClimbState.BOTTOM);
+        // climber.setNewState(ClimbState.BOTTOM);
         
         Command autoCommand = Auto.getAutonomousCommand();
         if (autoCommand != null) {
@@ -209,13 +212,13 @@ public class Robot extends LoggedRobot  {
             System.out.println("********** Auto Command NULL ************");
         }
 
-        leds.setLEDDisplayMode(LEDDisplayMode.TELEOP_STATUS);
-        leds.setLightningActive(false);
+        // leds.setLEDDisplayMode(LEDDisplayMode.TELEOP_STATUS);
+        // leds.setLightningActive(false);
     }
 
     @Override
     public void autonomousPeriodic() {
-        leds.periodic();
+        // leds.periodic();
     }
 
     @Override
@@ -229,16 +232,16 @@ public class Robot extends LoggedRobot  {
         pilotGamepad.setMaxSpeeds(pilotGamepad.getSelectedSpeed());
         pilotGamepad.setupTeleopButtons();
         resetCommandsAndButtons();
-        leds.setLEDDisplayMode(LEDDisplayMode.TELEOP_STATUS);
-        leds.setLightningActive(false);
+        // leds.setLEDDisplayMode(LEDDisplayMode.TELEOP_STATUS);
+        // leds.setLightningActive(false);
 
         // Set Climbers to go to bottom no matter what
-        climber.setNewState(ClimbState.BOTTOM);
+        // climber.setNewState(ClimbState.BOTTOM);
     }
 
     @Override
     public void teleopPeriodic() {
-        leds.periodic();
+        // leds.periodic();
     }
 
     @Override
@@ -325,13 +328,13 @@ public class Robot extends LoggedRobot  {
         }
         pilotGamepad.setupFieldPoses();
 
-        if (alliance == TeamAlliance.BLUE) {
-            leds.setLEDTeamColor(Color.kBlue);
-        } else if (alliance == TeamAlliance.RED) {
-            leds.setLEDTeamColor(Color.kRed);
-        } else {
-            leds.setLEDTeamColor(Color.kMaroon);
-        }
+        // if (alliance == TeamAlliance.BLUE) {
+        //     leds.setLEDTeamColor(Color.kBlue);
+        // } else if (alliance == TeamAlliance.RED) {
+        //     leds.setLEDTeamColor(Color.kRed);
+        // } else {
+        //     leds.setLEDTeamColor(Color.kMaroon);
+        // }
     }
 
     public static void print(String toPrint) {

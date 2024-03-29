@@ -34,8 +34,8 @@ public class AutoCmds {
         return new SequentialCommandGroup( 
             new InstantCommand(() -> System.out.println("Auto Shoot Right Speaker")),
             // add commands here to shoot 
-            OperatorGamepadCmds.readyForBumperShotCmd(),
-            OperatorGamepadCmds.noAutoPosSpeakerShot()
+            OperatorGamepadCmds.readyForBumperShotCmd()
+            // OperatorGamepadCmds.noAutoPosSpeakerShot()
         );
     }
 
@@ -66,7 +66,7 @@ public class AutoCmds {
             new ParallelCommandGroup(
                 // Intake note sequence
                 new SequentialCommandGroup(
-                    OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
+                    // OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
                     OperatorGamepadCmds.readyForBumperShotCmd()
                 ),
                 // First run to-note path, then run to-speaker path
@@ -74,8 +74,8 @@ public class AutoCmds {
                     initAndFollowPath(pathName),
                     followPath(pathNameBack)
                 )
-            ),
-            OperatorGamepadCmds.noAutoPosSpeakerShot()
+            )
+            // OperatorGamepadCmds.noAutoPosSpeakerShot()
         );
     }
 
@@ -89,7 +89,7 @@ public class AutoCmds {
             new ParallelCommandGroup(
                 // Intake note sequence
                 new SequentialCommandGroup(
-                    OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
+                    // OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
                     OperatorGamepadCmds.readyForBumperShotCmd()
                 ),
                 // First run to-note path, then run to-speaker path
@@ -98,12 +98,12 @@ public class AutoCmds {
                     followPath(pathNameBack)
                 )
             ),
-            OperatorGamepadCmds.noAutoPosSpeakerShot(),
+            // OperatorGamepadCmds.noAutoPosSpeakerShot(),
             // Do the following two things at the same time: intake note, and follow paths
             new ParallelCommandGroup(
                 // Intake note sequence
                 new SequentialCommandGroup(
-                    OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
+                    // OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
                     OperatorGamepadCmds.readyForBumperShotCmd()
                 ),
                 // First run to-note path, then run to-speaker path
@@ -111,8 +111,8 @@ public class AutoCmds {
                     initAndFollowPath(pathName2),
                     followPath(pathName2Back)
                 )
-            ),
-            OperatorGamepadCmds.noAutoPosSpeakerShot()
+            )
+            // OperatorGamepadCmds.noAutoPosSpeakerShot()
         );
     }
 

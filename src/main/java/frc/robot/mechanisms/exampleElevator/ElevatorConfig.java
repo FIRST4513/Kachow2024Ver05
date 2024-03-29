@@ -25,7 +25,7 @@ public class ElevatorConfig {
             .withCruiseVelocity(35)
             .withAcceleration(75)
             .withJerk(225)
-            .withkP(8.0)
+            .withkP(16.0)
             .withkV(0.12)
             .withkS(0.05)
             .withNeutralMode(NeutralModeValue.Brake);

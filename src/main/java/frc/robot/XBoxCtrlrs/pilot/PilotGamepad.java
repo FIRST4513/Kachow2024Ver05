@@ -63,10 +63,10 @@ public class PilotGamepad extends Gamepad {
         // "Select" Button - Reset Gyro to 180
         gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
 
-        gamepad.Dpad.Up.onTrue(ClimberCmds.climberSetTop());
-        gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());
-        gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetOnChain());
-        gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetManual());
+        // gamepad.Dpad.Up.onTrue(ClimberCmds.climberSetTop());
+        // gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());
+        // gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetOnChain());
+        // gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetManual());
 
         // Possible climber control for Corbin:
         // Left D-pad: control left with right stick
@@ -166,11 +166,11 @@ public class PilotGamepad extends Gamepad {
     }
 
     public void rumblePilotByClimber() {
-        if (Robot.climber.getAnyAboveZero()) {
-            rumble(0.1);
-        } else {
-            rumble(0);
-        }
+        // if (Robot.climber.getAnyAboveZero()) {
+        //     rumble(0.1);
+        // } else {
+        //     rumble(0);
+        // }
     }
 
     public void setupFieldPoses(){

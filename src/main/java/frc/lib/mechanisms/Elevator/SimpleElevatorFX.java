@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.MotorConfigurations.motorFXConfig;
 import frc.lib.util.Util;
+import frc.robot.Robot;
 
 public class SimpleElevatorFX extends SubsystemBase {
     /* ----- Variables ----- */
@@ -111,17 +112,17 @@ public class SimpleElevatorFX extends SubsystemBase {
         motors[0].setControl(pwmCtrlr.withOutput(speed));
     }
 
-    private void setByMM(double targetHeight) {
-        double targetRotations = heightToRotations(targetHeight);
+    private void setByMM(double targetRot) {
+        // double targetRotations = heightToRotations(targetHeight);
 
-        motors[0].setControl(mmCtrlr.withPosition(targetRotations).withFeedForward(conf.mmFeedForward));
+        motors[0].setControl(mmCtrlr.withPosition(targetRot).withFeedForward(conf.mmFeedForward));
     }
 
     // States
     public void setBottom() { state = ElevatorState.BOTTOM_PWM; }
-    public void setLow() { state = ElevatorState.LOW; }
-    public void setMid() { state = ElevatorState.MID; }
-    public void setTop() { state = ElevatorState.TOP; }
+    public void setLow() { state = ElevatorState.LOW; Robot.print("Setting Low"); }
+    public void setMid() { state = ElevatorState.MID; Robot.print("Setting Mid"); }
+    public void setTop() { state = ElevatorState.TOP; Robot.print("Setting Top"); }
 
     public void setCustomMM(DoubleSupplier rotationSupplier) {
         state = ElevatorState.CUSTOM_MM;
@@ -185,6 +186,8 @@ public class SimpleElevatorFX extends SubsystemBase {
             default: return false;
         }
     }
+
+    public double getRotations() { return currentMotorRot; }
 
     public boolean getLimitSw() {
         return !lowerLimitSw.get();

@@ -10,9 +10,7 @@ public class exElevator extends SimpleElevatorFX {
         super(ElevatorConfig.elevConfig,  // general config for elevator
               1,
               RobotConfig.LimitSwitches.exElevatorLimitSw,  // port for limit switch
-              ElevatorConfig.motor1Config,  // config for first motor
-              ElevatorConfig.motor2Config,  // config for second motor, follows first
-              ElevatorConfig.motor3Config);  // config for third motor, follows first
+              ElevatorConfig.motor1Config);  // config for first motor
     }
 
     /* ----- Methods for custom actions ----- */

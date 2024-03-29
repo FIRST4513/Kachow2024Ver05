@@ -8,6 +8,7 @@ import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
 import edu.wpi.first.wpilibj2.command.WaitCommand;
 import edu.wpi.first.wpilibj2.command.WaitUntilCommand;
 import frc.robot.Robot;
+import frc.robot.mechanisms.exampleElevator.ElevatorCmds;
 import frc.robot.mechanisms.intake.commands.IntakeCmds;
 import frc.robot.mechanisms.passthrough.commands.PassthroughCmds;
 import frc.robot.mechanisms.pivot.commands.PivotCmds;
@@ -34,35 +35,36 @@ public class OperatorGamepadCmds {
             IntakeCmds.intakeStopCmd(),
             PassthroughCmds.stopPassthroughCmd(),
             ShooterCmds.stopCmd(),
-            PivotCmds.stopCmd()
+            PivotCmds.stopCmd(),
+            ElevatorCmds.stopElevator()
         );
     }
 
     /* ----- Combo Commands ----- */
-    public static Command hpIntakeUntilGamepiece() {
-        return new SequentialCommandGroup(
-            PassthroughCmds.setHPIntakeCmd(),  
-            PivotCmds.setHPIntakeCmd(),
-            new WaitUntilCommand(() -> Robot.pivot.isAtTarget()),
-            ShooterCmds.setHPIntakeCmd(),
-            new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
-            stopAllCmd()
-        );
-    }
+    // public static Command hpIntakeUntilGamepiece() {
+    //     return new SequentialCommandGroup(
+    //         PassthroughCmds.setHPIntakeCmd(),  
+    //         PivotCmds.setHPIntakeCmd(),
+    //         new WaitUntilCommand(() -> Robot.pivot.isAtTarget()),
+    //         ShooterCmds.setHPIntakeCmd(),
+    //         new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
+    //         stopAllCmd()
+    //     );
+    // }
 
-    public static Command groundIntakeUntilGamepieceCmd() {
-        return new SequentialCommandGroup(
-            PassthroughCmds.setGroundIntakeCmd(),
-            IntakeCmds.intakeSetGroundCmd(),
-            new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
-            new WaitCommand(0.15),
-            stopAllCmd(),
-            new WaitCommand(0.25),
-            PassthroughCmds.setHPIntakeCmd(),
-            new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
-            stopAllCmd()
-        );
-    }
+    // public static Command groundIntakeUntilGamepieceCmd() {
+    //     return new SequentialCommandGroup(
+    //         PassthroughCmds.setGroundIntakeCmd(),
+    //         IntakeCmds.intakeSetGroundCmd(),
+    //         new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
+    //         new WaitCommand(0.15),
+    //         stopAllCmd(),
+    //         new WaitCommand(0.25),
+    //         PassthroughCmds.setHPIntakeCmd(),
+    //         new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
+    //         stopAllCmd()
+    //     );
+    // }
 
     public static Command readyForBumperShotCmd() {
         return new ParallelCommandGroup(
@@ -78,18 +80,18 @@ public class OperatorGamepadCmds {
         );
     }
 
-    public static Command noAutoPosSpeakerShot() {
-        return new SequentialCommandGroup(
-            ShooterCmds.setSpeakerSpeedCmd(),
-            new ParallelRaceGroup(
-                new WaitUntilCommand(() -> Robot.shooter.areMotorsAtVelocityTarget()),
-                new WaitCommand(0.5)
-            ),
-            PassthroughCmds.setEjectCmd(),
-            new WaitCommand(0.75),
-            stopAllCmd()
-        );
-    }
+    // public static Command noAutoPosSpeakerShot() {
+    //     return new SequentialCommandGroup(
+    //         ShooterCmds.setSpeakerSpeedCmd(),
+    //         new ParallelRaceGroup(
+    //             new WaitUntilCommand(() -> Robot.shooter.areMotorsAtVelocityTarget()),
+    //             new WaitCommand(0.5)
+    //         ),
+    //         PassthroughCmds.setEjectCmd(),
+    //         new WaitCommand(0.75),
+    //         stopAllCmd()
+    //     );
+    // }
 
     // -------------------- Rumble Controller  ---------------
     public static Command RumbleOperatorCmd(double intensity) {

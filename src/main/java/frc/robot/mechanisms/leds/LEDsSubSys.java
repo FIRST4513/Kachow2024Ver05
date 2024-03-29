@@ -11,7 +11,7 @@ import frc.robot.mechanisms.leds.LEDsConfig.Section;
 import frc.robot.mechanisms.passthrough.PassthroughSubSys.PassthroughState;
 import frc.robot.mechanisms.shooter.ShooterSubSys.FireState;
 import frc.robot.mechanisms.leds.LEDsConfig.LEDDisplayMode;
-import frc.robot.mechanisms.intake.IntakeSubSys.IntakeState;
+// import frc.robot.mechanisms.intake.IntakeSubSys.IntakeState;
 import frc.robot.mechanisms.leds.LEDsConfig.Dest;
 
 public class LEDsSubSys extends SubsystemBase {
@@ -578,7 +578,7 @@ public class LEDsSubSys extends SubsystemBase {
     private void telopStatus() {
         // this code has been modified from the example, with real life data and getters; thanks Kirk
         // gamepiece manipulation - intake conditions
-        boolean isGroundIntaking = Robot.intake.getState() == IntakeState.GROUND;
+        boolean isGroundIntaking = false;  // Robot.intake.getState() == IntakeState.GROUND;
         boolean isHPIntaking = Robot.shooter.getFireState() == FireState.HP_INTAKE;
         boolean isPieceInPickup = Robot.intake.getGamepieceDetected();
 
