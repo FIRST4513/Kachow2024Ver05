@@ -81,7 +81,7 @@ public class DrivetrainSubSys extends SubsystemBase {
                        boolean fieldRelative,
                        boolean isOpenLoop,
                        Translation2d centerOfRotationMeters) {
-    
+
         // --------------- Step 1 Set Chassis Speeds Field or Robot Relative  -----------------
         // mps (Meters Per Second) and rps (Radians Per Second)
         ChassisSpeeds speeds;
@@ -130,7 +130,7 @@ public class DrivetrainSubSys extends SubsystemBase {
 
     /**
      * Given a path, reset the odometry and Gyro to the starting pose of the path
-     * 
+     *
      * @param path PathPlannerTrajectory robot will follow
      * and to take initial pose from
      */
@@ -157,7 +157,7 @@ public class DrivetrainSubSys extends SubsystemBase {
 
     // DriveState Class methods
     public DriveState   getDriveState()             { return odometry.getDriveState(); } // Get All the odometry data
-     
+
     public SwerveModuleState[]    getModStates()    { return getDriveState().ModuleStates; }
     public SwerveModulePosition[] getModPositions() { return getDriveState().ModulePositions; }
     public ChassisSpeeds         getChassisSpeeds() { return DrivetrainConfig.getKinematics()
@@ -165,14 +165,14 @@ public class DrivetrainSubSys extends SubsystemBase {
     public Pose2d       getPose()                   { return getDriveState().Pose; }
     public double       getPoseHdgDegrees()         { return getDriveState().Pose.getRotation().getDegrees(); }
     public Rotation2d   getRotation()               { return getPose().getRotation(); }
-    
+
 
     // Odometry Methods
     public void         resetPose(Pose2d pose)      { odometry.resetOdometryPose(pose); }
     public void         resetPose()                 { resetPose(new Pose2d()); }
     public void         zeroOdoemtry()              { odometry.zeroEverything(); }
     //public void         reorientPose(double angle)  { odometry.reorientPose(angle); }
-    public synchronized void updateOdometryVisionPose (Pose2d pose, double timestamp) { 
+    public synchronized void updateOdometryVisionPose (Pose2d pose, double timestamp) {
                                                     // odometry.addVisionMeasurement( pose, timestamp); }
                                                     resetPose(pose); }
 
@@ -191,9 +191,9 @@ public class DrivetrainSubSys extends SubsystemBase {
     // public boolean isVisionPoseValid()              {return Robot.vision.getVisionPoseEst().isNew();}
 
     /***********************************************************************
-    *                       Control - Request - Processing   
+    *                       Control - Request - Processing
     ************************************************************************/
-    
+
     // Use this to control the swerve drive, set motors, etc.
     public void setControlMode(Request mode) {
         setControl(mode);

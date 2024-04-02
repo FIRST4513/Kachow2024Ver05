@@ -17,7 +17,6 @@ public class SimpleElevatorFX extends SubsystemBase {
     /* ----- Variables ----- */
     private ElevatorControlConfig conf;
     private double currentMotorRot = 0;
-    private double motorRotToHeight = 1;
 
     /* ----- Enum for Elevator State ----- */
     public enum ElevatorState {
@@ -42,9 +41,8 @@ public class SimpleElevatorFX extends SubsystemBase {
     private DutyCycleOut pwmCtrlr = new DutyCycleOut(0);
 
     /* ----- Constructor ----- */
-    public SimpleElevatorFX(ElevatorControlConfig controlConfig, double motorRotToHeightRatio, int bottomLimitSwPin, motorFXConfig... motorConfigs) {
+    public SimpleElevatorFX(ElevatorControlConfig controlConfig, int bottomLimitSwPin, motorFXConfig... motorConfigs) {
         this.conf = controlConfig;
-        this.motorRotToHeight = motorRotToHeightRatio;
 
         this.motorConfigs = motorConfigs;
 
@@ -111,9 +109,7 @@ public class SimpleElevatorFX extends SubsystemBase {
         motors[0].setControl(pwmCtrlr.withOutput(speed));
     }
 
-    private void setByMM(double targetHeight) {
-        double targetRotations = heightToRotations(targetHeight);
-
+    private void setByMM(double targetRotations) {
         motors[0].setControl(mmCtrlr.withPosition(targetRotations).withFeedForward(conf.mmFeedForward));
     }
 
@@ -146,15 +142,6 @@ public class SimpleElevatorFX extends SubsystemBase {
         for ( TalonFX motor : motors ) {
             motor.setNeutralMode(NeutralModeValue.Coast);
         }
-    }
-
-    /* ----- Conversions ----- */
-    public double rotationsToHeight(double rotations) {
-        return rotations * motorRotToHeight;
-    }
-
-    public double heightToRotations(double height) {
-        return height / motorRotToHeight;
     }
 
     /* ----- Getters ----- */

@@ -65,7 +65,7 @@ public class Robot extends LoggedRobot  {
     public static DrivetrainSubSys  swerve;
     public static PilotGamepad      pilotGamepad;
     public static OperatorGamepad   operatorGamepad;
-    
+
     // Automation and Assists
     public static Auto              auto;
     // public static VisionSubSys      vision;
@@ -94,9 +94,9 @@ public class Robot extends LoggedRobot  {
         Timer.delay( 2.0 );         // Delay for 2 seconds for robot to come fully up
         // getIdentity();          // Look up mac address and set robot enum
         //MAC = Network.getMACaddress();
-       
+
         intializeSubsystems();
-        
+
         DataLogManager.start();
         DriverStation.startDataLog(DataLogManager.getLog());
         initAdvantageKitLogger();   // This logger replaces the WPI Data logger methods
@@ -114,13 +114,13 @@ public class Robot extends LoggedRobot  {
         Timer.delay(1);
         // Automation and Assists
         // vision =   new VisionSubSys();
-        
+
         // Base Robot
         swerve = new DrivetrainSubSys();
 
         pilotGamepad = new PilotGamepad();
         operatorGamepad = new OperatorGamepad();
-        
+
         auto = new Auto();
         // Game Piece Manipulation
         intake = new IntakeSubSys();
@@ -131,7 +131,7 @@ public class Robot extends LoggedRobot  {
 
         // Misc
         leds = new LEDsSubSys();
-        // rotarySwitch = new RotarySwitchSubSys(); 
+        // rotarySwitch = new RotarySwitchSubSys();
 
         // Telemetry (MUST BE LAST)
         telemetry = new RobotTelemetry();
@@ -144,7 +144,7 @@ public class Robot extends LoggedRobot  {
         // LEDsCommands.setupDefaultCommand();
         // Auto.setupSelectors();
     }
-    
+
 
     // -----------------  Robot Disabled Mode Methods ------------------
     @Override
@@ -157,10 +157,10 @@ public class Robot extends LoggedRobot  {
     }
 
     @Override
-    public void disabledPeriodic()  { 
+    public void disabledPeriodic()  {
         // Run LED Lights based on switch
         // int m_rotarySwitch = rotarySwitch.GetRotaryPos();
-    
+
         // if      ( m_rotarySwitch == 1) leds.solid( 0.75, Color.kRed,    2);
         // else if ( m_rotarySwitch == 2) leds.solid( 0.75, Color.kGreen,  2);
         // else if ( m_rotarySwitch == 3) leds.solid( 0.75, Color.kBlue,   2);
@@ -177,7 +177,7 @@ public class Robot extends LoggedRobot  {
         } else {
             leds.wave(Section.all, Color.kBlue, Color.kRed, LEDsConfig.length, LEDsConfig.waveSlowDuration);
         }
-        */ 
+        */
         updateAlliance();
 
         leds.periodic();
@@ -190,7 +190,7 @@ public class Robot extends LoggedRobot  {
     // -----------------  Autonomous Mode Methods ------------------
     @Override
     public void autonomousInit() {
-        updateAlliance();           // Get current Alliance Color and init teleop positions       
+        updateAlliance();           // Get current Alliance Color and init teleop positions
         sysTimer.reset();			// System timer for Competition run
     	sysTimer.start();
         System.out.println("Starting Auto Init");
@@ -200,7 +200,7 @@ public class Robot extends LoggedRobot  {
 
         // Set Climbers to go to bottom no matter what
         climber.setNewState(ClimbState.BOTTOM);
-        
+
         Command autoCommand = Auto.getAutonomousCommand();
         if (autoCommand != null) {
             System.out.println("Auto Command Not null");
@@ -278,7 +278,7 @@ public class Robot extends LoggedRobot  {
             else if (mac.equals(KACHOW_2024_SECOND_MAC))        { return RobotIdentity.KACHOW_2024_SECOND; }
         }
         // No match found
-        return RobotIdentity.UNKNOWN; 
+        return RobotIdentity.UNKNOWN;
     }
 
     /** This method is called once at the end of RobotInit to begin logging */
