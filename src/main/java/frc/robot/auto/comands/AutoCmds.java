@@ -29,30 +29,12 @@ public class AutoCmds {
     }
 
     // ----------------------------- Speaker Shoot Commands ----------------------------------
-    public static Command SpeakerShootCmd( String pos ) {
-        if (pos  == "Left") {
-            return new SequentialCommandGroup(  
-                new InstantCommand(() -> System.out.println("Auto Shoot Left Speaker"))
+    public static Command SpeakerShootCmd() {
+        return new SequentialCommandGroup(  
+                new InstantCommand(() -> System.out.println("Auto Shoot Speaker"))
                 // add commands here to shoot 
                 // OperatorGamepadCmds.intakeShooterSpeakerShootCmd()
             );
-        }
-        if (pos  == "Ctr") {
-            return new SequentialCommandGroup(    
-                new InstantCommand(() -> System.out.println("Auto Shoot CTR Speaker"))
-                // add commands here to shoot 
-                // OperatorGamepadCmds.intakeShooterSpeakerShootCmd()
-            );
-        }
-        if (pos  == "Right") {
-            return new SequentialCommandGroup( 
-                new InstantCommand(() -> System.out.println("Auto Shoot Right Speaker"))
-                // add commands here to shoot 
-                // OperatorGamepadCmds.intakeShooterSpeakerShootCmd()
-            );
-        }
-        // Should never get here
-        return new InstantCommand(() -> System.out.println("ERROR With Shoot Speaker"));
         }
 
     // ----------------------------- Cross Line Commands -------------------------------------
@@ -67,7 +49,7 @@ public class AutoCmds {
     // ------------------------- One Note and Cross Line Only --------------------------------
     public static Command ShootAndCrossCmd( String pos, String pathName ) {
         return new SequentialCommandGroup(  
-            SpeakerShootCmd(pos),
+            SpeakerShootCmd(),
             CrossLineOnlyCmd( pathName)
         );    
     }
@@ -76,12 +58,12 @@ public class AutoCmds {
     public static Command TwoNoteCmd( String pos, String pathName, String pathNameBack ) {
         return new SequentialCommandGroup(  
             new InstantCommand( ()-> Robot.print( "Two Note Cmd ")),
-            SpeakerShootCmd(pos),
+            SpeakerShootCmd(),
             // Intake to ground and on on Cmd here
             initAndFollowPath(pathName),
             // Intake to shoot position
             followPath(pathNameBack),
-            SpeakerShootCmd(pos)
+            SpeakerShootCmd()
             // Intake to store pos cmd
         );    
     }

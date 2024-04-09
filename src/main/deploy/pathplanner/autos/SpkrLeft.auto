@@ -14,13 +14,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "o_SpkrLeft1"
+            "pathName": null
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "o_SpkrLeft2"
+            "pathName": null
           }
         }
       ]

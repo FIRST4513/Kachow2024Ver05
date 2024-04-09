@@ -14,25 +14,25 @@
         {
           "type": "path",
           "data": {
-            "pathName": "o_SpkrCtr3Note1"
+            "pathName": null
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "o_SpkrCtr3Note2"
+            "pathName": null
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "o_SpkrCtr3Note3"
+            "pathName": null
           }
         },
         {
           "type": "path",
           "data": {
-            "pathName": "o_SpkrCtr3Note4"
+            "pathName": null
           }
         }
       ]

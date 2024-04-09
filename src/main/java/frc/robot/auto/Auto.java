@@ -2,6 +2,8 @@ package frc.robot.auto;
 
 import java.lang.reflect.Field;
 
+import javax.swing.Action;
+
 import com.pathplanner.lib.auto.AutoBuilder;
 import com.pathplanner.lib.auto.NamedCommands;
 
@@ -40,6 +42,7 @@ public class Auto {
         // Selector for Autonomous Desired Action
         actionChooser.setDefaultOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
         actionChooser.addOption(         "One Note",            AutoConfig.kActionOneNoteOnly);
+        actionChooser.addOption ("sick 360 (BLUE LEFT ONLY)", AutoConfig.kSick360);
         // actionChooser.addOption(         "Two Note",            AutoConfig.kActionTwoNote);
         actionChooser.addOption(         "One Note and Crossline", AutoConfig.kOneNoteCrossOnlySelect);
         actionChooser.addOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
@@ -66,11 +69,11 @@ public class Auto {
         // ----------------------------- One Note Only ---------------------------
         if (oneNoteOnly()) {
             System.out.println("********* One Note Cross Line Selection *********");
-            if ( spkrLeft() )           { return AutoCmds.SpeakerShootCmd("Left"); }
-            if ( spkrCtr() )            { return AutoCmds.SpeakerShootCmd("Ctr"); }
-            if ( spkrRight() )          { return AutoCmds.SpeakerShootCmd("Right"); }
+            if ( spkrLeft() )           { return AutoCmds.SpeakerShootCmd(); }
+            if ( spkrCtr() )            { return AutoCmds.SpeakerShootCmd(); }
+            if ( spkrRight() )          { return AutoCmds.SpeakerShootCmd(); }
             // should never get here
-            return AutoCmds.SpeakerShootCmd("Ctr");
+            return AutoCmds.SpeakerShootCmd();
         }
         
         // --------------------------- Cross Line Only ----------------------------
@@ -104,7 +107,13 @@ public class Auto {
             if ( spkrCtr() )            { return AutoCmds.TwoNoteCmd("Ctr",     "SpkrCtr1",     "SpkrCtr2"); }
             if ( spkrRight() )          { return AutoCmds.TwoNoteCmd("Right",   "SpkrRight1",   "SpkrRight2"); }
         }
-
+        
+        if (sick360()) {
+            System.out.println("youre going to kill the robot, please ESTOP");
+            if ( spkrLeft() )           { return AutoCmds.CrossLineOnlyCmd("360path");}
+            if ( spkrCtr() )            { return AutoCmds.DoNothingCmd();}
+            if ( spkrRight() )          { return AutoCmds.DoNothingCmd();}
+        }
         // should never get here
         return AutoCmds.DoNothingCmd();
     }
@@ -220,7 +229,10 @@ public class Auto {
         if (actionSelect.equals(AutoConfig.kCrossOnlySelect)) { return true; }
         return false;
     }
-
+    private static boolean sick360() {
+        if (actionSelect.equals(AutoConfig.kSick360)) {return true;}
+        return false;
+    }
     private static boolean red() {
         if (Robot.alliance == TeamAlliance.RED) { return true; }
         return false;
