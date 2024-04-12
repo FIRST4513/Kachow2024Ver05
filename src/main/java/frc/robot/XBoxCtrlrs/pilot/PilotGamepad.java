@@ -64,10 +64,10 @@ public class PilotGamepad extends Gamepad {
         gamepad.selectButton.whileTrue(PilotGamepadCmds.RpvPilotSwerveCmd());
         
         // buttons for testing shooter
-        // gamepad.aButton.onTrue(ShooterCmds.stopShooterCmd());
-        // gamepad.xButton.onTrue(ShooterCmds.shooterSetSpeakerCmd());
-        // gamepad.bButton.onTrue(ShooterCmds.shooterSetRetractCmd());
-        // gamepad.yButton.onTrue(ShooterCmds.shooterSetAmpCmd());
+        gamepad.aButton.onTrue(ShooterCmds.stopShooterCmd());
+        gamepad.xButton.onTrue(ShooterCmds.shooterSetSpeakerCmd());
+        gamepad.bButton.onTrue(ShooterCmds.shooterSetRetractCmd());
+        gamepad.yButton.onTrue(ShooterCmds.shooterSetAmpCmd());
 
         /* ----- Example Ways to use Buttons in different ways ---- */
 

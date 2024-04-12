@@ -8,56 +8,8 @@
       },
       "prevControl": null,
       "nextControl": {
-        "x": 1.4955487097991198,
-        "y": 6.335188806389977
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.5978084506400851,
-        "y": 6.066756986682443
-      },
-      "prevControl": {
-        "x": 1.2581941908124212,
-        "y": 6.652298813971517
-      },
-      "nextControl": {
-        "x": 1.9620918402056349,
-        "y": 5.438682177086671
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 2.2624967661063606,
-        "y": 5.491545944452012
-      },
-      "prevControl": {
-        "x": 2.2241493632909988,
-        "y": 5.056942045877908
-      },
-      "nextControl": {
-        "x": 2.2827509464807196,
-        "y": 5.72109332202808
-      },
-      "isLocked": false,
-      "linkedName": null
-    },
-    {
-      "anchor": {
-        "x": 1.815110399927137,
-        "y": 4.750162823355012
-      },
-      "prevControl": {
-        "x": 2.2561554759712115,
-        "y": 5.233889680951738
-      },
-      "nextControl": {
-        "x": 1.4520744670079102,
-        "y": 4.351994380798441
+        "x": 3.0706451141860898,
+        "y": 5.820285763253409
       },
       "isLocked": false,
       "linkedName": null
@@ -68,8 +20,8 @@
         "y": 4.4178186656218745
       },
       "prevControl": {
-        "x": 1.68728572387593,
-        "y": 4.251646586755306
+        "x": 1.571658036326057,
+        "y": 4.485250397034318
       },
       "nextControl": null,
       "isLocked": false,
@@ -78,17 +30,17 @@
   ],
   "rotationTargets": [
     {
-      "waypointRelativePos": 0.5,
+      "waypointRelativePos": 0.1,
       "rotationDegrees": -133.3567193455073,
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 2,
+      "waypointRelativePos": 0.25,
       "rotationDegrees": 1.735704588928442,
       "rotateFast": false
     },
     {
-      "waypointRelativePos": 3,
+      "waypointRelativePos": 0.5,
       "rotationDegrees": 111.31791227546157,
       "rotateFast": false
     }

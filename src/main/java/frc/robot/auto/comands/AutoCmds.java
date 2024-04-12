@@ -13,9 +13,11 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.InstantCommand;
 import edu.wpi.first.wpilibj2.command.ParallelCommandGroup;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
+import edu.wpi.first.wpilibj2.command.WaitCommand;
 import frc.robot.Robot;
 import frc.robot.XBoxCtrlrs.operator.commands.OperatorGamepadCmds;
 import frc.robot.auto.Auto;
+import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 
 public class AutoCmds {
 
@@ -31,9 +33,11 @@ public class AutoCmds {
     // ----------------------------- Speaker Shoot Commands ----------------------------------
     public static Command SpeakerShootCmd() {
         return new SequentialCommandGroup(  
-                new InstantCommand(() -> System.out.println("Auto Shoot Speaker"))
+                new InstantCommand(() -> System.out.println("Auto Shoot Speaker")),
                 // add commands here to shoot 
-                // OperatorGamepadCmds.intakeShooterSpeakerShootCmd()
+               ShooterCmds.shooterSetSpeakerCmd(),
+                new WaitCommand(2.0f),
+                ShooterCmds.stopShooterCmd()
             );
         }
 
@@ -47,7 +51,7 @@ public class AutoCmds {
     }
 
     // ------------------------- One Note and Cross Line Only --------------------------------
-    public static Command ShootAndCrossCmd( String pos, String pathName ) {
+    public static Command ShootAndCrossCmd(String pathName ) {
         return new SequentialCommandGroup(  
             SpeakerShootCmd(),
             CrossLineOnlyCmd( pathName)
@@ -55,7 +59,7 @@ public class AutoCmds {
     }
 
     // ----------------------------------- Two Note ------------------------------------------
-    public static Command TwoNoteCmd( String pos, String pathName, String pathNameBack ) {
+    public static Command TwoNoteCmd(String pathName, String pathNameBack ) {
         return new SequentialCommandGroup(  
             new InstantCommand( ()-> Robot.print( "Two Note Cmd ")),
             SpeakerShootCmd(),

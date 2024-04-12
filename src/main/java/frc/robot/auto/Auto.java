@@ -43,6 +43,7 @@ public class Auto {
         actionChooser.setDefaultOption(  "Do Nothing",          AutoConfig.kActionDoNothing);
         actionChooser.addOption(         "One Note",            AutoConfig.kActionOneNoteOnly);
         actionChooser.addOption ("sick 360 (BLUE LEFT ONLY)", AutoConfig.kSick360);
+        actionChooser.addOption("logan practice cone path", AutoConfig.kLoganConePath);
         // actionChooser.addOption(         "Two Note",            AutoConfig.kActionTwoNote);
         actionChooser.addOption(         "One Note and Crossline", AutoConfig.kOneNoteCrossOnlySelect);
         actionChooser.addOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
@@ -95,23 +96,29 @@ public class Auto {
         // ----------------------- One Note and Cross Line Only -------------------
         if (oneNoteCross()) {
             System.out.println("********* One Note Cross Line Selection *********");
-            if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "SpkrLeft1" ); }
-            if ( spkrCtr() )            { return AutoCmds.ShootAndCrossCmd("Ctr","SpkrCtr1"); }
-            if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right","SpkrRight1"); }
+            if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("SpkrLeft1" ); }
+            if ( spkrCtr() )            { return AutoCmds.ShootAndCrossCmd("SpkrCtr1"); }
+            if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("SpkrRight1"); }
         } 
 
         // ------------------------------ Two Note  -------------------------------
         if (twoNote()) {
             System.out.println("********* One Note Cross Line Selection *********");
-            if ( spkrLeft() )           { return AutoCmds.TwoNoteCmd("Left",    "SpkrLeft1",    "SpkrLeft2" ); }
-            if ( spkrCtr() )            { return AutoCmds.TwoNoteCmd("Ctr",     "SpkrCtr1",     "SpkrCtr2"); }
-            if ( spkrRight() )          { return AutoCmds.TwoNoteCmd("Right",   "SpkrRight1",   "SpkrRight2"); }
+            if ( spkrLeft() )           { return AutoCmds.TwoNoteCmd("SpkrLeft1",    "SpkrLeft2" ); }
+            if ( spkrCtr() )            { return AutoCmds.TwoNoteCmd("SpkrCtr1",     "SpkrCtr2"); }
+            if ( spkrRight() )          { return AutoCmds.TwoNoteCmd("SpkrRight1",   "SpkrRight2"); }
         }
         
         if (sick360()) {
             System.out.println("youre going to kill the robot, please ESTOP");
             if ( spkrLeft() )           { return AutoCmds.CrossLineOnlyCmd("360path");}
             if ( spkrCtr() )            { return AutoCmds.DoNothingCmd();}
+            if ( spkrRight() )          { return AutoCmds.DoNothingCmd();}
+        }
+        if (loganconepath()) {
+            System.out.println("youre going to kill the robot, please ESTOP");
+            if ( spkrLeft() )           { return AutoCmds.DoNothingCmd();}
+            if ( spkrCtr() )            { return AutoCmds.ShootAndCrossCmd("loganconepath");}
             if ( spkrRight() )          { return AutoCmds.DoNothingCmd();}
         }
         // should never get here
@@ -231,6 +238,10 @@ public class Auto {
     }
     private static boolean sick360() {
         if (actionSelect.equals(AutoConfig.kSick360)) {return true;}
+        return false;
+    }
+    private static boolean loganconepath() {
+        if (actionSelect.equals(AutoConfig.kLoganConePath)) {return true;}
         return false;
     }
     private static boolean red() {

@@ -18,6 +18,7 @@ public class AutoConfig {
     public static final String kCrossOnlySelect         = "Cross Only";
     public static final String kActionOneNoteOnly       = "One Note Only";       // Shoot Only
     public static final String kSick360                 = "Sick 360"; //PLEASE DO NOT USE
+    public static final String kLoganConePath           = "Logan Cone Path"; //READ ABOVE
     public static final String kOneNoteCrossOnlySelect  = "One Note and Cross line Only";
     public static final String kActionTwoNote           = "Two Note";       // Shoot and get second and Shoot
 
