@@ -65,10 +65,11 @@ public class PilotGamepad extends Gamepad {
         
         // buttons for testing shooter
         gamepad.aButton.onTrue(ShooterCmds.stopShooterCmd());
-        gamepad.xButton.onTrue(ShooterCmds.shooterSetSpeakerCmd());
+        //gamepad.xButton.onTrue(ShooterCmds.shooterSetSpeakerCmd());
         gamepad.bButton.onTrue(ShooterCmds.shooterSetRetractCmd());
         gamepad.yButton.onTrue(ShooterCmds.shooterSetAmpCmd());
 
+        gamepad.xButton.and(gamepad.leftBumper).onTrue(PilotGamepadCmds.driveToPose(PilotGamepadConfig.blueCenter));
         /* ----- Example Ways to use Buttons in different ways ---- */
 
         // example combo button functionality:

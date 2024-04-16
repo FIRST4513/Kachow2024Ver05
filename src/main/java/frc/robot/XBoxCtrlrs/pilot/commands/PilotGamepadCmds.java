@@ -1,5 +1,15 @@
 package frc.robot.XBoxCtrlrs.pilot.commands;
 
+import java.util.List;
+
+import com.pathplanner.lib.auto.AutoBuilder;
+import com.pathplanner.lib.path.GoalEndState;
+import com.pathplanner.lib.path.PathConstraints;
+import com.pathplanner.lib.path.PathPlannerPath;
+
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Translation2d;
+import edu.wpi.first.math.util.Units;
 import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.RunCommand;
 import edu.wpi.first.wpilibj2.command.SequentialCommandGroup;
@@ -19,6 +29,23 @@ public class PilotGamepadCmds {
     }
 
     // ------------- Drive by TeleOp Commands ---------------
+
+        // Drive to pose command
+        public static Command driveToPose(Pose2d targetPose) {
+        Pose2d currentPose = Robot.swerve.getPose();
+        List<Translation2d> bezierPoints = PathPlannerPath.bezierFromPoses(currentPose, targetPose);
+        PathPlannerPath path = new PathPlannerPath(bezierPoints,
+                                            new PathConstraints(
+                                                3.0,                            // Max Velocity MPS
+                                                3.0,                            // Max Accel MPSS
+                                                Units.degreesToRadians(180),    // Max Rotation Rate Rad/S
+                                                Units.degreesToRadians(180)),   // Max Rot Acel Rad/SS
+                                            new GoalEndState(
+                                                0.0,                            // End State Vel MPS
+                                                currentPose.getRotation()));    // End State Rotation
+        path.preventFlipping = true;        // Don't let AutoBuidler invert this path ! (we could be blue or red)
+        return AutoBuilder.followPath(path);
+    }
 
     /** Field Oriented Drive */
     public static Command FpvPilotSwerveCmd() {

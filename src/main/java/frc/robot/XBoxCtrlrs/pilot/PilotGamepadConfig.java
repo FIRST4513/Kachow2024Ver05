@@ -1,10 +1,16 @@
 package frc.robot.XBoxCtrlrs.pilot;
 
+import edu.wpi.first.math.geometry.Pose2d;
+import edu.wpi.first.math.geometry.Rotation2d;
 import edu.wpi.first.math.geometry.Translation2d;
 
 /** Constants used by the Pilot Gamepad */
 public class PilotGamepadConfig {
     public static enum MaxSpeeds {FAST, MEDIUM, SLOW}
+
+    //drive to pose positions
+    public static Pose2d blueCenter = new Pose2d(1.42, 5.53, Rotation2d.fromDegrees(180));
+
 
     // Selectable speeds
     //----Fast-----//
