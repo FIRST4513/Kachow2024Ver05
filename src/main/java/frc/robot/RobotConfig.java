@@ -17,6 +17,17 @@ public final class RobotConfig {
     public  static final double  loopPeriodSecs = 0.02;
     public  static final boolean TUNING_MODE = false;
     
+    public final class Attachments {
+        public final static boolean climberAttached      = true;
+        public final static boolean elevatorAttached     = true;
+        public final static boolean intakeAttached       = true;
+        public final static boolean ledsAttached         = true;
+        public final static boolean passthroughAttached  = true;
+        public final static boolean pivotAttached        = true;
+        public final static boolean rotarySwitchAttached = true;
+        public final static boolean shooterAttached      = true;
+    }
+
     public final class Motors {
         // ----- Swerve drive -----
         public final static int FLdriveMotorID     =  1;  // Can ID Kraken
