@@ -323,7 +323,7 @@ public class Robot extends LoggedRobot  {
         } else {
             alliance = TeamAlliance.NONE;
         }
-        pilotGamepad.setupFieldPoses();
+        // pilotGamepad.setupFieldPoses();
 
         if (alliance == TeamAlliance.BLUE) {
             leds.setLEDTeamColor(Color.kBlue);

@@ -36,14 +36,6 @@ public class PilotGamepad extends Gamepad {
                     PilotGamepadConfig.rotationSpeedScaler,
                     PilotGamepadConfig.rotationSpeedDeadband);
     public SendableChooser<String> speedChooser = new SendableChooser<String>();
-
-    private Pose2d spkrLeftPose;
-    private Pose2d spkrCtrPose;
-    private Pose2d spkrRightPose;
-    private Pose2d ampPose;
-    private Pose2d HPLeft;
-    private Pose2d HPCtr;
-    private Pose2d HPRight;
     
     // ----- Constructor -----
     public PilotGamepad() {
@@ -67,20 +59,6 @@ public class PilotGamepad extends Gamepad {
         gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());
         gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetOnChain());
         gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetManual());
-
-        // Possible climber control for Corbin:
-        // Left D-pad: control left with right stick
-        // Right D-pad: control right with right stick
-
-        /* ----- Example Ways to use Buttons in different ways ---- */
-
-        // example combo button functionality:
-        // gamepad.rightBumper.and(gamepad.aButton).whileTrue(new RunCommand(() -> Robot.print("Going to Toggling Angle")));
-
-        // example go-while-held button functionality:
-        
-        // or:
-        // gamepad.Dpad.Left.onTrue(IntakeCmds.intakeSetAmpCmd());
     }
 
     public void setupDisabledButtons() {}
@@ -170,26 +148,6 @@ public class PilotGamepad extends Gamepad {
             rumble(0.1);
         } else {
             rumble(0);
-        }
-    }
-
-    public void setupFieldPoses(){
-        if (Robot.alliance == TeamAlliance.BLUE) {
-            spkrLeftPose = FieldConstants.BLUE_SPEAKER_LEFT;
-            spkrCtrPose = FieldConstants.BLUE_SPEAKER_CTR;
-            spkrRightPose =FieldConstants.BLUE_SPEAKER_RIGHT;
-            ampPose =FieldConstants.BLUE_AMP;
-            HPLeft = FieldConstants.BLUE_HP_LEFT;
-            HPCtr = FieldConstants.BLUE_HP_CTR;
-            HPRight =FieldConstants.BLUE_HP_RIGHT;
-        } else {
-            spkrLeftPose = FieldConstants.RED_SPEAKER_LEFT;
-            spkrCtrPose = FieldConstants.RED_SPEAKER_CTR;
-            spkrRightPose =FieldConstants.RED_SPEAKER_RIGHT;
-            ampPose =FieldConstants.RED_AMP;
-            HPLeft = FieldConstants.RED_HP_LEFT;
-            HPCtr = FieldConstants.RED_HP_CTR;
-            HPRight =FieldConstants.RED_HP_RIGHT;
         }
     }
 }
