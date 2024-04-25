@@ -29,6 +29,6 @@ public class IntakeSubSys extends Intake_SRX {
     }
 
     public void setManual() {
-        setCustom(() -> Robot.operatorGamepad.getTriggerTwist());
+        setCustom(() -> Robot.pilotGamepad.getClimberAdjustInput());
     }
 }

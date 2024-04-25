@@ -20,30 +20,8 @@ public class ElevatorConfig {
             .withPWMTolerance(0.1);
     
     public static final motorFXConfig motor1Config = new motorFXConfig()
-            .withCanID(RobotConfig.Motors.exElev1)
+            .withCanID(RobotConfig.Motors.exElevator)
             .withInvert(InvertedValue.Clockwise_Positive)
-            .withCruiseVelocity(35)
-            .withAcceleration(75)
-            .withJerk(225)
-            .withkP(8.0)
-            .withkV(0.12)
-            .withkS(0.05)
-            .withNeutralMode(NeutralModeValue.Brake);
-    
-    public static final motorFXConfig motor2Config = new motorFXConfig()
-            .withCanID(RobotConfig.Motors.exElev2)
-            .withInvert(InvertedValue.CounterClockwise_Positive)
-            .withCruiseVelocity(35)
-            .withAcceleration(75)
-            .withJerk(225)
-            .withkP(8.0)
-            .withkV(0.12)
-            .withkS(0.05)
-            .withNeutralMode(NeutralModeValue.Brake);
-
-    public static final motorFXConfig motor3Config = new motorFXConfig()
-            .withCanID(RobotConfig.Motors.exElev3)
-            .withInvert(InvertedValue.CounterClockwise_Positive)
             .withCruiseVelocity(35)
             .withAcceleration(75)
             .withJerk(225)

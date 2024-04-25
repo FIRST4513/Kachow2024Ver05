@@ -3,6 +3,7 @@ package frc.robot.mechanisms.intake;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 
 import frc.lib.MotorConfigurations.motorSRXConfig;
+import frc.robot.RobotConfig;
 
 public class IntakeConfig {
     public static final double retractSpeed = 1;
@@ -12,6 +13,7 @@ public class IntakeConfig {
     public static final double gamepieceDetectDistance = 1;
 
     public static final motorSRXConfig motorConfig = new motorSRXConfig()
+            .withCanID(RobotConfig.Motors.exIntake)
             .withNeutralMode(NeutralMode.Brake)
             .withContinuousCurrentLimit(30)
             .withPeakCurrentLimit(40)

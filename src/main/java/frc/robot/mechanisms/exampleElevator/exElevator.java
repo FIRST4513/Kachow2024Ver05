@@ -9,9 +9,8 @@ public class exElevator extends SimpleElevatorFX {
     public exElevator() {
         super(ElevatorConfig.elevConfig,  // general config for elevator
               RobotConfig.LimitSwitches.exElevatorLimitSw,  // port for limit switch
-              ElevatorConfig.motor1Config,  // config for first motor
-              ElevatorConfig.motor2Config,  // config for second motor, follows first
-              ElevatorConfig.motor3Config);  // config for third motor, follows first
+              ElevatorConfig.motor1Config  // config for first motor
+        );
     }
 
     /* ----- Methods for custom actions ----- */
@@ -20,6 +19,6 @@ public class exElevator extends SimpleElevatorFX {
     }
 
     public void setManualControl() {
-        setManual(() -> Robot.operatorGamepad.getPivotAdjust());
+        setManual(() -> Robot.pilotGamepad.getClimberAdjustInput());
     }
 }

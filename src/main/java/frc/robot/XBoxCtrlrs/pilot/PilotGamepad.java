@@ -10,8 +10,8 @@ import frc.robot.Robot;
 import frc.robot.Robot.TeamAlliance;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
-import frc.robot.mechanisms.climber.commands.ClimberCmds;
-import frc.robot.mechanisms.shooter.commands.ShooterCmds;
+import frc.robot.mechanisms.intake.commands.IntakeCmds;
+// import frc.robot.mechanisms.climber.commands.ClimberCmds;
 import frc.util.FieldConstants;
 
 /** Used to add buttons to the pilot gamepad and configure the joysticks */
@@ -55,10 +55,12 @@ public class PilotGamepad extends Gamepad {
         // "Select" Button - Reset Gyro to 180
         gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
 
-        gamepad.Dpad.Up.onTrue(ClimberCmds.climberSetTop());
-        gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());
-        gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetOnChain());
-        gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetManual());
+        gamepad.aButton.onTrue(IntakeCmds.intakeSetManualCmd()).onFalse(IntakeCmds.intakeStopCmd());
+
+        // gamepad.Dpad.Up.onTrue(ClimberCmds.climberSetTop());
+        // gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());
+        // gamepad.Dpad.Left.onTrue(ClimberCmds.climberSetOnChain());
+        // gamepad.Dpad.Right.onTrue(ClimberCmds.climberSetManual());
     }
 
     public void setupDisabledButtons() {}
@@ -141,13 +143,5 @@ public class PilotGamepad extends Gamepad {
 
     public void rumble(double intensity) {
         this.gamepad.setRumble(intensity, intensity);
-    }
-
-    public void rumblePilotByClimber() {
-        if (Robot.climber.getAnyAboveZero()) {
-            rumble(0.1);
-        } else {
-            rumble(0);
-        }
     }
 }

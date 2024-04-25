@@ -11,26 +11,22 @@ import edu.wpi.first.wpilibj2.command.Command;
 import edu.wpi.first.wpilibj2.command.CommandScheduler;
 import frc.robot.vision.VisionSubSys;
 import frc.lib.util.Network;
-import frc.robot.XBoxCtrlrs.operator.OperatorGamepad;
+// import frc.robot.XBoxCtrlrs.operator.OperatorGamepad;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepad;
 import frc.robot.XBoxCtrlrs.pilot.commands.PilotGamepadCmds;
-import frc.robot.auto.Auto;
+// import frc.robot.auto.Auto;
 import frc.robot.drivetrain.DrivetrainSubSys;
 import frc.robot.drivetrain.commands.DrivetrainCmds;
-import frc.robot.mechanisms.climber.ClimberSubSys;
-import frc.robot.mechanisms.climber.ClimberSubSys.ClimbState;
+// import frc.robot.mechanisms.climber.ClimberSubSys;
+// import frc.robot.mechanisms.climber.ClimberSubSys.ClimbState;
+import frc.robot.mechanisms.exampleElevator.exElevator;
 import frc.robot.mechanisms.intake.IntakeSubSys;
-import frc.robot.mechanisms.leds.LEDsSubSys;
-import frc.robot.mechanisms.leds.LEDsConfig;
-import frc.robot.mechanisms.leds.LEDsConfig.LEDDisplayMode;
-import frc.robot.mechanisms.leds.LEDsConfig.Section;
-import frc.robot.mechanisms.passthrough.PassthroughSubSys;
-import frc.robot.mechanisms.pivot.PivotSubSys;
+// import frc.robot.mechanisms.leds.LEDsSubSys;
+// import frc.robot.mechanisms.leds.LEDsConfig;
+// import frc.robot.mechanisms.leds.LEDsConfig.LEDDisplayMode;
+// import frc.robot.mechanisms.leds.LEDsConfig.Section;
 // import frc.robot.mechanisms.leds.LEDs;
 // import frc.robot.mechanisms.leds.LEDsCommands;
-import frc.robot.mechanisms.rotarySwitch.RotarySwitchSubSys;
-import frc.robot.mechanisms.shooter.ShooterSubSys;
-import frc.robot.mechanisms.shooter.commands.ShooterCmds;
 import edu.wpi.first.wpilibj.util.Color;
 import org.littletonrobotics.junction.LogFileUtil;
 import org.littletonrobotics.junction.LoggedRobot;
@@ -64,21 +60,19 @@ public class Robot extends LoggedRobot  {
     // Base Robot
     public static DrivetrainSubSys  swerve;
     public static PilotGamepad      pilotGamepad;
-    public static OperatorGamepad   operatorGamepad;
+    // public static OperatorGamepad   operatorGamepad;
 
     // Automation and Assists
-    public static Auto              auto;
+    // public static Auto              auto;
     // public static VisionSubSys      vision;
 
     // Game Piece Manipulation
     public static IntakeSubSys      intake;
-    public static PassthroughSubSys passthrough;
-    public static PivotSubSys       pivot;
-    public static ShooterSubSys     shooter;
-    public static ClimberSubSys     climber;
+    // public static ClimberSubSys     climber;
+    public static exElevator        elevator;
 
     // Misc
-    public static LEDsSubSys        leds;
+    // public static LEDsSubSys        leds;
     // public static RotarySwitchSubSys rotarySwitch;
 
     public static RobotTelemetry    telemetry;          // Telemetry (MUST BE LAST)
@@ -119,18 +113,16 @@ public class Robot extends LoggedRobot  {
         swerve = new DrivetrainSubSys();
 
         pilotGamepad = new PilotGamepad();
-        operatorGamepad = new OperatorGamepad();
+        // operatorGamepad = new OperatorGamepad();
 
-        auto = new Auto();
+        // auto = new Auto();
         // Game Piece Manipulation
         intake = new IntakeSubSys();
-        passthrough = new PassthroughSubSys();
-        pivot = new PivotSubSys();
-        shooter =  new ShooterSubSys();
-        climber = new ClimberSubSys();
+        // climber = new ClimberSubSys();
+        // elevator = new exElevator();
 
         // Misc
-        leds = new LEDsSubSys();
+        // leds = new LEDsSubSys();
         // rotarySwitch = new RotarySwitchSubSys();
 
         // Telemetry (MUST BE LAST)
@@ -151,9 +143,9 @@ public class Robot extends LoggedRobot  {
     public void disabledInit() {
         resetCommandsAndButtons();
 
-        leds.setLEDDisplayMode(LEDDisplayMode.MARQUEE);
+        // leds.setLEDDisplayMode(LEDDisplayMode.MARQUEE);
 
-        leds.setLightningActive(true);
+        // leds.setLightningActive(true);
     }
 
     @Override
@@ -180,7 +172,7 @@ public class Robot extends LoggedRobot  {
         */
         updateAlliance();
 
-        leds.periodic();
+        // leds.periodic();
     }
 
     @Override
@@ -199,23 +191,23 @@ public class Robot extends LoggedRobot  {
         // swerve.setLastAngleToCurrentAngle();
 
         // Set Climbers to go to bottom no matter what
-        climber.setNewState(ClimbState.BOTTOM);
+        // climber.setNewState(ClimbState.BOTTOM);
 
-        Command autoCommand = Auto.getAutonomousCommand();
-        if (autoCommand != null) {
-            System.out.println("Auto Command Not null");
-            autoCommand.schedule();
-        } else {
-            System.out.println("********** Auto Command NULL ************");
-        }
+        // Command autoCommand = Auto.getAutonomousCommand();
+        // if (autoCommand != null) {
+        //     System.out.println("Auto Command Not null");
+        //     autoCommand.schedule();
+        // } else {
+        //     System.out.println("********** Auto Command NULL ************");
+        // }
 
-        leds.setLEDDisplayMode(LEDDisplayMode.TELEOP_STATUS);
-        leds.setLightningActive(false);
+        // leds.setLEDDisplayMode(LEDDisplayMode.TELEOP_STATUS);
+        // leds.setLightningActive(false);
     }
 
     @Override
     public void autonomousPeriodic() {
-        leds.periodic();
+        // leds.periodic();
     }
 
     @Override
@@ -229,16 +221,16 @@ public class Robot extends LoggedRobot  {
         pilotGamepad.setMaxSpeeds(pilotGamepad.getSelectedSpeed());
         pilotGamepad.setupTeleopButtons();
         resetCommandsAndButtons();
-        leds.setLEDDisplayMode(LEDDisplayMode.TELEOP_STATUS);
-        leds.setLightningActive(false);
+        // leds.setLEDDisplayMode(LEDDisplayMode.TELEOP_STATUS);
+        // leds.setLightningActive(false);
 
         // Set Climbers to go to bottom no matter what
-        climber.setNewState(ClimbState.BOTTOM);
+        // climber.setNewState(ClimbState.BOTTOM);
     }
 
     @Override
     public void teleopPeriodic() {
-        leds.periodic();
+        // leds.periodic();
     }
 
     @Override
@@ -267,7 +259,7 @@ public class Robot extends LoggedRobot  {
         CommandScheduler.getInstance().cancelAll();  // Disable any currently running commands
         CommandScheduler.getInstance().getActiveButtonLoop().clear();
         pilotGamepad.resetConfig();  // Reset Config for all gamepads and other button bindings
-        operatorGamepad.resetConfig();
+        // operatorGamepad.resetConfig();
     }
 
     public static RobotIdentity getIdentity() {
@@ -326,11 +318,11 @@ public class Robot extends LoggedRobot  {
         // pilotGamepad.setupFieldPoses();
 
         if (alliance == TeamAlliance.BLUE) {
-            leds.setLEDTeamColor(Color.kBlue);
+            // leds.setLEDTeamColor(Color.kBlue);
         } else if (alliance == TeamAlliance.RED) {
-            leds.setLEDTeamColor(Color.kRed);
+            // leds.setLEDTeamColor(Color.kRed);
         } else {
-            leds.setLEDTeamColor(Color.kMaroon);
+            // leds.setLEDTeamColor(Color.kMaroon);
         }
     }
 

@@ -41,17 +41,10 @@ public final class RobotConfig {
         public final static int BRangleMotorID     =  8;  // Can ID Kraken
 
         // ----- Other subsystems -----
-        public final static int climbLeftMotorID   = 14;  // Can ID Kraken
-        public final static int climbRightMotorID  = 15;  // Can ID Kraken
-        public final static int intakeMotorID      = 16;  // Can ID Redline (Phoenix 5, Talon SRX)
-        public final static int passthroughMotorID = 17;  // Can ID Kraken
-        public final static int pivotMotorID       = 18;  // Can ID Window (Phoenix 5, Talon SRX)
-        public final static int shooterMotorBottom = 20;  // Can ID Falcon 500
-        public final static int shooterMotorTop    = 21;  // Can ID Falcon 500
 
-        public final static int exElev1    = 30;  // Can ID Falcon 500
-        public final static int exElev2    = 31;  // Can ID Falcon 500
-        public final static int exElev3    = 32;  // Can ID Falcon 500
+        // public final static int exElev1    = 20;  // Can ID Falcon 500
+        public final static int exIntake   = 20;
+        public final static int exElevator = 21;
 
         // Can ID Max: theoretical 40, possible 27 [https://www.chiefdelphi.com/t/multiple-can-busses-without-canivore/403994]
     }
