@@ -11,7 +11,7 @@ public class ElevatorCommands {
     public static Command setLow()       { return new InstantCommand(() -> Robot.elevator.setLow()); }
     public static Command setMid()       { return new InstantCommand(() -> Robot.elevator.setMid()); }
     public static Command setTop()       { return new InstantCommand(() -> Robot.elevator.setTop()); }
-    public static Command setManualPWM() { return new InstantCommand(() -> Robot.elevator.setBottom()); }
+    public static Command setManualPWM() { return new InstantCommand(() -> Robot.elevator.setManualControl()); }
     
     public static Command setCustomMM()  { return new InstantCommand(() -> Robot.elevator.setBottom()); }
 }

@@ -12,6 +12,7 @@ import frc.lib.util.Util;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadTelemetry;
 // import frc.robot.auto.Auto;
 import frc.robot.drivetrain.DrivetrainTelemetry;
+import frc.robot.mechanisms.exampleElevator.ElevatorTelemetry;
 // import frc.robot.mechanisms.climber.ClimberTelemetry;
 import frc.robot.mechanisms.intake.IntakeTelemetry;
 // import frc.robot.vision.VisionTelemetry;
@@ -28,8 +29,9 @@ public class RobotTelemetry extends TelemetrySubsystem {
     // public static OperatorGamepadTelemetry m_OperatorTelemetry;
     
     // Telemetry for Gamepiece Manipulation and Climbing
-    public static IntakeTelemetry           m_IntakeTelemetry;
+    // public static IntakeTelemetry           m_IntakeTelemetry;
     // public static ClimberTelemetry          m_ClimberTelemetry;
+    public static ElevatorTelemetry          m_ElevatorTelemetry;
 
     // Alerts
     private static Alert batteryAlert = new Alert("Low Battery < 12v", AlertType.WARNING);
@@ -56,8 +58,10 @@ public class RobotTelemetry extends TelemetrySubsystem {
         m_PilotTelemetry =          new PilotGamepadTelemetry(Robot.pilotGamepad);
         // m_OperatorTelemetry =       new OperatorGamepadTelemetry(Robot.operatorGamepad);
         // m_VisionTelemetry =         new VisionTelemetry(Robot.vision);
-        m_IntakeTelemetry =         new IntakeTelemetry(Robot.intake);
+        // m_IntakeTelemetry =         new IntakeTelemetry(Robot.intake);
         // m_ClimberTelemetry =        new ClimberTelemetry(Robot.climber);
+        m_ElevatorTelemetry = new ElevatorTelemetry(Robot.elevator);
+
 
         // Misc
         // m_RotarySwitchTelemetry =   new RotarySwitchTelemetry(Robot.rotarySwitch);
@@ -100,7 +104,7 @@ public class RobotTelemetry extends TelemetrySubsystem {
         tab.addNumber("BR º", () -> Robot.swerve.swerveMods[3].getSteerAngle()).withPosition(8, 1).withSize(1, 1);
         tab.addNumber("BR v", () -> Robot.swerve.swerveMods[3].getModuleVelocityMPS()).withPosition(9, 1).withSize(1, 1);
 
-        tab.addString("Intake State", () -> Robot.intake.getStateString()).withPosition(4, 4).withSize(2, 1);
+        // tab.addString("Intake State", () -> Robot.intake.getStateString()).withPosition(4, 4).withSize(2, 1);
 
         // tab.addBoolean("Climber Lower", () -> !climberLowerSw.get()).withPosition(7, 0);
         // tab.addBoolean("Climber Mid", () -> !climberMidSw.get()).withPosition(7, 2);

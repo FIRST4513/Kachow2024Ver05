@@ -10,6 +10,7 @@ import frc.robot.Robot;
 import frc.robot.Robot.TeamAlliance;
 import frc.robot.RobotConfig;
 import frc.robot.XBoxCtrlrs.pilot.PilotGamepadConfig.MaxSpeeds;
+import frc.robot.mechanisms.exampleElevator.commands.ElevatorCommands;
 import frc.robot.mechanisms.intake.commands.IntakeCmds;
 // import frc.robot.mechanisms.climber.commands.ClimberCmds;
 import frc.util.FieldConstants;
@@ -55,7 +56,9 @@ public class PilotGamepad extends Gamepad {
         // "Select" Button - Reset Gyro to 180
         gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
 
-        gamepad.aButton.onTrue(IntakeCmds.intakeSetManualCmd()).onFalse(IntakeCmds.intakeStopCmd());
+        // gamepad.aButton.onTrue(IntakeCmds.intakeSetManualCmd()).onFalse(IntakeCmds.intakeStopCmd());
+        gamepad.aButton.onTrue(ElevatorCommands.setManualPWM()).onFalse(ElevatorCommands.stop());
+        gamepad.bButton.onTrue(ElevatorCommands.setLow()).onFalse(ElevatorCommands.stop());
 
         // gamepad.Dpad.Up.onTrue(ClimberCmds.climberSetTop());
         // gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());

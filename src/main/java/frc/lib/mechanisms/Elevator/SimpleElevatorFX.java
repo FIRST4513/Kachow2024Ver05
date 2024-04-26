@@ -12,6 +12,7 @@ import edu.wpi.first.wpilibj.DigitalInput;
 import edu.wpi.first.wpilibj2.command.SubsystemBase;
 import frc.lib.MotorConfigurations.motorFXConfig;
 import frc.lib.util.Util;
+import frc.robot.Robot;
 
 public class SimpleElevatorFX extends SubsystemBase {
     /* ----- Variables ----- */
@@ -81,6 +82,8 @@ public class SimpleElevatorFX extends SubsystemBase {
             case STOPPED:
             default: setByPWM(0);
         }
+
+        Robot.print(getName());
     }
 
     /* ----- Setters ----- */
@@ -90,6 +93,7 @@ public class SimpleElevatorFX extends SubsystemBase {
 
     public void stop() {
         motors[0].stopMotor();
+        state = ElevatorState.STOPPED;
     }
 
     private void setByPWM(double speed) {
@@ -129,7 +133,10 @@ public class SimpleElevatorFX extends SubsystemBase {
         state = ElevatorState.MANUAL_PWM;
         customValSupplier = speedSupplier;
     }
-    public void setManual(double speed) { setManual(() -> speed); }
+    public void setManual(double speed) { 
+        state = ElevatorState.MANUAL_PWM;
+        setManual(() -> speed);
+    }
 
     // Break Modes
     public void brakeOn() {
@@ -146,6 +153,7 @@ public class SimpleElevatorFX extends SubsystemBase {
 
     /* ----- Getters ----- */
     public double getSpeed() { return motors[0].get(); }
+    public double getRotations() { return motors[0].getPosition().getValueAsDouble(); }
     public ElevatorState getState() { return state; }
     public String getStateString() {
         switch (state) {
