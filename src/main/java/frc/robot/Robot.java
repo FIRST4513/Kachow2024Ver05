@@ -95,7 +95,35 @@ public class Robot extends LoggedRobot  {
         // getIdentity();          // Look up mac address and set robot enum
         //MAC = Network.getMACaddress();
        
-        intializeSubsystems();
+        // Initialize Subsystems //
+        Timer.delay(1);
+        // Automation and Assists
+        // vision =   new VisionSubSys();
+        
+        // Base Robot
+        swerve = new DrivetrainSubSys();
+        auto = new Auto();
+        
+        // Gamepads
+        pilotGamepad = new PilotGamepad();
+        operatorGamepad = new OperatorGamepad();
+        
+        // Game Piece Manipulation
+        intake = new IntakeSubSys();
+        passthrough = new PassthroughSubSys();
+        pivot = new PivotSubSys();
+        shooter =  new ShooterSubSys();
+        climber = new ClimberSubSys();
+
+        // Misc
+        leds = new LEDsSubSys();
+
+        // Telemetry (MUST BE LAST)
+        telemetry = new RobotTelemetry();
+
+        // Set Default Commands, this method should exist for each subsystem that has commands
+        DrivetrainCmds.setupDefaultCommand();
+        PilotGamepadCmds.setupDefaultCommand();
         
         DataLogManager.start();
         DriverStation.startDataLog(DataLogManager.getLog());
@@ -110,46 +138,14 @@ public class Robot extends LoggedRobot  {
         Threads.setCurrentThreadPriority(true, 10); // Set the main thread back to normal priority
     }
 
-    private void intializeSubsystems() {
-        Timer.delay(1);
-        // Automation and Assists
-        // vision =   new VisionSubSys();
-        
-        // Base Robot
-        swerve = new DrivetrainSubSys();
-
-        pilotGamepad = new PilotGamepad();
-        operatorGamepad = new OperatorGamepad();
-        
-        auto = new Auto();
-        // Game Piece Manipulation
-        intake = new IntakeSubSys();
-        passthrough = new PassthroughSubSys();
-        pivot = new PivotSubSys();
-        shooter =  new ShooterSubSys();
-        climber = new ClimberSubSys();
-
-        // Misc
-        leds = new LEDsSubSys();
-        // rotarySwitch = new RotarySwitchSubSys(); 
-
-        // Telemetry (MUST BE LAST)
-        telemetry = new RobotTelemetry();
-
-        // Set Default Commands, this method should exist for each subsystem that has commands
-        DrivetrainCmds.setupDefaultCommand();
-
-        PilotGamepadCmds.setupDefaultCommand();
-        // ShooterCmds.setupDefaultCommand();
-        // LEDsCommands.setupDefaultCommand();
-        // Auto.setupSelectors();
-    }
-    
-
     // -----------------  Robot Disabled Mode Methods ------------------
     @Override
     public void disabledInit() {
-        resetCommandsAndButtons();
+        // Reset Commands And Buttons //
+        CommandScheduler.getInstance().cancelAll();  // Disable any currently running commands
+        CommandScheduler.getInstance().getActiveButtonLoop().clear();
+        pilotGamepad.resetConfig();     // Reset Button Bindings
+        operatorGamepad.resetConfig();  // Reset Button Bindings
 
         leds.setLEDDisplayMode(LEDDisplayMode.MARQUEE);
 
@@ -194,9 +190,12 @@ public class Robot extends LoggedRobot  {
         sysTimer.reset();			// System timer for Competition run
     	sysTimer.start();
         System.out.println("Starting Auto Init");
-        resetCommandsAndButtons();
-
-        // swerve.setLastAngleToCurrentAngle();
+        
+        // Reset Commands And Buttons //
+        CommandScheduler.getInstance().cancelAll();  // Disable any currently running commands
+        CommandScheduler.getInstance().getActiveButtonLoop().clear();
+        pilotGamepad.resetConfig();     // Reset Button Bindings
+        operatorGamepad.resetConfig();  // Reset Button Bindings
 
         // Set Climbers to go to bottom no matter what
         climber.setNewState(ClimbState.BOTTOM);
@@ -228,7 +227,13 @@ public class Robot extends LoggedRobot  {
         updateAlliance();           // Get current Alliance Color and init teleop positions
         pilotGamepad.setMaxSpeeds(pilotGamepad.getSelectedSpeed());
         pilotGamepad.setupTeleopButtons();
-        resetCommandsAndButtons();
+        
+        // Reset Commands And Buttons //
+        CommandScheduler.getInstance().cancelAll();  // Disable any currently running commands
+        CommandScheduler.getInstance().getActiveButtonLoop().clear();
+        pilotGamepad.resetConfig();     // Reset Button Bindings
+        operatorGamepad.resetConfig();  // Reset Button Bindings
+        
         leds.setLEDDisplayMode(LEDDisplayMode.TELEOP_STATUS);
         leds.setLightningActive(false);
 
@@ -249,7 +254,12 @@ public class Robot extends LoggedRobot  {
     @Override
     public void testInit() {
         updateAlliance();           // Get current Alliance Color and init teleop positions
-        resetCommandsAndButtons();
+        
+        // Reset Commands And Buttons //
+        CommandScheduler.getInstance().cancelAll();  // Disable any currently running commands
+        CommandScheduler.getInstance().getActiveButtonLoop().clear();
+        pilotGamepad.resetConfig();     // Reset Button Bindings
+        operatorGamepad.resetConfig();  // Reset Button Bindings
     }
 
     @Override
@@ -262,13 +272,6 @@ public class Robot extends LoggedRobot  {
     public void simulationPeriodic() {}
 
     // ------------------------  Misc Methods ---------------------
-    public static void resetCommandsAndButtons() {
-
-        CommandScheduler.getInstance().cancelAll();  // Disable any currently running commands
-        CommandScheduler.getInstance().getActiveButtonLoop().clear();
-        pilotGamepad.resetConfig();  // Reset Config for all gamepads and other button bindings
-        operatorGamepad.resetConfig();
-    }
 
     public static RobotIdentity getIdentity() {
         String mac = Network.getMACaddress();

@@ -57,7 +57,41 @@ public class RobotTelemetry extends TelemetrySubsystem {
         super("Robot");     // Main tab will be called "Robot"
 
         // Robot-General Tab Setup
-        layoutRobotTelemetryTab();   // Fill This Tab with data
+        Auto.setupSelectors();
+
+        // Teleop Speed
+        tab.add("Speed Selection",    Robot.pilotGamepad.speedChooser)  .withPosition(0, 0).withSize(3, 2);
+
+        // Auto Info
+        tab.add("Action Selection",     Auto.actionChooser)             .withPosition(0, 2).withSize(3, 2);
+        tab.add("Position Selection",   Auto.positionChooser)           .withPosition(0, 4).withSize(3, 2);
+
+        // Match Time
+        tab.addNumber("Match Time", () -> Timer.getMatchTime())         .withPosition(3, 0)
+                                                                        .withSize(3, 3)
+                                                                        .withWidget("Simple Dial")
+                                                                .withProperties(Map.of("Min", 0, "Max", 135));
+
+        // Swerve Stuff
+        tab.addNumber("FL º", () -> Robot.swerve.swerveMods[0].getSteerAngle()).withPosition(6, 0).withSize(1, 1);
+        tab.addNumber("FL v", () -> Robot.swerve.swerveMods[0].getModuleVelocityMPS()).withPosition(7, 0).withSize(1, 1);
+
+        tab.addNumber("FR º", () -> Robot.swerve.swerveMods[1].getSteerAngle()).withPosition(6, 1).withSize(1, 1);
+        tab.addNumber("FR v", () -> Robot.swerve.swerveMods[1].getModuleVelocityMPS()).withPosition(7, 1).withSize(1, 1);
+
+        tab.addNumber("BL º", () -> Robot.swerve.swerveMods[2].getSteerAngle()).withPosition(8, 0).withSize(1, 1);
+        tab.addNumber("BL v", () -> Robot.swerve.swerveMods[3].getModuleVelocityMPS()).withPosition(9, 0).withSize(1, 1);
+
+        tab.addNumber("BR º", () -> Robot.swerve.swerveMods[3].getSteerAngle()).withPosition(8, 1).withSize(1, 1);
+        tab.addNumber("BR v", () -> Robot.swerve.swerveMods[3].getModuleVelocityMPS()).withPosition(9, 1).withSize(1, 1);
+
+        // Mechanism Stuff
+        tab.addString("Intake State", () -> Robot.intake.getStateString()).withPosition(4, 4).withSize(2, 1);
+        tab.addString("Passthrough State", () -> Robot.passthrough.getStateString()).withPosition(4, 5).withSize(2, 1);
+        tab.addString("Shooter State", () -> Robot.shooter.getFireStateString()).withPosition(4, 6).withSize(2, 1);
+        tab.addNumber("Spd Top", () -> Robot.shooter.getTopRPS()).withPosition(6, 6).withSize(1, 1);
+        tab.addNumber("Spd Bot", () -> Robot.shooter.getTopRPS()).withPosition(6, 7).withSize(1, 1);
+        tab.addString("Pivot State", () -> Robot.pivot.getPivotStateString()).withPosition(4, 7).withSize(2, 1);
 
         // Subsystem-Specific Tabs Setup
         m_SwerveTelemetry =         new DrivetrainTelemetry(Robot.swerve);
@@ -78,57 +112,6 @@ public class RobotTelemetry extends TelemetrySubsystem {
     public void periodic() {
         checkFMSalert();
         checkBatteryWhenDisabledalert();
-    }
-
-    public void layoutRobotTelemetryTab(){
-        Auto.setupSelectors();
-
-
-        // Teleop Speed
-        tab.add("Speed Selection",    Robot.pilotGamepad.speedChooser)  .withPosition(0, 0).withSize(3, 2);
-
-        // Auto Info
-        tab.add("Action Selection",     Auto.actionChooser)             .withPosition(0, 2).withSize(3, 2);
-        tab.add("Position Selection",   Auto.positionChooser)           .withPosition(0, 4).withSize(3, 2);
-
-        // Match Time
-        tab.addNumber("Match Time", () -> Timer.getMatchTime())         .withPosition(3, 0)
-                                                                        .withSize(3, 3)
-                                                                        .withWidget("Simple Dial")
-                                                                .withProperties(Map.of("Min", 0, "Max", 135));
-
-        // Swerve Stuff
-                // CAN ABS Value
-        tab.addNumber("FL º", () -> Robot.swerve.swerveMods[0].getSteerAngle()).withPosition(6, 0).withSize(1, 1);
-        tab.addNumber("FL v", () -> Robot.swerve.swerveMods[0].getModuleVelocityMPS()).withPosition(7, 0).withSize(1, 1);
-
-        tab.addNumber("FR º", () -> Robot.swerve.swerveMods[1].getSteerAngle()).withPosition(6, 1).withSize(1, 1);
-        tab.addNumber("FR v", () -> Robot.swerve.swerveMods[1].getModuleVelocityMPS()).withPosition(7, 1).withSize(1, 1);
-
-        tab.addNumber("BL º", () -> Robot.swerve.swerveMods[2].getSteerAngle()).withPosition(8, 0).withSize(1, 1);
-        tab.addNumber("BL v", () -> Robot.swerve.swerveMods[3].getModuleVelocityMPS()).withPosition(9, 0).withSize(1, 1);
-
-        tab.addNumber("BR º", () -> Robot.swerve.swerveMods[3].getSteerAngle()).withPosition(8, 1).withSize(1, 1);
-        tab.addNumber("BR v", () -> Robot.swerve.swerveMods[3].getModuleVelocityMPS()).withPosition(9, 1).withSize(1, 1);
-
-        tab.addString("Intake State", () -> Robot.intake.getStateString()).withPosition(4, 4).withSize(2, 1);
-        tab.addString("Passthrough State", () -> Robot.passthrough.getStateString()).withPosition(4, 5).withSize(2, 1);
-        tab.addString("Shooter State", () -> Robot.shooter.getFireStateString()).withPosition(4, 6).withSize(2, 1);
-        tab.addNumber("Spd Top", () -> Robot.shooter.getTopRPS()).withPosition(6, 6).withSize(1, 1);
-        tab.addNumber("Spd Bot", () -> Robot.shooter.getTopRPS()).withPosition(6, 7).withSize(1, 1);
-        tab.addString("Pivot State", () -> Robot.pivot.getPivotStateString()).withPosition(4, 7).withSize(2, 1);
-
-        // tab.addBoolean("Climber Lower", () -> !climberLowerSw.get()).withPosition(7, 0);
-        // tab.addBoolean("Climber Mid", () -> !climberMidSw.get()).withPosition(7, 2);
-        // tab.addBoolean("Elevator Bottom", () -> !elevatorSw.get()).withPosition(7, 4);
-        // tab.addNumber("Intake Prox", () -> intakeProx.getAverageVoltage()).withPosition(7, 6).withSize(2, 1);
-
-        // // Robot Pose
-        // tab.addString("Robot Pose", () -> "X: " + Rmath.mRound(Robot.swerve.getPose().getX(), 2) + 
-        //                                   ", Y: " + Rmath.mRound(Robot.swerve.getPose().getY(), 2))
-        //                                                             .withPosition(3, 5)
-        //                                                             .withSize(3, 2);
-
     }
 
     public String getIP() {
