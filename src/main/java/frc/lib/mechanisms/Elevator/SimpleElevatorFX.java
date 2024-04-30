@@ -83,7 +83,7 @@ public class SimpleElevatorFX extends SubsystemBase {
             default: setByPWM(0);
         }
 
-        Robot.print(getName());
+        // Robot.print(getName());
     }
 
     /* ----- Setters ----- */

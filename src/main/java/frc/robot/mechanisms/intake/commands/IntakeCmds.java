@@ -18,36 +18,16 @@ public class IntakeCmds {
     }
 
     /* ----- Intake Simple Set Commands ----- */
-    public static Command intakeSetGroundCmd() { return new InstantCommand(() -> Robot.intake.setGround()); }
-    public static Command intakeSetFeedCmd()   { return new InstantCommand(() -> Robot.intake.setShooterFeed()); }
-    public static Command intakeSetHPCmd()     { return new InstantCommand(() -> Robot.intake.setHumanPlayer()); }
-    public static Command intakeSetManualCmd() { return new InstantCommand(() -> Robot.intake.setManual()); }
+    public static Command intakeSetRetract() { return new InstantCommand(() -> Robot.intake.setRetract()); }
+    public static Command intakeSetEject()   { return new InstantCommand(() -> Robot.intake.setEject()); }
+    public static Command intakeSetFeed()    { return new InstantCommand(() -> Robot.intake.setShooterFeed()); }
+    public static Command intakeSetManual()  { return new InstantCommand(() -> Robot.intake.setManual()); }
 
-    /* ----- Intake Command with Until Conditions */
-
-    /**
-     * Runs the intake at the ground intake speed until a gamepiece is detected. Will run indefinitely until Interrupted.
-     * @return A SequentialCommandGroup
-     */
-    public static Command intakeGroundUntilGamepieceCmd() {
+    public static Command intakeRetractUntilGamepiece(double extraTime) {
         return new SequentialCommandGroup(
-            intakeSetGroundCmd(),
+            intakeSetRetract(),
             new WaitUntilCommand(() -> Robot.intake.getGamepieceDetected()),
-            intakeStopCmd()
-        );
-    }
-
-    /**
-     * Run the intake at the shooter feed gamepiece speed until the gamepiece has left the intake, plus a given amount of time.
-     * <p>
-     * Will timeout after 10 seconds, plus your given time.
-     * @param secondsAfterGamepieceDeparture Time to keep running after the gamepiece has left the intake's sensor
-     * @return A SequentialCommandGroup
-     */
-    public static Command intakeFeedCmd(double secondsAfterGamepieceDeparture) {
-        return new SequentialCommandGroup(
-            intakeSetFeedCmd(),
-            new WaitCommand(secondsAfterGamepieceDeparture),
+            new WaitCommand(extraTime),
             intakeStopCmd()
         );
     }

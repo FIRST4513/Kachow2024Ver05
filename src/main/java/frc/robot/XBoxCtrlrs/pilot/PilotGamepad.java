@@ -57,8 +57,11 @@ public class PilotGamepad extends Gamepad {
         gamepad.selectButton.onTrue(new InstantCommand(() -> Robot.swerve.setGyroHeading(180)));
 
         // gamepad.aButton.onTrue(IntakeCmds.intakeSetManualCmd()).onFalse(IntakeCmds.intakeStopCmd());
-        gamepad.aButton.onTrue(ElevatorCommands.setManualPWM()).onFalse(ElevatorCommands.stop());
-        gamepad.bButton.onTrue(ElevatorCommands.setLow()).onFalse(ElevatorCommands.stop());
+        // gamepad.aButton.onTrue(ElevatorCommands.setManualPWM()).onFalse(ElevatorCommands.stop());
+        // gamepad.bButton.onTrue(ElevatorCommands.setLow()).onFalse(ElevatorCommands.stop());
+
+        gamepad.aButton.onTrue(IntakeCmds.intakeSetManual()).onFalse(IntakeCmds.intakeStopCmd());
+        gamepad.yButton.onTrue(IntakeCmds.intakeRetractUntilGamepiece(0.5));
 
         // gamepad.Dpad.Up.onTrue(ClimberCmds.climberSetTop());
         // gamepad.Dpad.Down.onTrue(ClimberCmds.climberSetBottom());

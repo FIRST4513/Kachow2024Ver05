@@ -1,10 +1,10 @@
 package frc.robot.mechanisms.intake;
 
-import frc.lib.mechanisms.Intake.Intake_SRX;
+import frc.lib.mechanisms.Intake.Intake_FX;
 import frc.robot.Robot;
 import frc.robot.RobotConfig;
 
-public class IntakeSubSys extends Intake_SRX {
+public class IntakeSubSys extends Intake_FX {
 
     /* ----- Constructor ----- */
     public IntakeSubSys() { 
@@ -16,16 +16,8 @@ public class IntakeSubSys extends Intake_SRX {
     }
 
     /* ----- methods for custom speed settings for this year's game + robot ----- */
-    public void setGround() {
-        setRetract();
-    }
-
     public void setShooterFeed() {
-        setRetract();
-    }
-
-    public void setHumanPlayer() {
-        stop();
+        setCustom(IntakeConfig.shooterFeedSpeed);
     }
 
     public void setManual() {
