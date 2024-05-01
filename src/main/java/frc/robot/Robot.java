@@ -117,9 +117,9 @@ public class Robot extends LoggedRobot  {
 
         // auto = new Auto();
         // Game Piece Manipulation
-        intake = new IntakeSubSys();
+        // intake = new IntakeSubSys();
         // climber = new ClimberSubSys();
-        // elevator = new exElevator();
+        elevator = new exElevator();
 
         // Misc
         // leds = new LEDsSubSys();

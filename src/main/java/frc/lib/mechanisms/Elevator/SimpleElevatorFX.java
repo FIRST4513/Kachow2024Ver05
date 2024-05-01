@@ -114,6 +114,7 @@ public class SimpleElevatorFX extends SubsystemBase {
     }
 
     private void setByMM(double targetRotations) {
+        Robot.print("Setting by MM to target: " + targetRotations);
         motors[0].setControl(mmCtrlr.withPosition(targetRotations).withFeedForward(conf.mmFeedForward));
     }
 

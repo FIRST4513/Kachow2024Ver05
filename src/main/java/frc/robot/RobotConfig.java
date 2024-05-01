@@ -43,8 +43,8 @@ public final class RobotConfig {
         // ----- Other subsystems -----
 
         // public final static int exElev1    = 20;  // Can ID Falcon 500
-        public final static int exIntake   = 20;
-        public final static int exElevator = 21;
+        public final static int exIntake   = 21;
+        public final static int exElevator = 20;
 
         // Can ID Max: theoretical 40, possible 27 [https://www.chiefdelphi.com/t/multiple-can-busses-without-canivore/403994]
     }

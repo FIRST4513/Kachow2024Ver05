@@ -22,7 +22,7 @@ public class ElevatorConfig {
     public static final motorFXConfig motor1Config = new motorFXConfig()
             .withCanID(RobotConfig.Motors.exElevator)
             .withInvert(InvertedValue.CounterClockwise_Positive)
-            .withCruiseVelocity(200)
+            .withCruiseVelocity(2000)
             .withAcceleration(200)
             .withJerk(500)
             .withkP(50.0)
