@@ -1,0 +1,26 @@
+Library Checklist
+
+[*] Gamepads - Using old Spectrum Code
+[-] Mechanisms
+    [-] Elevavator
+        [*] FX motor support
+        []  SRX motor support
+        []  Include Limit Switches
+        []  Include PWM and MM control
+    [-] Intake
+        [*] FX motor support (separate file)
+        [-] SRX motor support (separate file)
+        [*] Detection Sensor
+    [] Shooter
+        [] FX motor support
+        [] SRX motor support
+        [] Velocity control
+[] Auxiliary
+    [] LEDs
+[] Motor Configurations
+    [*] FX Configuration
+    [*] SRX Configuration
+    []  NEO/Spark Max Configuration (may never happen)
+[-] Swerve
+[*] Telemetry (already there, may need alterations)
+[*] Util (already there, may need alterations)
