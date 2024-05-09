@@ -33,8 +33,8 @@ public class SimpleElevatorFX extends SubsystemBase {
     private DoubleSupplier customValSupplier;
 
     /* ----- Devices ----- */
-    private TalonFX[] motors;
-    private motorFXConfig[] motorConfigs;
+    private TalonFX motor;
+    private motorFXConfig motorConfig;
     private DigitalInput lowerLimitSw;
 
     /* ----- Control Methods ----- */
@@ -42,22 +42,17 @@ public class SimpleElevatorFX extends SubsystemBase {
     private DutyCycleOut pwmCtrlr = new DutyCycleOut(0);
 
     /* ----- Constructor ----- */
-    public SimpleElevatorFX(ElevatorControlConfig controlConfig, int bottomLimitSwPin, motorFXConfig... motorConfigs) {
+    public SimpleElevatorFX(ElevatorControlConfig controlConfig, int bottomLimitSwPin, motorFXConfig motorConfig) {
         this.conf = controlConfig;
 
-        this.motorConfigs = motorConfigs;
-
+        // Instantiate Limit Switch
         lowerLimitSw = new DigitalInput(bottomLimitSwPin);
         
-        // Instantiate motors list to length of motor configs given
-        motors = new TalonFX[motorConfigs.length];
+        // Instantiate Motor, and configure it
+        this.motorConfig = motorConfig;
+        motor = new TalonFX(motorConfig.canID);
 
-        // Instantiate each motor
-        for (int i = 0; i < motorConfigs.length; i++) {
-            motors[i] = new TalonFX(motorConfigs[i].canID, motorConfigs[i].canBus);
-        }
-
-        configureMotors();
+        configureMotor();
     }
 
     /* ----- Periodic ----- */
@@ -88,34 +83,34 @@ public class SimpleElevatorFX extends SubsystemBase {
 
     /* ----- Setters ----- */
     private void updateCurrentPosData() {
-        currentMotorRot = motors[0].getPosition().getValueAsDouble();
+        currentMotorRot = motor.getPosition().getValueAsDouble();
     }
 
     public void stop() {
-        motors[0].stopMotor();
+        motor.stopMotor();
         state = ElevatorState.STOPPED;
     }
 
     private void setByPWM(double speed) {
         // if going down and already at bottom, send 0 power
         if ((speed < 0) && getLimitSw()) {
-            motors[0].setControl(pwmCtrlr.withOutput(0));
+            motor.setControl(pwmCtrlr.withOutput(0));
             return;
         }
         
         // if going up and already at top limit, send 0 power
         if ((speed > 0) && (currentMotorRot > conf.topRot)){
-            motors[0].setControl(pwmCtrlr.withOutput(0));
+            motor.setControl(pwmCtrlr.withOutput(0));
             return;
         }
 
         // otherwise, send the desired power
-        motors[0].setControl(pwmCtrlr.withOutput(speed));
+        motor.setControl(pwmCtrlr.withOutput(speed));
     }
 
     private void setByMM(double targetRotations) {
         Robot.print("Setting by MM to target: " + targetRotations);
-        motors[0].setControl(mmCtrlr.withPosition(targetRotations).withFeedForward(conf.mmFeedForward));
+        motor.setControl(mmCtrlr.withPosition(targetRotations).withFeedForward(conf.mmFeedForward));
     }
 
     // States
@@ -141,20 +136,16 @@ public class SimpleElevatorFX extends SubsystemBase {
 
     // Break Modes
     public void brakeOn() {
-        for ( TalonFX motor : motors ) {
-            motor.setNeutralMode(NeutralModeValue.Brake);
-        }
+        motor.setNeutralMode(NeutralModeValue.Brake);
     }
 
     public void brakeOff() {
-        for ( TalonFX motor : motors ) {
-            motor.setNeutralMode(NeutralModeValue.Coast);
-        }
+        motor.setNeutralMode(NeutralModeValue.Coast);
     }
 
     /* ----- Getters ----- */
-    public double getSpeed() { return motors[0].get(); }
-    public double getRotations() { return motors[0].getPosition().getValueAsDouble(); }
+    public double getSpeed() { return motor.get(); }
+    public double getRotations() { return motor.getPosition().getValueAsDouble(); }
     public ElevatorState getState() { return state; }
     public String getStateString() {
         switch (state) {
@@ -171,13 +162,13 @@ public class SimpleElevatorFX extends SubsystemBase {
 
     public boolean isAtTarget() {
         switch (state) {
-            case BOTTOM_PWM: return Util.checkInRange(motors[0].get(), conf.toBottomSpeed, conf.pwmIsAtTargetTolerance);
+            case BOTTOM_PWM: return Util.checkInRange(motor.get(), conf.toBottomSpeed, conf.pwmIsAtTargetTolerance);
             case LOW: return Util.checkInRange(currentMotorRot, conf.lowRot, conf.mmIsAtTargetTolerance);
             case MID: return Util.checkInRange(currentMotorRot, conf.midRot, conf.mmIsAtTargetTolerance);
             case TOP: return Util.checkInRange(currentMotorRot, conf.topRot, conf.mmIsAtTargetTolerance);
             case CUSTOM_MM: return Util.checkInRange(currentMotorRot, customValSupplier.getAsDouble(), conf.mmIsAtTargetTolerance);
-            case MANUAL_PWM: return Util.checkInRange(motors[0].get(), conf.toBottomSpeed, conf.pwmIsAtTargetTolerance);
-            case STOPPED: return Util.checkInRange(motors[0].getVelocity().getValueAsDouble(), 0, 0.1);
+            case MANUAL_PWM: return Util.checkInRange(motor.get(), conf.toBottomSpeed, conf.pwmIsAtTargetTolerance);
+            case STOPPED: return Util.checkInRange(motor.getVelocity().getValueAsDouble(), 0, 0.1);
             default: return false;
         }
     }
@@ -191,14 +182,7 @@ public class SimpleElevatorFX extends SubsystemBase {
     }
 
     /* ----- Motor Configuration ----- */
-    public void configureMotors() {
-        for (int i = 0; i < motors.length; i++) {
-            motors[i].getConfigurator().apply(motorConfigs[i].getConfig());
-            
-            // if not the first motor, tell them to follow the first motor
-            if (i > 0) {
-                motors[i].setControl(new Follower(motors[0].getDeviceID(), false));
-            }
-        }
+    public void configureMotor() {
+        motor.getConfigurator().apply(motorConfig.getConfig());
     }
 }
