@@ -98,7 +98,7 @@ public class ClimberSubSys extends SubsystemBase {
     private void setBottom() {
         // Left
         if (getLeftLowerSw()) {
-            leftMotor.setControl(pwmCtrlr.withOutput(-0.015));
+            leftMotor.setControl(pwmCtrlr.withOutput(-0.025)); //old power -.015
             // resetLeftEncoder();  // shouldn't have to do this???
         } else {
             leftMotor.setControl(pwmCtrlr.withOutput(-0.25));
@@ -106,7 +106,7 @@ public class ClimberSubSys extends SubsystemBase {
 
         // Right
         if (getRightLowerSw()) {
-            rightMotor.setControl(pwmCtrlr.withOutput(-0.015));
+            rightMotor.setControl(pwmCtrlr.withOutput(-0.025)); //old power -.015
             // resetRightEncoder();  // shouldn't have to do this???
         } else {
             rightMotor.setControl(pwmCtrlr.withOutput(-0.25));

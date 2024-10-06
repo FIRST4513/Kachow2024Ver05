@@ -54,7 +54,7 @@ public class ShooterSubSys extends SubsystemBase {
             default:    bottomMotor.setControl(pwmCtrlr.withOutput(0));
                         topMotor.setControl(pwmCtrlr.withOutput(0));
         }     
-        
+            
     }
 
     // ---------------------------------------------------------

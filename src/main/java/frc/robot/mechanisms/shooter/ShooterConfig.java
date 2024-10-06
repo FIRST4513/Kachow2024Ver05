@@ -8,7 +8,7 @@ public class ShooterConfig {
     // wheel rps at 1: 106
 
     // retract/eject speeds (rps)
-    protected static final double SPEAKER_BOTTOM = -105; //.425
+    protected static final double SPEAKER_BOTTOM = -105; //.425 -i dont know what these commented values are :) - Nathaniel 10/1/24
     protected static final double SPEAKER_TOP = -105; //.45
     
     protected static final double RETRACT_BOTTOM = 40; //-106;

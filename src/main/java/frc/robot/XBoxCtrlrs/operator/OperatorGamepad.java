@@ -39,18 +39,19 @@ public class OperatorGamepad extends Gamepad {
         gamepad.rightBumper.onTrue(OperatorGamepadCmds.manualAllCmd()).onFalse(OperatorGamepadCmds.stopAllCmd());
 
         /* ----- Intaking ----- */
-        gamepad.aButton.and(gamepad.Dpad.Up)    .onTrue(OperatorGamepadCmds.hpIntakeUntilGamepiece());
-        gamepad.aButton.and(gamepad.Dpad.Down)  .onTrue(OperatorGamepadCmds.groundIntakeUntilGamepieceCmd());
+        gamepad.yButton.onTrue(OperatorGamepadCmds.hpIntakeUntilGamepiece());
+        gamepad.aButton.onTrue(OperatorGamepadCmds.groundIntakeUntilGamepieceCmd());
 
         /* ----- Ejecting ----- */
-        gamepad.bButton.and(gamepad.Dpad.Left)  .onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());   // manually spool up shooter for anticipation
-        gamepad.bButton.and(gamepad.Dpad.Up)    .onTrue(OperatorGamepadCmds.readyForBumperShotCmd());  // shoot speaker when bumpered up or close
-        gamepad.bButton.and(gamepad.Dpad.Right) .onTrue(OperatorGamepadCmds.readyForFarShotCmd());     // shoot speaker from far at max angle
+        //         .onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());   // manually spool up shooter for anticipation
+        gamepad.xButton.onTrue(OperatorGamepadCmds.noAutoPosSpeakerShot());
+        gamepad.Dpad.Down.onTrue(OperatorGamepadCmds.readyForBumperShotCmd());  // shoot speaker when bumpered up or close
+        gamepad.Dpad.Up.onTrue(OperatorGamepadCmds.readyForFarShotCmd());     // shoot speaker from far at max angle
 
         /* ----- Pivot Preset Positions ----- */
-        gamepad.xButton.and(gamepad.Dpad.Down)  .onTrue(PivotCmds.setZeroAndRunCmd());  // 0º angle
-        gamepad.xButton.and(gamepad.Dpad.Left)  .onTrue(PivotCmds.setLowAndRunCmd());   // 45º angle
-        gamepad.xButton.and(gamepad.Dpad.Up)    .onTrue(PivotCmds.setHighAndRunCmd());  // 195º angle
+        //gamepad.xButton.and(gamepad.Dpad.Down)  .onTrue(PivotCmds.setZeroAndRunCmd());  // 0º angle
+        //gamepad.xButton.and(gamepad.Dpad.Left)  .onTrue(PivotCmds.setLowAndRunCmd());   // 45º angle
+        //gamepad.xButton.and(gamepad.Dpad.Up)    .onTrue(PivotCmds.setHighAndRunCmd());  // 195º angle
     }
 
     @Override

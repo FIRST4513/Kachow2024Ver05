@@ -62,7 +62,7 @@ public final class RobotConfig {
 
     public final class AnalogPorts {
         public final static int intakeGamepieceSensor = 0;  // ANALOG Port
-        public final static int passthroughSensor     = 1;  // ANALOG Port
+        public final static int passthroughSensor     = 1;  // ANALOG Port NOT USED DONT MISTAKE THIS FOR INTAKE GAMEPIECE SENSOR AGAIN PLEASE :)
         public final static int rotarySwitch          = 4;  // ANALOG Port
         
         // Analog Max Ports: 4
