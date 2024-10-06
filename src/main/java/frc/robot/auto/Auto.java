@@ -44,6 +44,7 @@ public class Auto {
         actionChooser.addOption(         "Three Note",            AutoConfig.kActionThreeNote);
         actionChooser.addOption(         "One Note and Crossline", AutoConfig.kOneNoteCrossOnlySelect);
         actionChooser.addOption(         "Crossline Only",      AutoConfig.kCrossOnlySelect);
+        actionChooser.addOption(         "Two Note Smart",      AutoConfig.kTwoNoteSmart);
     }
 
     // ------ Get operator selected responses from shuffleboard -----
@@ -119,6 +120,22 @@ public class Auto {
                 if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "BlueSpkrLeft" ); }
                 if ( spkrCtr() )            { return AutoCmds.TwoNoteCmd("Ctr", "BlueSpkrCtr", "BlueSpkrCtrReturn"); }
                 if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "BlueSpkrRight"); }
+            }
+        }
+
+        // ------------------------------ Two Note Smart  -------------------------------
+        if (twoNoteSmart()) {
+            System.out.println("********* Two Selection *********");
+            if (red()) {
+                Robot.print("REEDDDDDD");
+                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "RedSpkrLeft"); }
+                if ( spkrCtr() )            { return AutoCmds.ShootAndCrossCmd("Ctr", "RedSpkrCtr"); }
+                if ( spkrRight() )          { return AutoCmds.ShootAndCrossCmd("Right", "RedSpkrRight"); }
+            } else {
+                Robot.print("BLUEEEEE");
+                if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "BlueSpkrLeft" ); }
+                if ( spkrCtr() )            { return AutoCmds.ShootAndCrossCmd("Ctr", "BlueSpkrCtr"); }
+                if ( spkrRight() )          { return AutoCmds.TwoNoteSmartCMD("Right", "BlueThruStage", "BlueShooterAdjust"); }
             }
         }
 
@@ -256,6 +273,11 @@ public class Auto {
 
     private static boolean crossOnly() {
         if (actionSelect.equals(AutoConfig.kCrossOnlySelect)) { return true; }
+        return false;
+    }
+    
+    private static boolean twoNoteSmart() {
+        if (actionSelect.equals(AutoConfig.kTwoNoteSmart)) { return true; }
         return false;
     }
 

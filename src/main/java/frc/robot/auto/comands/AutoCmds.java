@@ -78,8 +78,30 @@ public class AutoCmds {
             OperatorGamepadCmds.noAutoPosSpeakerShot()
         );
     }
+        // ----------------------------------- Two Note Smart ------------------------------------------
+    public static Command TwoNoteSmartCMD( String pos, String pathName, String adjust) {
+        return new SequentialCommandGroup(  
+            new InstantCommand( ()-> Robot.print( "Two Note Cmd ")),
+            // Shoot pre-loaded note
+            initAndFollowPath(adjust),
+            SpeakerShootCmd(),
+            // Do the following two things at the same time: intake note, and follow paths
+            new ParallelCommandGroup(
+                // Intake note sequence
+                new SequentialCommandGroup(
+                    OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
+                    OperatorGamepadCmds.readyForBumperShotCmd()
+                ),
+                // First run to-note path, then run to-speaker path
+                new SequentialCommandGroup(
+                    followPath(pathName)
+                )
+            ),
+            OperatorGamepadCmds.noAutoPosSpeakerShot()
+        );
+    }
 
-    // ----------------------------------- Two Note ------------------------------------------
+    // ----------------------------------- Three Note ------------------------------------------
     public static Command ThreeNoteCmd( String pos, String pathName, String pathNameBack, String pathName2, String pathName2Back) {
         return new SequentialCommandGroup(  
             new InstantCommand( ()-> Robot.print( "Two Note Cmd ")),

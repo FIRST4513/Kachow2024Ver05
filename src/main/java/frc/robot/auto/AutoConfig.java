@@ -20,6 +20,7 @@ public class AutoConfig {
     public static final String kOneNoteCrossOnlySelect  = "One Note and Cross line Only";
     public static final String kActionTwoNote           = "Two Note";       // Shoot and get second and Shoot
     public static final String kActionThreeNote           = "Three Note";       // Shoot and get second and Shoot
+    public static final String kTwoNoteSmart           = "Two Note Smart";       // Like two note but its only one path instead of two
 
     // variables for tuning
     public static final double translationkP = 5.0;  // PID value (P)roportional
