@@ -1,0 +1,264 @@
+Date : 2025-01-17 13:28:28
+Directory : c:\Workspace\Robot\Kachow2024Ver05
+Total : 159 files,  9131 codes, 2689 comments, 2168 blanks, all 13988 lines
+
+Languages
++--------------------+------------+------------+------------+------------+------------+
+| language           | files      | code       | comment    | blank      | total      |
++--------------------+------------+------------+------------+------------+------------+
+| Java               |        131 |      7,719 |      2,605 |      2,003 |     12,327 |
+| JSON               |         14 |        758 |          0 |          2 |        760 |
+| Markdown           |          8 |        445 |         33 |        110 |        588 |
+| Groovy             |          2 |        110 |         21 |         30 |        161 |
+| JSON with Comments |          2 |         51 |          0 |          0 |         51 |
+| Batch              |          1 |         41 |         30 |         22 |         93 |
+| Java Properties    |          1 |          7 |          0 |          1 |          8 |
++--------------------+------------+------------+------------+------------+------------+
+
+Directories
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| path                                                                                                             | files      | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+| .                                                                                                                |        159 |      9,131 |      2,689 |      2,168 |     13,988 |
+| . (Files)                                                                                                        |          8 |        342 |         84 |        126 |        552 |
+| .pathplanner                                                                                                     |          1 |         15 |          0 |          0 |         15 |
+| .wpilib                                                                                                          |          1 |          6 |          0 |          0 |          6 |
+| gradle                                                                                                           |          1 |          7 |          0 |          1 |          8 |
+| gradle\wrapper                                                                                                   |          1 |          7 |          0 |          1 |          8 |
+| pathplanner                                                                                                      |          2 |          2 |          0 |          0 |          2 |
+| pathplanner\data                                                                                                 |          2 |          2 |          0 |          0 |          2 |
+| pathplanner\data\flutter_assets                                                                                  |          2 |          2 |          0 |          0 |          2 |
+| src                                                                                                              |        139 |      8,054 |      2,605 |      2,040 |     12,699 |
+| src\.VSCodeCounter                                                                                               |          5 |        245 |          0 |         26 |        271 |
+| src\.VSCodeCounter\2025-01-17_13-27-59                                                                           |          5 |        245 |          0 |         26 |        271 |
+| src\main                                                                                                         |        134 |      7,809 |      2,605 |      2,014 |     12,428 |
+| src\main\deploy                                                                                                  |          2 |         37 |          0 |          0 |         37 |
+| src\main\deploy\pathplanner                                                                                      |          2 |         37 |          0 |          0 |         37 |
+| src\main\java                                                                                                    |        132 |      7,772 |      2,605 |      2,014 |     12,391 |
+| src\main\java\frc                                                                                                |        132 |      7,772 |      2,605 |      2,014 |     12,391 |
+| src\main\java\frc\lib                                                                                            |         64 |      3,148 |      1,217 |        812 |      5,177 |
+| src\main\java\frc\lib\drivers                                                                                    |          5 |        403 |        139 |        115 |        657 |
+| src\main\java\frc\lib\gamepads                                                                                   |         12 |        653 |        294 |        140 |      1,087 |
+| src\main\java\frc\lib\gamepads (Files)                                                                           |          7 |        339 |         25 |         92 |        456 |
+| src\main\java\frc\lib\gamepads\mapping                                                                           |          5 |        314 |        269 |         48 |        631 |
+| src\main\java\frc\lib\logger                                                                                     |          1 |        155 |         17 |         46 |        218 |
+| src\main\java\frc\lib\motorControllers                                                                           |          3 |        156 |         93 |         34 |        283 |
+| src\main\java\frc\lib\preferences                                                                                |          2 |        103 |        102 |         30 |        235 |
+| src\main\java\frc\lib\sim                                                                                        |          4 |        175 |        114 |         51 |        340 |
+| src\main\java\frc\lib\subsystems                                                                                 |         16 |        534 |         89 |        164 |        787 |
+| src\main\java\frc\lib\subsystems (Files)                                                                         |          7 |        279 |         56 |         83 |        418 |
+| src\main\java\frc\lib\subsystems\Leds                                                                            |          2 |        117 |          6 |         26 |        149 |
+| src\main\java\frc\lib\subsystems\angleMech                                                                       |          2 |         36 |          4 |         15 |         55 |
+| src\main\java\frc\lib\subsystems\linearMech                                                                      |          2 |         38 |          5 |         15 |         58 |
+| src\main\java\frc\lib\subsystems\pneumatic                                                                       |          1 |         24 |         10 |          8 |         42 |
+| src\main\java\frc\lib\subsystems\rollerMech                                                                      |          2 |         40 |          8 |         17 |         65 |
+| src\main\java\frc\lib\swerve                                                                                     |          4 |        163 |         81 |         37 |        281 |
+| src\main\java\frc\lib\sysid                                                                                      |          4 |        166 |         32 |         43 |        241 |
+| src\main\java\frc\lib\telemetry                                                                                  |          5 |        222 |         66 |         63 |        351 |
+| src\main\java\frc\lib\util                                                                                       |          5 |        336 |        181 |         73 |        590 |
+| src\main\java\frc\lib\vision                                                                                     |          3 |         82 |          9 |         16 |        107 |
+| src\main\java\frc\robot                                                                                          |         62 |      4,401 |      1,340 |      1,145 |      6,886 |
+| src\main\java\frc\robot (Files)                                                                                  |          4 |        369 |        127 |        114 |        610 |
+| src\main\java\frc\robot\XBoxCtrlrs                                                                               |          9 |        499 |         75 |        117 |        691 |
+| src\main\java\frc\robot\XBoxCtrlrs (Files)                                                                       |          1 |         53 |          0 |         11 |         64 |
+| src\main\java\frc\robot\XBoxCtrlrs\operator                                                                      |          4 |        154 |         18 |         38 |        210 |
+| src\main\java\frc\robot\XBoxCtrlrs\operator (Files)                                                              |          3 |         71 |         13 |         27 |        111 |
+| src\main\java\frc\robot\XBoxCtrlrs\operator\commands                                                             |          1 |         83 |          5 |         11 |         99 |
+| src\main\java\frc\robot\XBoxCtrlrs\pilot                                                                         |          4 |        292 |         57 |         68 |        417 |
+| src\main\java\frc\robot\XBoxCtrlrs\pilot (Files)                                                                 |          3 |        250 |         48 |         56 |        354 |
+| src\main\java\frc\robot\XBoxCtrlrs\pilot\commands                                                                |          1 |         42 |          9 |         12 |         63 |
+| src\main\java\frc\robot\auto                                                                                     |          4 |        437 |         72 |         85 |        594 |
+| src\main\java\frc\robot\auto (Files)                                                                             |          2 |        268 |         39 |         55 |        362 |
+| src\main\java\frc\robot\auto\comands                                                                             |          2 |        169 |         33 |         30 |        232 |
+| src\main\java\frc\robot\drivetrain                                                                               |         14 |      1,015 |        522 |        299 |      1,836 |
+| src\main\java\frc\robot\drivetrain (Files)                                                                       |          8 |        716 |        385 |        219 |      1,320 |
+| src\main\java\frc\robot\drivetrain\commands                                                                      |          2 |        104 |         34 |         24 |        162 |
+| src\main\java\frc\robot\drivetrain\config                                                                        |          4 |        195 |        103 |         56 |        354 |
+| src\main\java\frc\robot\mechanisms                                                                               |         28 |      1,731 |        451 |        431 |      2,613 |
+| src\main\java\frc\robot\mechanisms\climber                                                                       |          4 |        236 |         66 |         75 |        377 |
+| src\main\java\frc\robot\mechanisms\climber (Files)                                                               |          3 |        216 |         61 |         69 |        346 |
+| src\main\java\frc\robot\mechanisms\climber\commands                                                              |          1 |         20 |          5 |          6 |         31 |
+| src\main\java\frc\robot\mechanisms\intake                                                                        |          4 |        184 |         51 |         48 |        283 |
+| src\main\java\frc\robot\mechanisms\intake (Files)                                                                |          3 |        137 |         28 |         37 |        202 |
+| src\main\java\frc\robot\mechanisms\intake\commands                                                               |          1 |         47 |         23 |         11 |         81 |
+| src\main\java\frc\robot\mechanisms\leds                                                                          |          3 |        655 |        182 |         84 |        921 |
+| src\main\java\frc\robot\mechanisms\passthrough                                                                   |          4 |        119 |         51 |         42 |        212 |
+| src\main\java\frc\robot\mechanisms\passthrough (Files)                                                           |          3 |         96 |         26 |         32 |        154 |
+| src\main\java\frc\robot\mechanisms\passthrough\commands                                                          |          1 |         23 |         25 |         10 |         58 |
+| src\main\java\frc\robot\mechanisms\pivot                                                                         |          5 |        301 |         51 |         94 |        446 |
+| src\main\java\frc\robot\mechanisms\pivot (Files)                                                                 |          4 |        250 |         42 |         82 |        374 |
+| src\main\java\frc\robot\mechanisms\pivot\commands                                                                |          1 |         51 |          9 |         12 |         72 |
+| src\main\java\frc\robot\mechanisms\rotarySwitch                                                                  |          3 |         57 |          4 |         23 |         84 |
+| src\main\java\frc\robot\mechanisms\shooter                                                                       |          5 |        179 |         46 |         65 |        290 |
+| src\main\java\frc\robot\mechanisms\shooter (Files)                                                               |          4 |        151 |         39 |         57 |        247 |
+| src\main\java\frc\robot\mechanisms\shooter\commands                                                              |          1 |         28 |          7 |          8 |         43 |
+| src\main\java\frc\robot\vision                                                                                   |          3 |        350 |         93 |         99 |        542 |
+| src\main\java\frc\util                                                                                           |          6 |        223 |         48 |         57 |        328 |
+| vendordeps                                                                                                       |          7 |        705 |          0 |          1 |        706 |
++------------------------------------------------------------------------------------------------------------------+------------+------------+------------+------------+------------+
+
+Files
++------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| filename                                                                                                         | language           | code       | comment    | blank      | total      |
++------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+
+| c:\Workspace\Robot\Kachow2024Ver05\.pathplanner\settings.json                                                    | JSON with Comments |         15 |          0 |          0 |         15 |
+| c:\Workspace\Robot\Kachow2024Ver05\.wpilib\wpilib_preferences.json                                               | JSON               |          6 |          0 |          0 |          6 |
+| c:\Workspace\Robot\Kachow2024Ver05\Outline.md                                                                    | Markdown           |        124 |         33 |         69 |        226 |
+| c:\Workspace\Robot\Kachow2024Ver05\README.md                                                                     | Markdown           |          2 |          0 |          1 |          3 |
+| c:\Workspace\Robot\Kachow2024Ver05\WPILib-License.md                                                             | Markdown           |         22 |          0 |          3 |         25 |
+| c:\Workspace\Robot\Kachow2024Ver05\build.gradle                                                                  | Groovy             |         82 |         21 |         27 |        130 |
+| c:\Workspace\Robot\Kachow2024Ver05\config.json                                                                   | JSON               |         42 |          0 |          0 |         42 |
+| c:\Workspace\Robot\Kachow2024Ver05\gradle\wrapper\gradle-wrapper.properties                                      | Java Properties    |          7 |          0 |          1 |          8 |
+| c:\Workspace\Robot\Kachow2024Ver05\gradlew.bat                                                                   | Batch              |         41 |         30 |         22 |         93 |
+| c:\Workspace\Robot\Kachow2024Ver05\networktables.json                                                            | JSON               |          1 |          0 |          1 |          2 |
+| c:\Workspace\Robot\Kachow2024Ver05\pathplanner\data\flutter_assets\AssetManifest.json                            | JSON               |          1 |          0 |          0 |          1 |
+| c:\Workspace\Robot\Kachow2024Ver05\pathplanner\data\flutter_assets\FontManifest.json                             | JSON               |          1 |          0 |          0 |          1 |
+| c:\Workspace\Robot\Kachow2024Ver05\settings.gradle                                                               | Groovy             |         28 |          0 |          3 |         31 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\.VSCodeCounter\2025-01-17_13-27-59\details.md                             | Markdown           |        143 |          0 |          6 |        149 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\.VSCodeCounter\2025-01-17_13-27-59\diff-details.md                        | Markdown           |          9 |          0 |          6 |         15 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\.VSCodeCounter\2025-01-17_13-27-59\diff.md                                | Markdown           |         12 |          0 |          7 |         19 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\.VSCodeCounter\2025-01-17_13-27-59\results.json                           | JSON               |          1 |          0 |          0 |          1 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\.VSCodeCounter\2025-01-17_13-27-59\results.md                             | Markdown           |         80 |          0 |          7 |         87 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\deploy\pathplanner\navgrid.json                                      | JSON               |          1 |          0 |          0 |          1 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\deploy\pathplanner\settings.json                                     | JSON with Comments |         36 |          0 |          0 |         36 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\drivers\LimeLight.java                                  | Java               |        174 |        118 |         37 |        329 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\drivers\LimeLightControlModes.java                      | Java               |        149 |          1 |         51 |        201 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\drivers\SpectrumDigitalInput.java                       | Java               |         25 |          1 |         10 |         36 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\drivers\SpectrumDigitalRelay.java                       | Java               |         25 |         10 |         10 |         45 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\drivers\SpectrumSolenoid.java                           | Java               |         30 |          9 |          7 |         46 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\AxisButton.java                                | Java               |         49 |          4 |         11 |         64 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\Dpad.java                                      | Java               |         29 |          1 |          8 |         38 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\Gamepad.java                                   | Java               |         42 |         15 |         14 |         71 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\SpectrumButton.java                            | Java               |         15 |          1 |          7 |         23 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\ThumbStick.java                                | Java               |         80 |          2 |         18 |        100 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\Triggers.java                                  | Java               |         26 |          1 |          7 |         34 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\XboxGamepad.java                               | Java               |         98 |          1 |         27 |        126 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\mapping\Curve.java                             | Java               |         62 |         97 |         16 |        175 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\mapping\ExpCurve.java                          | Java               |         37 |         42 |          8 |         87 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\mapping\LinCurve.java                          | Java               |         23 |         26 |          4 |         53 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\mapping\SplineCurve.java                       | Java               |        184 |         96 |         18 |        298 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\gamepads\mapping\SplineType.java                        | Java               |          8 |          8 |          2 |         18 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\logger\Logger.java                                      | Java               |        155 |         17 |         46 |        218 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\motorControllers\TalonFXConstantsExample.java           | Java               |         46 |          8 |         13 |         67 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\motorControllers\TalonFXSetup.java                      | Java               |         55 |         43 |         11 |        109 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\motorControllers\TalonSRXSetup.java                     | Java               |         55 |         42 |         10 |        107 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\preferences\SpectrumPreferences.java                    | Java               |         66 |         68 |         21 |        155 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\preferences\TunablePrefrence.java                       | Java               |         37 |         34 |          9 |         80 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\sim\PhysicsSim.java                                     | Java               |         71 |         50 |         18 |        139 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\sim\TalonFXSimProfile.java                              | Java               |         45 |         24 |         13 |         82 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\sim\TalonSRXSimProfile.java                             | Java               |         44 |         24 |         13 |         81 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\sim\VictorSPXSimProfile.java                            | Java               |         15 |         16 |          7 |         38 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\CommandExamples.java                         | Java               |          3 |         24 |          4 |         31 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\FollowerFalconFX.java                        | Java               |         31 |          1 |          7 |         39 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\FollowerTalonSRX.java                        | Java               |         31 |          0 |          8 |         39 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\Leds\SpectrumLEDBuffer.java                  | Java               |         57 |          0 |         14 |         71 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\Leds\SpectrumLEDs.java                       | Java               |         60 |          6 |         12 |         78 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\MotorFXSubsystem.java                        | Java               |         60 |          5 |         18 |         83 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\MotorFXSubsystemConfig.java                  | Java               |         48 |         12 |         14 |         74 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\MotorSRXSubsystem.java                       | Java               |         60 |          4 |         19 |         83 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\MotorSRXSubsystemConfig.java                 | Java               |         46 |         10 |         13 |         69 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\angleMech\AngleMechConfig.java               | Java               |         19 |          4 |          9 |         32 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\angleMech\AngleMechSubsystem.java            | Java               |         17 |          0 |          6 |         23 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\linearMech\LinearMechConfig.java             | Java               |         15 |          4 |          7 |         26 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\linearMech\LinearMechSubsystem.java          | Java               |         23 |          1 |          8 |         32 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\pneumatic\PneumaticSubsystem.java            | Java               |         24 |         10 |          8 |         42 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\rollerMech\RollerMechConfig.java             | Java               |         24 |          3 |         10 |         37 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\subsystems\rollerMech\RollerMechSubsystem.java          | Java               |         16 |          5 |          7 |         28 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\swerve\CTREModuleState.java                             | Java               |         42 |         16 |          6 |         64 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\swerve\Request.java                                     | Java               |         26 |         14 |         10 |         50 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\swerve\SwerveModuleConfig.java                          | Java               |         23 |         12 |          4 |         39 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\swerve\SwerveUtil.java                                  | Java               |         72 |         39 |         17 |        128 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\sysid\SysIdDrivetrainLogger.java                        | Java               |         35 |          0 |          8 |         43 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\sysid\SysIdGeneralMechanismLogger.java                  | Java               |         23 |          0 |          6 |         29 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\sysid\SysIdLogger.java                                  | Java               |         73 |          4 |         20 |         97 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\sysid\VelocityProfiler.java                             | Java               |         35 |         28 |          9 |         72 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\telemetry\Alert.java                                    | Java               |         76 |         44 |         15 |        135 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\telemetry\AlertCommand.java                             | Java               |         26 |         11 |         10 |         47 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\telemetry\CustomLayout.java                             | Java               |         58 |          6 |         15 |         79 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\telemetry\TelemetrySubsystem.java                       | Java               |         29 |          3 |          8 |         40 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\telemetry\WidgetsAndLayouts.java                        | Java               |         33 |          2 |         15 |         50 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\util\Conversions.java                                   | Java               |         39 |         42 |         11 |         92 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\util\GeomUtil.java                                      | Java               |         42 |         65 |         12 |        119 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\util\Network.java                                       | Java               |         57 |         16 |          6 |         79 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\util\Rmath.java                                         | Java               |        123 |         32 |         22 |        177 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\util\Util.java                                          | Java               |         75 |         26 |         22 |        123 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\vision\CircleFitter.java                                | Java               |         54 |          5 |          9 |         68 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\vision\Controller.java                                  | Java               |          6 |          0 |          4 |         10 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\lib\vision\LLDistance.java                                  | Java               |         22 |          4 |          3 |         29 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\Main.java                                             | Java               |          8 |         13 |          5 |         26 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\Robot.java                                            | Java               |        217 |         63 |         62 |        342 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\RobotConfig.java                                      | Java               |         50 |         17 |         16 |         83 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\RobotTelemetry.java                                   | Java               |         94 |         34 |         31 |        159 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\XBoxCtrlrs\Layouts.md                                 | Markdown           |         53 |          0 |         11 |         64 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\XBoxCtrlrs\operator\OperatorGamepad.java              | Java               |         49 |         13 |         17 |         79 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\XBoxCtrlrs\operator\OperatorGamepadConfig.java        | Java               |         17 |          0 |          5 |         22 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\XBoxCtrlrs\operator\OperatorGamepadTelemetry.java     | Java               |          5 |          0 |          5 |         10 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\XBoxCtrlrs\operator\commands\OperatorGamepadCmds.java | Java               |         83 |          5 |         11 |         99 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\XBoxCtrlrs\pilot\PilotGamepad.java                    | Java               |        133 |         34 |         29 |        196 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\XBoxCtrlrs\pilot\PilotGamepadConfig.java              | Java               |         36 |          8 |          8 |         52 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\XBoxCtrlrs\pilot\PilotGamepadTelemetry.java           | Java               |         81 |          6 |         19 |        106 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\XBoxCtrlrs\pilot\commands\PilotGamepadCmds.java       | Java               |         42 |          9 |         12 |         63 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\auto\Auto.java                                        | Java               |        230 |         35 |         45 |        310 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\auto\AutoConfig.java                                  | Java               |         38 |          4 |         10 |         52 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\auto\comands\AutoCmds.java                            | Java               |        133 |         33 |         20 |        186 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\auto\comands\DelayCmd.java                            | Java               |         36 |          0 |         10 |         46 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\AlignmentController.java                   | Java               |         61 |          6 |         14 |         81 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\DrivetrainOdometry.java                    | Java               |         39 |          8 |         10 |         57 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\DrivetrainSubSys.java                      | Java               |        127 |         58 |         37 |        222 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\DrivetrainTelemetry.java                   | Java               |         61 |         13 |         15 |         89 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\OdometryThread.java                        | Java               |        211 |        175 |         67 |        453 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\PigeonGyro.java                            | Java               |         20 |          8 |         12 |         40 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\RotationController.java                    | Java               |         50 |          6 |         14 |         70 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\SwerveModule.java                          | Java               |        147 |        111 |         50 |        308 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\commands\DrivetrainCmds.java               | Java               |         16 |         11 |          7 |         34 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\commands\SwerveDriveCmd.java               | Java               |         88 |         23 |         17 |        128 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\config\AngleFalconConfig.java              | Java               |         49 |         21 |         13 |         83 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\config\CanCoderConfig.java                 | Java               |         13 |          6 |          5 |         24 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\config\DriveFalconConfig.java              | Java               |         44 |         16 |         12 |         72 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\drivetrain\config\DrivetrainConfig.java               | Java               |         89 |         60 |         26 |        175 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\climber\ClimberConfig.java                 | Java               |         56 |         12 |         18 |         86 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\climber\ClimberSubSys.java                 | Java               |        146 |         45 |         43 |        234 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\climber\ClimberTelemetry.java              | Java               |         14 |          4 |          8 |         26 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\climber\commands\ClimberCmds.java          | Java               |         20 |          5 |          6 |         31 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\intake\IntakeConfig.java                   | Java               |         33 |          9 |         12 |         54 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\intake\IntakeSubSys.java                   | Java               |         91 |         19 |         21 |        131 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\intake\IntakeTelemetry.java                | Java               |         13 |          0 |          4 |         17 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\intake\commands\IntakeCmds.java            | Java               |         47 |         23 |         11 |         81 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\leds\LEDsConfig.java                       | Java               |        103 |         22 |         19 |        144 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\leds\LEDsSubSys.java                       | Java               |        517 |        153 |         56 |        726 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\leds\LEDstrip.java                         | Java               |         35 |          7 |          9 |         51 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\passthrough\PassthroughConfig.java         | Java               |         26 |         10 |         11 |         47 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\passthrough\PassthroughSubSys.java         | Java               |         60 |         16 |         16 |         92 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\passthrough\PassthroughTelemetry.java      | Java               |         10 |          0 |          5 |         15 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\passthrough\commands\PassthroughCmds.java  | Java               |         23 |         25 |         10 |         58 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\pivot\PivotConfig.java                     | Java               |         28 |          5 |         14 |         47 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\pivot\PivotSRXConfig.java                  | Java               |         31 |          6 |         13 |         50 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\pivot\PivotSubSys.java                     | Java               |        174 |         29 |         48 |        251 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\pivot\PivotTelemetry.java                  | Java               |         17 |          2 |          7 |         26 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\pivot\commands\PivotCmds.java              | Java               |         51 |          9 |         12 |         72 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\rotarySwitch\RotarySwitchConfig.java       | Java               |         16 |          0 |         10 |         26 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\rotarySwitch\RotarySwitchSubSys.java       | Java               |         30 |          1 |          7 |         38 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\rotarySwitch\RotarySwitchTelemetry.java    | Java               |         11 |          3 |          6 |         20 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\shooter\ShooterConfig.java                 | Java               |          8 |          5 |          8 |         21 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\shooter\ShooterFalconConfigs.java          | Java               |         33 |         10 |         11 |         54 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\shooter\ShooterSubSys.java                 | Java               |         95 |         21 |         31 |        147 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\shooter\ShooterTelemetry.java              | Java               |         15 |          3 |          7 |         25 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\mechanisms\shooter\commands\ShooterCmds.java          | Java               |         28 |          7 |          8 |         43 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\vision\VisionConfig.java                              | Java               |         50 |          5 |         14 |         69 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\vision\VisionPhotonCamera.java                        | Java               |        150 |         24 |         32 |        206 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\robot\vision\VisionSubSys.java                              | Java               |        150 |         64 |         53 |        267 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\util\DriveState.java                                        | Java               |         12 |          4 |          4 |         20 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\util\FieldConstants.java                                    | Java               |         25 |          2 |         10 |         37 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\util\MacAddressUtilJITB.java                                | Java               |         31 |          2 |          5 |         38 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\util\PathTrajectories.java                                  | Java               |         12 |          8 |          9 |         29 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\util\PoseAndTimestamp.java                                  | Java               |         20 |          0 |          7 |         27 |
+| c:\Workspace\Robot\Kachow2024Ver05\src\main\java\frc\util\Rmath.java                                             | Java               |        123 |         32 |         22 |        177 |
+| c:\Workspace\Robot\Kachow2024Ver05\vendordeps\AdvantageKit.json                                                  | JSON               |         42 |          0 |          0 |         42 |
+| c:\Workspace\Robot\Kachow2024Ver05\vendordeps\NavX.json                                                          | JSON               |         40 |          0 |          0 |         40 |
+| c:\Workspace\Robot\Kachow2024Ver05\vendordeps\PathplannerLib.json                                                | JSON               |         38 |          0 |          0 |         38 |
+| c:\Workspace\Robot\Kachow2024Ver05\vendordeps\Phoenix5.json                                                      | JSON               |        151 |          0 |          0 |        151 |
+| c:\Workspace\Robot\Kachow2024Ver05\vendordeps\Phoenix6.json                                                      | JSON               |        339 |          0 |          0 |        339 |
+| c:\Workspace\Robot\Kachow2024Ver05\vendordeps\WPILibNewCommands.json                                             | JSON               |         38 |          0 |          1 |         39 |
+| c:\Workspace\Robot\Kachow2024Ver05\vendordeps\photonlib.json                                                     | JSON               |         57 |          0 |          0 |         57 |
+| Total                                                                                                            |                    |      9,131 |      2,689 |      2,168 |     13,988 |
++------------------------------------------------------------------------------------------------------------------+--------------------+------------+------------+------------+------------+

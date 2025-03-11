@@ -135,7 +135,7 @@ public class Auto {
                 Robot.print("BLUEEEEE");
                 if ( spkrLeft() )           { return AutoCmds.ShootAndCrossCmd("Left", "BlueSpkrLeft" ); }
                 if ( spkrCtr() )            { return AutoCmds.ShootAndCrossCmd("Ctr", "BlueSpkrCtr"); }
-                if ( spkrRight() )          { return AutoCmds.TwoNoteSmartCMD("Right", "BlueThruStage", "BlueShooterAdjust"); }
+                if ( spkrRight() )          { return AutoCmds.TwoNoteSmartCMD("Right", "SrcToMid", "BlueShooterAdjust", false); }
             }
         }
 

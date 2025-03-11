@@ -40,7 +40,8 @@ public class AutoCmds {
     }
 
     // ----------------------------- Cross Line Commands -------------------------------------
-    public static Command CrossLineOnlyCmd( String pathName ) {
+    public static Command 
+    CrossLineOnlyCmd( String pathName ) {
         return new SequentialCommandGroup(
                 new InstantCommand( ()-> Robot.print( "Auto Shoot Left Speaker with path " + pathName)),
                 initAndFollowPath( pathName )
@@ -79,12 +80,15 @@ public class AutoCmds {
         );
     }
         // ----------------------------------- Two Note Smart ------------------------------------------
-    public static Command TwoNoteSmartCMD( String pos, String pathName, String adjust) {
+    public static Command TwoNoteSmartCMD( String pos, String pathName, String adjust, boolean red) {
+        
         return new SequentialCommandGroup(  
+            
             new InstantCommand( ()-> Robot.print( "Two Note Cmd ")),
-            // Shoot pre-loaded note
+            // Adjust position if not center
             initAndFollowPath(adjust),
             SpeakerShootCmd(),
+            
             // Do the following two things at the same time: intake note, and follow paths
             new ParallelCommandGroup(
                 // Intake note sequence
@@ -92,10 +96,9 @@ public class AutoCmds {
                     OperatorGamepadCmds.groundIntakeUntilGamepieceCmd(),
                     OperatorGamepadCmds.readyForBumperShotCmd()
                 ),
-                // First run to-note path, then run to-speaker path
-                new SequentialCommandGroup(
-                    followPath(pathName)
-                )
+                // Run full path
+                followPath(pathName)
+                
             ),
             OperatorGamepadCmds.noAutoPosSpeakerShot()
         );

@@ -7,19 +7,13 @@
         {
           "type": "path",
           "data": {
-            "pathName": "BlueSpkrCtr"
-          }
-        },
-        {
-          "type": "path",
-          "data": {
-            "pathName": "o_SpkrCtr2"
+            "pathName": "Intake to CL"
           }
         }
       ]
     }
   },
   "resetOdom": true,
-  "folder": "2024 cresendo",
+  "folder": null,
   "choreoAuto": false
 }
